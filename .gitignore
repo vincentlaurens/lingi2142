@@ -1,2 +1,15 @@
 .vagrant
 tags
+./docs/ 
+./example_* 
+./host/ 
+_node_utils.sh 
+./project_* 
+provision.sh 
+README.md 
+student_projects/ 
+./ucl_minimal_cfg/ 
+ucl_topo 
+Vagrantfile
+git-commit-push.sh
+git-pull.sh
