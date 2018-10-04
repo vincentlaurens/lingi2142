@@ -2,7 +2,8 @@
 # These variables are now accessible in the template
 class bird6 (
   String $routing_id,
-  Hash $ospfv3
+  Hash $ospfv3,
+  Hash $bgp
 ) {
   # Get name of the node (lookup in data/node.yaml
   $node_name = lookup("name")
