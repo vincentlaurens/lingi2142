@@ -2,11 +2,7 @@
 tags
 ./docs/ 
 ./example_* 
-./host/ 
-_node_utils.sh 
-./project_* 
-provision.sh 
-README.md 
+./project_*  
 student_projects/ 
 ./ucl_minimal_cfg/ 
 ucl_topo 
