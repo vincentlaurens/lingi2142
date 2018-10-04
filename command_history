@@ -1,0 +1,5 @@
+1- connexion to the router
+2- "birdc6 -s /tmp/<name-router>-bird6.conf
+3- >configure
+4- >reload all to restart bird6 deamon
+5- Here you make cisco command like "show"
