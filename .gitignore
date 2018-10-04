@@ -7,7 +7,7 @@ student_projects/
 ./ucl_minimal_cfg/ 
 ucl_topo 
 Vagrantfile
-git-commit-push.sh
+git-push.sh
 git-pull.sh
 ./provision.sh
 ./_node_utils.sh
