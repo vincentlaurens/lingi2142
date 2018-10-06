@@ -34,7 +34,7 @@ sudo ./router_config_creation.py
 sudo ./create_network.sh group3_topo
 
 # QoS
-sudo ./qos/deploy_qos.sh
+#sudo ./qos/deploy_qos.sh
 
 # Webservice
-sudo ./start_haproxy.sh
+#sudo ./start_haproxy.sh
