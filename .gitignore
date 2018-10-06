@@ -9,5 +9,4 @@ ucl_topo
 Vagrantfile
 git-push.sh
 git-pull.sh
-./provision.sh
-./_node_utils.sh
+
