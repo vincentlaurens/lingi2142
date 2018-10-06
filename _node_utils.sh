@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 # Common commands that are used by multiple scripts
 
 # Get a node's config directory
