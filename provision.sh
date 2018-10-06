@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 apt-get -y -qq --force-yes update
 #apt-get -y -qq --force-yes install build-essential checkinstall
 #if !which cmake; then
