@@ -3,9 +3,9 @@
 # Cleanup
 sudo ./cleanup.sh
 #mkdir -p project_cfg/MONI/log
-mkdir -p project_cfg/Halles/log
+mkdir -p group3_cfg/Halles/log
 #mkdir -p project_cfg/MICH/log
-mkdir -p project_cfg/Pythagore/log
+mkdir -p group3_cfg/Pythagore/log
 #mkdir -p project_cfg/STEV/log
 #mkdir -p project_cfg/SH1C/log
 #mkdir -p project_cfg/CARN/log
@@ -15,10 +15,10 @@ mkdir -p project_cfg/Pythagore/log
 
 #sudo echo > project_cfg/MONIT/log/services_status_log
 #sudo echo > project_cfg/MONIT/log/isp_status_log
-sudo echo > project_cfg/Halles/log/bird_log
-sudo echo > project_cfg/Halles/log/backup_link_log
-sudo echo > project_cfg/Pythagore/log/bird_log
-sudo echo > project_cfg/Pythagore/log/backup_link_log
+sudo echo > group3_cfg/Halles/log/bird_log
+sudo echo > group3_cfg/Halles/log/backup_link_log
+sudo echo > group3_cfg/Pythagore/log/bird_log
+sudo echo > group3_cfg/Pythagore/log/backup_link_log
 #sudo echo > project_cfg/STEV/log/bird_log
 #sudo echo > project_cfg/CARN/log/bird_log
 #sudo echo > project_cfg/MICH/log/bird_log
