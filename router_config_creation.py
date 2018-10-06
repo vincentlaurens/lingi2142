@@ -13,7 +13,7 @@ with open(PATH+'router_configuration.json') as data_file:
     
   ######################## #################router_start config ################################################
 
-    router_start_config = open(PATH+"project_cfg/"+router+"_start", "w")
+    router_start_config = open(PATH+"goup3_cfg/"+router+"_start", "w")
     router_start_config.write("#!/bin/bash \n\n")
     router_start_config.write("# This file has been generated automatically, see router_config_creation.py for details. \n\n")
     
@@ -22,7 +22,7 @@ with open(PATH+'router_configuration.json') as data_file:
     # Router BIRD config #
     ######################
 
-    router_sysctl_config = open(PATH+"project_cfg/"+router+"/sysctl.conf", "w")
+    router_sysctl_config = open(PATH+"group3_cfg/"+router+"/sysctl.conf", "w")
     router_sysctl_config.write("""
     net.ipv6.conf.all.disable_ipv6=0
     net.ipv6.conf.all.forwarding=1
@@ -31,7 +31,7 @@ with open(PATH+'router_configuration.json') as data_file:
     """)
     router_sysctl_config.close()
 
-    router_bird_config = open(PATH+"project_cfg/"+router+"/bird/bird6.conf", "w")
+    router_bird_config = open(PATH+"group3_cfg/"+router+"/bird/bird6.conf", "w")
     router_bird_config.write("router id 0.0.0."+configs["router_id"]+"; \n\n")
 
     # log
