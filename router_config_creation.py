@@ -8,7 +8,7 @@ import stat
 
 from constants import PREFIXES, PATH #, VLAN_USES
 
-with open(PATH+'router_configuration.json') as data_file:
+with open(PATH+'router_configuration_file.json') as data_file:
     data = json.load(data_file)
     
   ######################## #################router_start config ################################################
