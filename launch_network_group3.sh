@@ -25,7 +25,7 @@ sudo echo > project_cfg/Pythagore/log/backup_link_log
 #sudo echo > project_cfg/SH1C/log/bird_log
 
 # Configuration files creation
-sudo ./router_configuaration_creation.py
+sudo ./router_config_creation.py
 #sudo ./service_config_creation.py
 #sudo ./host_config_creation.py
 #sudo ./end_user_management/deploy_end_user_management.sh
