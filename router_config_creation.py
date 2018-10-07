@@ -1,4 +1,4 @@
-#router_config.py - Python 3 - Read a parsed file (json)
+#group3 : router_config_creation.py - Python 3 - Read a parsed file (json)
 
 import json
 import os
@@ -16,6 +16,8 @@ pprint("Writting:")
 #read json items by items which are routers
 for router, configs in data.items():
 	#os.chmod(PATH+"group3_cfg/"+router+"_start", 0o666)
+
+	######"""##################"Write _start file Config"###################################
 	writein_file = open(PATH+"group3_cfg/"+router+"_start", "w")
 	writein_file.write("#!/bin/bash \n\n")
 	writein_file.write("# This file has been generated automatically, see router_config_creation.py for details. \n\n")
@@ -27,11 +29,42 @@ for router, configs in data.items():
 
 	writein_file.write("\n")
 	writein_file.write("bird6 -s /tmp/"+router+".ctl -P /tmp/"+router+"_bird.pid \n")
-	writein_file.write("radvd -p /var/run/radvd/"+router+"_radvd.pid -C /etc/radvd/"+router+".conf -m logfile -l /var/log/radvd/"+router+".log\n")
+	#writein_file.write("radvd -p /var/run/radvd/"+router+"_radvd.pid -C /etc/radvd/"+router+".conf -m logfile -l /var/log/radvd/"+router+".log\n")
 
 	writein_file.close()
+	###########
+	#####################"Write Sysctl File"##########################################
+	router_sysctl_config = open(PATH+"group3_cfg/"+router+"/sysctl.conf", "w")
+	router_sysctl_config.write("net.ipv6.conf.all.disable_ipv6=0\n")
+	router_sysctl_config.write("net.ipv6.conf.all.forwarding=1\n")
+	router_sysctl_config.write("net.ipv6.conf.default.disable_ipv6=0\n")
+	router_sysctl_config.write("net.ipv6.conf.default.forwarding=1\n")
+	router_sysctl_config.close()
+	###########
+	##################"Write bird Config"########################
 
+	router_bird_file = open(PATH+"group3_cfg/"+router+"/bird/bird6.conf", "w")
+	router_bird_file.write("# group3: Bird6 File config "+router+".\n\n")
 
+	router_bird_file.write("router id 3.0.0."+configs["router_id"]+";\n\n")
 
+	router_bird_file.write("protocol kernel {\n")
+	router_bird_file.write("	learn;\n")
+	router_bird_file.write("	scan time 20\n")
+	router_bird_file.write("	export all;\n")
+	router_bird_file.write("}\n\n")
 
+	router_bird_file.write("protocol device { \n")
+	router_bird_file.write("	scan time 10;\n")
+	router_bird_file.write("}\n\n")
 
+	for bgp, bgp_configs in configs["isp"].items():
+		router_bird_file.write("protocol bgp provider"+bgp_configs["name_bgp"]+"{ \n")
+		router_bird_file.write("	local as "+bgp_configs["asn"]+";\n")
+		router_bird_file.write("	neighbor "+bgp_configs["neighbor_address"]+" as "+bgp_configs["name_bgp"]+";\n")
+		router_bird_file.write("	export all;  \n")
+		router_bird_file.write("	import all;  \n")
+		router_bird_file.write("}\n")
+
+	router_bird_file.close()
+	##############
