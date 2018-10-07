@@ -38,6 +38,7 @@ for router, configs in data.items():
 	#router_start_filewrite("radvd -p /var/run/radvd/"+router+"_radvd.pid -C /etc/radvd/"+router+".conf -m logfile -l /var/log/radvd/"+router+".log\n")
 
 	router_start_file.close()
+	os.chmod(PATH+"group3_cfg/"+router+"_start.sh", 0o766)
 	###########
 	#####################"Write Sysctl File"##########################################
 	router_sysctl_config = open(PATH+"group3_cfg/"+router+"/sysctl.conf", "w")
