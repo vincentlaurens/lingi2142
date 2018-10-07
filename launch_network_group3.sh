@@ -6,15 +6,15 @@ sudo ./cleanup.sh
 #creation of routers directories
 #logs
 mkdir -p group3_cfg/Halles/log
-mkdir -p group3_cfg/Pythagore/log
+mkdir -p group3_cfg/Pyth/log
 #bird
 mkdir -p group3_cfg/Halles/bird
-mkdir -p group3_cfg/Pythagore/bird
+mkdir -p group3_cfg/Pyth/bird
 
 sudo touch group3_cfg/Halles/log/bird_log
 sudo touch group3_cfg/Halles/log/backup_link_log
-sudo touch group3_cfg/Pythagore/log/bird_log
-sudo touch group3_cfg/Pythagore/log/backup_link_log
+sudo touch group3_cfg/Pyth/log/bird_log
+sudo touch group3_cfg/Pyth/log/backup_link_log
 
 
 
