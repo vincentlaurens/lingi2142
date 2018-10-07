@@ -55,7 +55,7 @@ for router, configs in data.items():
 
 	router_bird_file.write("router id 3.0.0."+configs["router_id"]+";\n\n")
 
-	router_bird_file.write("log ""/etc/log/bird_log"" all; \n")
+	router_bird_file.write("log \"/etc/log/bird_log\" all; \n")
 	router_bird_file.write("debug protocols all;  \n\n")
 
 	router_bird_file.write("protocol kernel {\n")
@@ -76,7 +76,7 @@ for router, configs in data.items():
 
 	router_bird_file.write("protocol ospf {\n")
 	router_bird_file.write("	import all;\n")
-	router_bird_file.write("	export where proto = ""static_ospf"";\n")
+	router_bird_file.write("	export where proto = \"static_ospf\";\n")
 	router_bird_file.write("	area 0.0.0.0{\n")
 	router_bird_file.write("		interface ""*eth*"" {\n")
 	router_bird_file.write("			hello 1;\n")
