@@ -3,19 +3,20 @@
 # Cleanup
 sudo ./cleanup.sh
 
+#creation of routers directories
+#logs
 mkdir -p group3_cfg/Halles/log
 mkdir -p group3_cfg/Pythagore/log
-
-
+#bird
+mkdir -p group3_cfg/Halles/bird
+mkdir -p group3_cfg/Pythagore/bird
 
 sudo touch group3_cfg/Halles/log/bird_log
 sudo touch group3_cfg/Halles/log/backup_link_log
 sudo touch group3_cfg/Pythagore/log/bird_log
 sudo touch group3_cfg/Pythagore/log/backup_link_log
 
-#creation of routers directories
-mkdir -p group3_cfg/Halles/bird
-mkdir -p group3_cfg/Pythagore/bird
+
 
 # Configuration files creation
 sudo ./router_config_creation.py
