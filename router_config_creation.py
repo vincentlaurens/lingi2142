@@ -24,7 +24,7 @@ for router, configs in data.items():
 	router_boot_file.close()
 	##########
 	######"""##################"Write _start file Config"###################################
-	router_start_file = open(PATH+"group3_cfg/"+router+"_start", "w")
+	router_start_file = open(PATH+"group3_cfg/"+router+"_start.sh", "w")
 	router_start_file.write("#!/bin/bash \n\n")
 	router_start_file.write("# This file has been generated automatically, see router_config_creation.py for details. \n\n")
 	
