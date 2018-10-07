@@ -60,7 +60,7 @@ for router, configs in data.items():
 
 	router_bird_file.write("protocol kernel {\n")
 	router_bird_file.write("	learn;\n")
-	router_bird_file.write("	scan time 20\n")
+	router_bird_file.write("	scan time 20;\n")
 	router_bird_file.write("	export all;\n")
 	router_bird_file.write("}\n\n")
 
