@@ -15,5 +15,22 @@
 				"neighbor_address": "fd00:200::b"
 			}
 		}
+	},
+	"Pythagore": {
+   		"router_id": "1",
+    	"default_bgp_prefix_to_advertise": "fd00:300:3::/52",
+	    "eths": {
+	     	"eth0": "7",
+	     	"eth1": "1",
+	     	"eth2": "2"
+		},
+		"isp": {
+			"belneta": {
+				"asn": "3",
+				"name_bgp": "300",
+				"self_address": "fd00:300::3/48",
+				"neighbor_address": "fd00:300::b"
+			}
+		}
 	}
 }
