@@ -18,20 +18,20 @@ for router, configs in data.items():
 	#os.chmod(PATH+"group3_cfg/"+router+"_start", 0o666)
 
 	######"""##################"Write _start file Config"###################################
-	writein_file = open(PATH+"group3_cfg/"+router+"_start", "w")
-	writein_file.write("#!/bin/bash \n\n")
-	writein_file.write("# This file has been generated automatically, see router_config_creation.py for details. \n\n")
+	router_start_file = open(PATH+"group3_cfg/"+router+"_start", "w")
+	router_start_file.write("#!/bin/bash \n\n")
+	router_start_file.write("# This file has been generated automatically, see router_config_creation.py for details. \n\n")
 	
 
 	for isp, isp_configs in configs["isp"].items():
-		writein_file.write("ip link set dev "+isp+" up \n")
-		writein_file.write("ip address add dev "+isp+" "+isp_configs["self_address"]+"  \n")
+		router_start_file.write("ip link set dev "+isp+" up \n")
+		router_start_file.write("ip address add dev "+isp+" "+isp_configs["self_address"]+"  \n")
 
-	writein_file.write("\n")
-	writein_file.write("bird6 -s /tmp/"+router+".ctl -P /tmp/"+router+"_bird.pid \n")
-	#writein_file.write("radvd -p /var/run/radvd/"+router+"_radvd.pid -C /etc/radvd/"+router+".conf -m logfile -l /var/log/radvd/"+router+".log\n")
+	router_start_file.write("\n")
+	router_start_file.write("bird6 -s /tmp/"+router+".ctl -P /tmp/"+router+"_bird.pid \n")
+	#router_start_filewrite("radvd -p /var/run/radvd/"+router+"_radvd.pid -C /etc/radvd/"+router+".conf -m logfile -l /var/log/radvd/"+router+".log\n")
 
-	writein_file.close()
+	router_start_file.close()
 	###########
 	#####################"Write Sysctl File"##########################################
 	router_sysctl_config = open(PATH+"group3_cfg/"+router+"/sysctl.conf", "w")
@@ -48,6 +48,9 @@ for router, configs in data.items():
 
 	router_bird_file.write("router id 3.0.0."+configs["router_id"]+";\n\n")
 
+	router_bird_file.write("log ""/etc/log/bird_log"" all; \n")
+	router_bird_file.write("debug protocols all;  \n\n")
+
 	router_bird_file.write("protocol kernel {\n")
 	router_bird_file.write("	learn;\n")
 	router_bird_file.write("	scan time 20\n")
@@ -57,6 +60,31 @@ for router, configs in data.items():
 	router_bird_file.write("protocol device { \n")
 	router_bird_file.write("	scan time 10;\n")
 	router_bird_file.write("}\n\n")
+
+	router_bird_file.write("protocol static static_ospf {\n")
+	router_bird_file.write("	import all;\n\n")
+	for isp, isp_configs in configs["isp"].items():
+		router_bird_file.write("	route ::/0 via "+isp_configs["neighbor_address"]+";\n")
+		router_bird_file.write("}\n\n")
+
+	router_bird_file.write("protocol ospf {\n")
+	router_bird_file.write("	import all;\n")
+	router_bird_file.write("	export where proto = ""static_ospf"";\n")
+	router_bird_file.write("	area 0.0.0.0{\n")
+	router_bird_file.write("		interface ""*eth*"" {\n")
+	router_bird_file.write("			hello 1;\n")
+	router_bird_file.write("			dead 3;\n")
+	router_bird_file.write("		};\n")
+	router_bird_file.write("		interface ""*lan*"" {\n")
+	router_bird_file.write("			stub 1;\n")            	
+	router_bird_file.write("		};\n")
+	router_bird_file.write("		interface ""*lo*"" {\n")
+	router_bird_file.write("			stub 1;\n")            	
+	router_bird_file.write("		};\n")
+	router_bird_file.write("	};\n")
+	router_bird_file.write("}\n\n")
+	#for ospf, ospf_configs in configs["ospf"].items():
+
 
 	for bgp, bgp_configs in configs["isp"].items():
 		router_bird_file.write("protocol bgp provider"+bgp_configs["name_bgp"]+"{ \n")
