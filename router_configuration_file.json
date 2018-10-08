@@ -1,6 +1,6 @@
 {
   "Halles": {
-   		"router_id": "1",
+   	"router_id": "1",
     	"default_bgp_prefix_to_advertise": "fd00:200:3::/52",
 	    "eths": {
 	     	"eth0": "7",
@@ -17,7 +17,7 @@
 		}
 	},
 	"Pyth": {
-   		"router_id": "1",
+   	"router_id": "1",
     	"default_bgp_prefix_to_advertise": "fd00:300:3::/52",
 	    "eths": {
 	     	"eth0": "7",
@@ -32,5 +32,12 @@
 				"neighbor_address": "fd00:300::b"
 			}
 		}
-	}
+	},
+	"Stev":{
+                "router_id":"3",
+                "eths":{ 
+                        "eth0":"1",
+                        "eth1":"3"
+                        }
+                }
 }
