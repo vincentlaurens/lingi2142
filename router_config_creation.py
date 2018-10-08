@@ -15,7 +15,6 @@ with open(PATH+'router_configuration_file.json') as data_file:
 pprint("Writting:")
 #read json items by items which are routers
 for router, configs in data.items():
-	#os.chmod(PATH+"group3_cfg/"+router+"_start", 0o666)
 
 	###########################"Write _boot file config"##################
 	router_boot_file = open(PATH+"group3_cfg/"+router+"_boot.sh", "w")
@@ -28,10 +27,14 @@ for router, configs in data.items():
 	router_start_file.write("#!/bin/bash \n\n")
 	router_start_file.write("# This file has been generated automatically, see router_config_creation.py for details. \n\n")
 	
-
-	for isp, isp_configs in configs["isp"].items():
-		router_start_file.write("ip link set dev "+isp+" up \n")
-		router_start_file.write("ip address add dev "+isp+" "+isp_configs["self_address"]+"  \n")
+	if router=="Halles" or router=="Pyth":
+		for isp, isp_configs in configs["isp"].items():
+			router_start_file.write("ip link set dev "+isp+" up \n")
+			router_start_file.write("ip address add dev "+isp+" "+isp_configs["self_address"]+"  \n")
+			for eth, eth_configs in configs["eths"].items():
+				router_start_file.write("ip link set dev "+router+"-"+eth+" up \n")
+				router_start_file.write("ip address add dev "+router+"-"+eth+" fd00:"+isp_configs["name_bgp"]+":3:"+eth_configs+"::1\\48  \n")
+		
 
 	router_start_file.write("\n")
 	router_start_file.write("bird6 -s /tmp/"+router+".ctl -P /tmp/"+router+"_bird.pid \n")
@@ -67,39 +70,55 @@ for router, configs in data.items():
 	router_bird_file.write("protocol device { \n")
 	router_bird_file.write("	scan time 10;\n")
 	router_bird_file.write("}\n\n")
+	
+	if router=="Halles" or router=="Pyth":
+		router_bird_file.write("protocol static static_ospf {\n")
+		router_bird_file.write("	import all;\n\n")
+		for isp, isp_configs in configs["isp"].items():
+			router_bird_file.write("	route ::/0 via "+isp_configs["neighbor_address"]+";\n")
+			router_bird_file.write("}\n\n")
 
-	router_bird_file.write("protocol static static_ospf {\n")
-	router_bird_file.write("	import all;\n\n")
-	for isp, isp_configs in configs["isp"].items():
-		router_bird_file.write("	route ::/0 via "+isp_configs["neighbor_address"]+";\n")
+		router_bird_file.write("protocol ospf {\n")
+		router_bird_file.write("	import all;\n")
+		router_bird_file.write("	export where proto = \"static_ospf\";\n")
+		router_bird_file.write("	area 0.0.0.0{\n")
+		router_bird_file.write("		interface \"*eth*\" {\n")
+		router_bird_file.write("			hello 1;\n")
+		router_bird_file.write("			dead 3;\n")
+		router_bird_file.write("		};\n")
+		router_bird_file.write("		interface \"*lan*\" {\n")
+		router_bird_file.write("			stub 1;\n")            	
+		router_bird_file.write("		};\n")
+		router_bird_file.write("		interface \"*lo*\" {\n")
+		router_bird_file.write("			stub 1;\n")            	
+		router_bird_file.write("		};\n")
+		router_bird_file.write("	};\n")
 		router_bird_file.write("}\n\n")
-
-	router_bird_file.write("protocol ospf {\n")
-	router_bird_file.write("	import all;\n")
-	router_bird_file.write("	export where proto = \"static_ospf\";\n")
-	router_bird_file.write("	area 0.0.0.0{\n")
-	router_bird_file.write("		interface \"*eth*\" {\n")
-	router_bird_file.write("			hello 1;\n")
-	router_bird_file.write("			dead 3;\n")
-	router_bird_file.write("		};\n")
-	router_bird_file.write("		interface \"*lan*\" {\n")
-	router_bird_file.write("			stub 1;\n")            	
-	router_bird_file.write("		};\n")
-	router_bird_file.write("		interface \"*lo*\" {\n")
-	router_bird_file.write("			stub 1;\n")            	
-	router_bird_file.write("		};\n")
-	router_bird_file.write("	};\n")
-	router_bird_file.write("}\n\n")
-	#for ospf, ospf_configs in configs["ospf"].items():
+		#for ospf, ospf_configs in configs["ospf"].items():
 
 
-	for bgp, bgp_configs in configs["isp"].items():
-		router_bird_file.write("protocol bgp provider"+bgp_configs["name_bgp"]+"{ \n")
-		router_bird_file.write("	local as "+bgp_configs["asn"]+";\n")
-		router_bird_file.write("	neighbor "+bgp_configs["neighbor_address"]+" as "+bgp_configs["name_bgp"]+";\n")
-		router_bird_file.write("	export all;  \n")
-		router_bird_file.write("	import all;  \n")
-		router_bird_file.write("}\n")
+		for bgp, bgp_configs in configs["isp"].items():
+			router_bird_file.write("protocol bgp provider"+bgp_configs["name_bgp"]+"{ \n")
+			router_bird_file.write("	local as "+bgp_configs["asn"]+";\n")
+			router_bird_file.write("	neighbor "+bgp_configs["neighbor_address"]+" as "+bgp_configs["name_bgp"]+";\n")
+			router_bird_file.write("	export all;  \n")
+			router_bird_file.write("	import all;  \n")
+			router_bird_file.write("}\n")
+	else:
+		router_bird_file.write("protocol ospf {\n")
+		router_bird_file.write("        area 0.0.0.0{\n")
+		router_bird_file.write("                interface \"*eth*\" {\n")
+		router_bird_file.write("                        hello 1;\n")
+		router_bird_file.write("                        dead 3;\n")
+		router_bird_file.write("                };\n")
+		router_bird_file.write("                interface \"*lan*\" {\n")
+		router_bird_file.write("                        stub 1;\n")
+		router_bird_file.write("                };\n")
+		router_bird_file.write("                interface \"*lo*\" {\n")
+		router_bird_file.write("                        stub 1;\n")
+		router_bird_file.write("                };\n")
+		router_bird_file.write("        };\n")
+		router_bird_file.write("}\n\n")
 
 	router_bird_file.close()
 	##############
