@@ -33,12 +33,12 @@ for router, configs in data.items():
 			router_start_file.write("ip address add dev "+isp+" "+isp_configs["self_address"]+"  \n")
 			for eth, eth_configs in configs["eths"].items():
 				router_start_file.write("ip link set dev "+router+"-"+eth+" up \n")
-				router_start_file.write("ip address add dev "+router+"-"+eth+" fd00:"+isp_configs["name_bgp"]+":3:"+eth_configs+"::"+configs["router_id"]+"/48  \n")
+				router_start_file.write("ip address add dev "+router+"-"+eth+" fd00:"+isp_configs["name_bgp"]+":3:"+eth_configs+"::"+configs["router_id"]+"/64  \n")
 	else:
 		for eth, eth_configs in configs["eths"].items():
 			router_start_file.write("ip link set dev "+router+"-"+eth+" up \n")
-			router_start_file.write("ip address add dev "+router+"-"+eth+" fd00:200:3:"+eth_configs+"::"+configs["router_id"]+"/48  \n")
-			router_start_file.write("ip address add dev "+router+"-"+eth+" fd00:300:3:"+eth_configs+"::"+configs["router_id"]+"/48  \n")
+			router_start_file.write("ip address add dev "+router+"-"+eth+" fd00:200:3:"+eth_configs+"::"+configs["router_id"]+"/64  \n")
+			router_start_file.write("ip address add dev "+router+"-"+eth+" fd00:300:3:"+eth_configs+"::"+configs["router_id"]+"/64  \n")
 	router_start_file.write("\n")
 	router_start_file.write("bird6 -s /tmp/"+router+".ctl -P /tmp/"+router+"_bird.pid \n")
 	#router_start_filewrite("radvd -p /var/run/radvd/"+router+"_radvd.pid -C /etc/radvd/"+router+".conf -m logfile -l /var/log/radvd/"+router+".log\n")
