@@ -13,14 +13,17 @@
                                 "self_address": "fd00:200::3/48",
                                 "neighbor_address": "fd00:200::b"
                         }
-                }
+
+                },
+                "static_path":"ip -6 route add ::/0 via fd00:200:3:0::1 dev PYTH-eth1 metric 1 table 10"
         },
         "Pyth": {
         "router_id": "2",
         "default_bgp_prefix_to_advertise": "fd00:300:3::/52",
             "eths": {
                 "eth0": "2",
-                "eth1": "1"
+                "eth1": "1",
+                "eth2": "0"
                 },
                 "isp": {
                         "belneta": {
@@ -29,7 +32,8 @@
                                 "self_address": "fd00:300::3/48",
                                 "neighbor_address": "fd00:300::b"
                         }
-                }
+                },
+                "static_path":"ip -6 route add ::/0 via fd00:300:3:0::2 dev PYTH-eth2 metric 1 table 10"
         },
         "Stev":{
                 "router_id":"3",
