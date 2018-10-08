@@ -34,6 +34,8 @@ for router, configs in data.items():
 			for eth, eth_configs in configs["eths"].items():
 				router_start_file.write("ip link set dev "+router+"-"+eth+" up \n")
 				router_start_file.write("ip address add dev "+router+"-"+eth+" fd00:"+isp_configs["name_bgp"]+":3:"+eth_configs+"::"+configs["router_id"]+"/64  \n")
+		router_start_file.write("\n")
+		#router_start_file.write(configs["static_path"])
 	else:
 		for eth, eth_configs in configs["eths"].items():
 			router_start_file.write("ip link set dev "+router+"-"+eth+" up \n")
