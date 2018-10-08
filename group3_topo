@@ -39,13 +39,15 @@ function mk_topo {
     add_link Michotte Carnoy    # Michotte-eth1 <-> Carnoy-eth0
     add_link Halles Pyth   # Halles-eth1   <-> Pythagore-eth0
     add_link Carnoy Pyth   # Carnoy-eth1   <-> Pythagore-eth1
-    add_link Carnoy Stevin      # Carnoy-eth2   <-> Stevin-eth0
-    add_link Stevin Pyth   # Stevin-eth1   <-> Pythagore-eth2
+    add_link Carnoy Stev      # Carnoy-eth2   <-> Stevin-eth0
+    add_link Stev Pyth   # Stevin-eth1   <-> Pythagore-eth2
 
     echo "@@ Adding LANs"
     # You can add your LANs here
-    mk_LAN Halles HA1 HA2 HA3 HA4 # HALL-lan1
-    mk_LAN Pyth PY1 PY2 # PYTH-lan1
+    mk_LAN Halles ns1 # Halles-lan0-network-management:Primary DNS
+    mk_LAN Halles Ha1 #Halles-lan1-Host
+    mk_LAN Pyth ns2   # Pyth-lan0-network-management:Secondary DNS
+    mk_LAN Pyth Py1 # Pyth-lan1-host
     echo "@@ Bridging the network"
     # Connect to belneta and belnetb
     bridge_node Pyth eth1 belneta
