@@ -16,7 +16,7 @@
                 }
         },
         "Pyth": {
-        "router_id": "1",
+        "router_id": "2",
         "default_bgp_prefix_to_advertise": "fd00:300:3::/52",
             "eths": {
                 "eth0": "2",
