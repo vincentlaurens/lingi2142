@@ -15,7 +15,7 @@
                         }
 
                 },
-                "static_path":"ip -6 route add ::/0 via fd00:200:3:0::1 dev PYTH-eth1 metric 1 table 10"
+                "static_path":"ip -6 route add ::/0 via fd00:200:3:0::1 dev Halles-eth1 metric 1 table 10"
         },
         "Pyth": {
         "router_id": "2",
