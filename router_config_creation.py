@@ -101,7 +101,7 @@ for router, configs in data.items():
 		router_bird_file.write("}\n\n")
 		#for ospf, ospf_configs in configs["ospf"].items():
 
-		router_bird_file.write("protocol static static_bgp {\n")
+		router_bird_file.write("protocol static static_bgp_out {\n")
 		router_bird_file.write("	import all;\n\n")
 		for isp, isp_configs in configs["isp"].items():
 			router_bird_file.write("	route "+configs["default_bgp_prefix_to_advertise"]+" reject ;\n")
@@ -110,7 +110,7 @@ for router, configs in data.items():
 			router_bird_file.write("protocol bgp provider"+bgp_configs["name_bgp"]+"{ \n")
 			router_bird_file.write("	local as "+bgp_configs["asn"]+";\n")
 			router_bird_file.write("	neighbor "+bgp_configs["neighbor_address"]+" as "+bgp_configs["name_bgp"]+";\n")
-			router_bird_file.write("	export where proto = \"static_default_bgp\";  \n")
+			router_bird_file.write("	export where proto = \"static_default_bgp_out\";  \n")
 			router_bird_file.write("""	import filter {
 		if(net = ::/0) then {
 			accept;
