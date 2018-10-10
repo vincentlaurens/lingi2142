@@ -6,11 +6,11 @@ import os
 import sys
 
 from pprint import pprint
-from constants import PATH
+from constants import PATH, PREFIXES_ADDRESS
 
 
 with open(PATH+'router_configuration_file.json') as data_file:    
-    data = json.load(data_file)
+		data = json.load(data_file)
 
 #pprint(data)
 pprint("Writting:")
@@ -28,20 +28,15 @@ for router, configs in data.items():
 	router_start_file.write("#!/bin/bash \n\n")
 	router_start_file.write("# This file has been generated automatically, see router_config_creation.py for details. \n\n")
 	
-	if router=="Halles" or router=="Pyth":
+	if configs["setup_bgp_conf"] == "true":
 		for isp, isp_configs in configs["isp"].items():
 			router_start_file.write("ip link set dev "+isp+" up \n")
 			router_start_file.write("ip address add dev "+isp+" "+isp_configs["self_address"]+"  \n")
-			for eth, eth_configs in configs["eths"].items():
-				router_start_file.write("ip link set dev "+router+"-"+eth+" up \n")
-				router_start_file.write("ip address add dev "+router+"-"+eth+" fd00:"+isp_configs["name_bgp"]+":3:"+eth_configs+"::"+configs["router_id"]+"/64  \n")
-		router_start_file.write("\n")
 		#router_start_file.write(configs["static_path"])
-	else:
-		for eth, eth_configs in configs["eths"].items():
-			router_start_file.write("ip link set dev "+router+"-"+eth+" up \n")
-			router_start_file.write("ip address add dev "+router+"-"+eth+" fd00:200:3:"+eth_configs+"::"+configs["router_id"]+"/64  \n")
-			router_start_file.write("ip address add dev "+router+"-"+eth+" fd00:300:3:"+eth_configs+"::"+configs["router_id"]+"/64  \n")
+	for eth, eth_configs in configs["eths"].items():
+		router_start_file.write("ip link set dev "+router+"-"+eth+" up \n")
+		for prefix_address in PREFIXES_ADDRESS:	
+			router_start_file.write("ip address add dev "+router+"-"+eth+" "+prefix_address+eth_configs+"::"+configs["router_id"]+"/64  \n")
 	router_start_file.write("\n")
 	router_start_file.write("bird6 -s /tmp/"+router+"_bird.ctl -P /tmp/"+router+"_bird.pid \n")
 	#router_start_filewrite("radvd -p /var/run/radvd/"+router+"_radvd.pid -C /etc/radvd/"+router+".conf -m logfile -l /var/log/radvd/"+router+".log\n")
@@ -62,7 +57,7 @@ for router, configs in data.items():
 	router_bird_file = open(PATH+"group3_cfg/"+router+"/bird/bird6.conf", "w")
 	router_bird_file.write("# group3: Bird6 File config "+router+".\n\n")
 
-	router_bird_file.write("router id 3.0.0."+configs["router_id"]+";\n\n")
+	router_bird_file.write("router id 0.0.0."+configs["router_id"]+";\n\n")
 
 	router_bird_file.write("log \"/etc/log/bird_log\" all; \n")
 	router_bird_file.write("debug protocols all;  \n\n")
@@ -77,8 +72,8 @@ for router, configs in data.items():
 	router_bird_file.write("	scan time 10;\n")
 	router_bird_file.write("}\n\n")
 	
-	if router=="Halles" or router=="Pyth":
-#############conf bgp
+	if configs["setup_bgp_conf"] == "true":
+#############conf bgp 
 		router_bird_file.write("protocol static static_bgp_out {\n")
 		router_bird_file.write("	import all;\n\n")
 		for isp, isp_configs in configs["isp"].items():
