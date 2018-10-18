@@ -1,48 +1,64 @@
 {
 	"Halles": {
-				"router_id": "1",
-				"setup_bgp_conf":"true",
-				"default_bgp_prefix_to_advertise": "fd00:200:3::/52",
-						"eths": {
-								"eth0": "6",
-								"eth1": "0"
-								},
-								"isp": {
-												"belnetb": {
-																"asn": "3",
-																"name_bgp": "200",
-																"self_address": "fd00:200::3/48",
-																"neighbor_address": "fd00:200::b"
-												}
-
-								},
-								"static_path":"ip -6 route add ::/0 via fd00:200:3:0::1 dev Halles-eth1 metric 1 table 10"
-				},
-				"Pyth": {
-				"router_id": "2",
-				"setup_bgp_conf":"true",
-				"default_bgp_prefix_to_advertise": "fd00:300:3::/52",
-						"eths": {
-								"eth0": "0",
-								"eth1": "1",
-								"eth2": "2"
-								},
-								"isp": {
-												"belneta": {
-																"asn": "3",
-																"name_bgp": "300",
-																"self_address": "fd00:300::3/48",
-																"neighbor_address": "fd00:300::b"
-												}
-								},
-								"static_path":"ip -6 route add ::/0 via fd00:300:3:0::2 dev PYTH-eth0 metric 1 table 10"
-				},
-				"Stev":{
-								"router_id":"3",
-								"setup_bgp_conf":"false",
-								"eths":{
-												"eth0":"1",
-												"eth1":"3"
-												}
-								}
+		"router_id": "1",
+		"setup_bgp_conf":"true",
+		"default_bgp_prefix_to_advertise": "fd00:200:3::/48",
+		"eths": {
+			"eth0": "6",
+			"eth1": "0"
+		},
+		"isp": {
+			"belnetb": {
+				"asn": "3",
+				"name_bgp": "200",
+				"self_address": "fd00:200::3/48",
+				"neighbor_address": "fd00:200::b"
+			}
+		},
+		"complementary_commands": [
+			"ip -6 rule add from fd00:200:3::/48 to fd00:200:3::/48 pref 1000 table main",
+			"ip -6 rule add from fd00:200:3::/48 to fd00:300:3::/48 pref 1000 table main",
+			"ip -6 route add ::/0 via fd00:200::b",
+			"ip -6 rule add from fd00:200:3::/48 pref 2000 table 10"
+		]
+	},
+	"Pyth": {
+		"router_id": "2",
+		"setup_bgp_conf":"true",
+		"default_bgp_prefix_to_advertise": "fd00:300:3::/48",
+		"eths": {
+			"eth0": "0",
+			"eth1": "1",
+			"eth2": "2"
+		},
+		"isp": {
+			"belneta": {
+				"asn": "3",
+				"name_bgp": "300",
+				"self_address": "fd00:300::3/48",
+				"neighbor_address": "fd00:300::b"
+			}
+		},
+		"bgp_peers": {
+			"group1": {
+				"asn": "1",
+				"peer_address": "fd00:200::1",
+				"accepted_prefix": "fd00:200:1:1000::/64"
+			}
+		},
+		"complementary_commands": [
+			"ip -6 rule add from fd00:300:3::/48 to fd00:200:3::/48 pref 1000 table main",
+			"ip -6 rule add from fd00:300:3::/48 to fd00:300:3::/48 pref 1000 table main",
+			"ip -6 route add ::/0 via fd00:300::b",
+			"ip -6 rule add from fd00:300:3::/48 pref 2000 table 10"
+		]
+	},
+	"Stev":{
+		"router_id":"3",
+		"setup_bgp_conf":"false",
+		"eths":{
+			"eth0":"1",
+			"eth1":"3"
+		}
+	}
 }

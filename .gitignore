@@ -1,12 +1,18 @@
 .vagrant
 tags
-./docs/ 
-./example_* 
-./project_*  
-student_projects/ 
-./ucl_minimal_cfg/ 
-ucl_topo 
+./docs/
+./example_*
+./project_*
+student_projects/
+./ucl_minimal_cfg/
+ucl_topo
 Vagrantfile
 git-push.sh
 git-pull.sh
+group3_cfg/*/group
+group3_cfg/*/hostname
+group3_cfg/*/hosts
+group3_cfg/*/manpath.config
+group3_cfg/*/passwd
+group3_cfg/*/services
 
