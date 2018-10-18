@@ -31,18 +31,18 @@ for router, configs in data.items():
 	if configs["setup_bgp_conf"] == "true":
 		for isp, isp_configs in configs["isp"].items():
 			router_start_file.write("ip link set dev "+isp+" up \n")
-			router_start_file.write("ip address add dev "+isp+" "+isp_configs["self_address"]+"  \n")
+			router_start_file.write("ip address add dev "+isp+" "+isp_configs["self_address"]+"  \n\n")
 		#router_start_file.write(configs["static_path"])
 	for eth, eth_configs in configs["eths"].items():
 		router_start_file.write("ip link set dev "+router+"-"+eth+" up \n")
 		for prefix_address in PREFIXES_ADDRESS:
 			router_start_file.write("ip address add dev "+router+"-"+eth+" "+prefix_address+eth_configs+"::"+configs["router_id"]+"/64 \n")
 		router_start_file.write("\n")
-		if configs["setup_bgp_conf"] == "true":
-			if "complementary_commands" in configs:
-				for command in configs["complementary_commands"]:
-					router_start_file.write(command+"\n")
-				router_start_file.write("\n")
+	if configs["setup_bgp_conf"] == "true":
+		if "complementary_commands" in configs:
+			for command in configs["complementary_commands"]:
+				router_start_file.write(command+"\n")
+			router_start_file.write("\n")
 
 	router_start_file.write("bird6 -s /tmp/"+router+"_bird.ctl -P /tmp/"+router+"_bird.pid \n")
 	#router_start_filewrite("radvd -p /var/run/radvd/"+router+"_radvd.pid -C /etc/radvd/"+router+".conf -m logfile -l /var/log radvd/"+router+".log\n")
@@ -68,28 +68,44 @@ for router, configs in data.items():
 	router_bird_file.write("log \"/etc/log/bird_log\" all; \n")
 	router_bird_file.write("debug protocols all;  \n\n")
 
+	if configs["setup_bgp_conf"] == "true":
+		router_bird_file.write("filter import_ospf_filter\n")
+		router_bird_file.write(" { \n")
 
-	router_bird_file.write("filter import_ospf_filter\n")
-	router_bird_file.write(" { \n")
+		router_bird_file.write("	if net = ::/0 then accept;\n\n")
+		router_bird_file.write("	if net ~ fd00:200:3::/48 then accept;\n")
+		router_bird_file.write("	if net ~ fd00:300:3::/48 then accept;\n")
+		router_bird_file.write("else reject;\n")
+		router_bird_file.write("}")
 
-	router_bird_file.write("	if net = ::/0 then accept;\n\n")
-	router_bird_file.write("	if net ~ fd00:200:3::/48 then accept;\n")
-	router_bird_file.write("	if net ~ fd00:300:3::/48 then accept;\n")
-	router_bird_file.write("else reject;\n")
-	router_bird_file.write("}")
+		router_bird_file.write("filter export_ospf_filter\n")
+		router_bird_file.write(" { \n")
 
-	router_bird_file.write("filter export_ospf_filter\n")
-	router_bird_file.write(" { \n")
+		router_bird_file.write("	if proto = \"static_bpg\" then reject;\n")
 
-	router_bird_file.write("	if proto = \"static_bpg\" then reject;\n")
+		router_bird_file.write("	if net = fd00:200:3::/48 then reject;\n")
+		router_bird_file.write("	if net = fd00:300:3::/48 then reject;\n")
 
-	router_bird_file.write("	if net = fd00:200:3::/48 then reject;\n")
-	router_bird_file.write("	if net = fd00:300:3::/48 then reject;\n")
+		router_bird_file.write("	if net ~ fd00:200:3::/48 then accept;\n")
+		router_bird_file.write("	if net ~ fd00:300:3::/48 then accept;\n")
+		router_bird_file.write("else reject;\n")
+		router_bird_file.write("}\n\n")
+	else:
+		router_bird_file.write("filter import_ospf_filter\n")
+		router_bird_file.write(" { \n")
 
-	router_bird_file.write("	if net ~ fd00:200:3::/48 then accept;\n")
-	router_bird_file.write("	if net ~ fd00:300:3::/48 then accept;\n")
-	router_bird_file.write("else reject;\n")
-	router_bird_file.write("}\n\n")
+		router_bird_file.write("	if net = ::/0 then accept;\n\n")
+		router_bird_file.write("	if net ~ fd00:200:3::/48 then accept;\n")
+		router_bird_file.write("	if net ~ fd00:300:3::/48 then accept;\n")
+		router_bird_file.write("else reject;\n")
+		router_bird_file.write("}\n\n")
+
+		router_bird_file.write("filter export_ospf_filter\n")
+		router_bird_file.write(" { \n")
+		router_bird_file.write("	if net ~ fd00:200:3::/48 then accept;\n")
+		router_bird_file.write("	if net ~ fd00:300:3::/48 then accept;\n")
+		router_bird_file.write("else reject;\n")
+		router_bird_file.write("}\n\n")
 
 	router_bird_file.write("protocol kernel {\n")
 	router_bird_file.write("        learn;\n")
@@ -117,48 +133,25 @@ for router, configs in data.items():
 			router_bird_file.write("	import where net = ::/0;\n")
 			router_bird_file.write("	export where proto = \"static_bgp\";  \n")
 		router_bird_file.write("}\n\n")
-		###############conf OSPF
-		#		router_bird_file.write("filter static_ospf_import {\n")
-		#       router_bird_file.write("        import all;\n\n")
-		#		if configs["setup_bgp_conf"] == "true":
-		#				for isp, isp_configs in configs["isp"].items():
-		#						router_bird_file.write("        if net = ::/0 then accept;\n")
-		#						router_bird_file.write("        if net ~ "+configs["default_bgp_prefix_to_advertise"]+" then accept;\n")
-		#						router_bird_file.write("        else reject;\n")
-		#						router_bird_file.write("}\n")
-		#						router_bird_file.write("filter static_ospf_export {\n")
-		#						router_bird_file.write("        if proto = \"static_bgp\" then reject;\n\n")
-		#						router_bird_file.write("        if net = "+configs["default_bgp_prefix_to_advertise"]+" then reject;\n")
-		#						router_bird_file.write("        if net ~ "+configs["default_bgp_prefix_to_advertise"]+" then accept;\n")
-		#						router_bird_file.write("        else reject;\n")
+
+	router_bird_file.write("protocol ospf {\n")
+	router_bird_file.write("        export filter export_ospf_filter ;\n")
+	router_bird_file.write("        import filter import_ospf_filter;\n")
+
+	router_bird_file.write("        area 0.0.0.0{\n")
+	router_bird_file.write("                interface \"*eth*\" {\n")
+	router_bird_file.write("                        hello 1;\n")
+	router_bird_file.write("                        dead 3;\n")
+	router_bird_file.write("                };\n")
+	router_bird_file.write("                interface \"*lan*\" {\n")
+	router_bird_file.write("                        stub 1;\n")
+	router_bird_file.write("                };\n")
+	router_bird_file.write("                interface \"*lo*\" {\n")
+	router_bird_file.write("                        stub 1;\n")
+	router_bird_file.write("                };\n")
+	router_bird_file.write("        };\n")
+	router_bird_file.write("}\n\n")
 
 
-		#else:
-		##To progate OSPF Prefix we store the prefix in a table
-		#       for prefixes in PREFIXES_ADDRESS:
-		#               router_bird_file.write("        route ::/0 via "+prefixes+":;\n")
-		#       		router_bird_file.write("}\n\n")
-
-		router_bird_file.write("protocol ospf {\n")
-		if configs["setup_bgp_conf"] == "true":
-			router_bird_file.write("        export filter export_ospf_filter ;\n")
-			router_bird_file.write("        import filter import_ospf_filter;\n")
-		else:
-			router_bird_file.write("        export all;\n")
-		router_bird_file.write("        area 0.0.0.0{\n")
-		router_bird_file.write("                interface \"*eth*\" {\n")
-		router_bird_file.write("                        hello 1;\n")
-		router_bird_file.write("                        dead 3;\n")
-		router_bird_file.write("                };\n")
-		router_bird_file.write("                interface \"*lan*\" {\n")
-		router_bird_file.write("                        stub 1;\n")
-		router_bird_file.write("                };\n")
-		router_bird_file.write("                interface \"*lo*\" {\n")
-		router_bird_file.write("                        stub 1;\n")
-		router_bird_file.write("                };\n")
-		router_bird_file.write("        };\n")
-		router_bird_file.write("}\n\n")
-
-
-		router_bird_file.close()
+	router_bird_file.close()
 ##############
