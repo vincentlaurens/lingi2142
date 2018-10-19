@@ -11,3 +11,10 @@ Pyth:
 	sudo ./connect_to.sh group3_cfg Pyth
 Stev:
 	sudo ./connect_to.sh group3_cfg Stev
+Carn:
+	sudo ./connect_to.sh group3_cfg Carn
+Mich:
+	sudo ./connect_to.sh group3_cfg Mich
+SH1C:
+	sudo ./connect_to.sh group3_cfg SH1C
+
