@@ -60,5 +60,30 @@
 			"eth0":"1",
 			"eth1":"3"
 		}
+	},
+	"Carn":{
+		"router_id":"4",
+		"setup_bgp_conf":"false",
+		"eths":{
+			"eth0":"3",
+			"eth1":"4",
+            "eth2":"2"
+		}
+	},
+	"Mich":{
+		"router_id":"5",
+		"setup_bgp_conf":"false",
+		"eths":{
+			"eth0":"4",
+			"eth1":"5"
+		}
+	},
+	"SH1C":{
+		"router_id":"6",
+		"setup_bgp_conf":"false",
+		"eths":{
+			"eth0":"5",
+			"eth1":"6"
+		}
 	}
 }
