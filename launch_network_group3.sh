@@ -9,7 +9,7 @@ mkdir -p group3_cfg/Halles/log
 mkdir -p group3_cfg/Pyth/log
 mkdir -p group3_cfg/Stev/log
 mkdir -p group3_cfg/SH1C/log
-mkdir -p group3_cfg/Carno/log
+mkdir -p group3_cfg/Carn/log
 mkdir -p group3_cfg/Mich/log
 
 #iptables
@@ -20,19 +20,22 @@ sudo touch iptables/Halles.sh
 sudo touch iptables/Pyth.sh
 sudo touch iptables/Stev.sh
 sudo touch iptables/SH1C.sh
-sudo touch iptables/Carno.sh
+sudo touch iptables/Carn.sh
 sudo touch iptables/Mich.sh
 
 sudo touch group3_cfg/Halles/log/iptables_log
 sudo touch group3_cfg/Pyth/log/iptables_log
 sudo touch group3_cfg/SH1C/log/iptables_log
-sudo touch group3_cfg/Carno/log/iptables_log
+sudo touch group3_cfg/Carn/log/iptables_log
 sudo touch group3_cfg/Mich/log/iptables_log
 
 #bird
 mkdir -p group3_cfg/Halles/bird
 mkdir -p group3_cfg/Pyth/bird
 mkdir -p group3_cfg/Stev/bird
+mkdir -p group3_cfg/Carn/bird
+mkdir -p group3_cfg/Mich/bird
+mkdir -p group3_cfg/SH1C/bird
 
 sudo touch group3_cfg/Halles/log/bird_log
 sudo touch group3_cfg/Halles/log/backup_link_log
@@ -40,7 +43,7 @@ sudo touch group3_cfg/Pyth/log/bird_log
 sudo touch group3_cfg/Pyth/log/backup_link_log
 sudo touch group3_cfg/Stev/log/bird_log
 sudo touch group3_cfg/SH1C/log/bird_log
-sudo touch group3_cfg/Carno/log/bird_log
+sudo touch group3_cfg/Carn/log/bird_log
 sudo touch group3_cfg/Mich/log/bird_log
 
 
