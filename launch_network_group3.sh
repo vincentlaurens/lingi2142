@@ -13,6 +13,7 @@ mkdir -p group3_cfg/Carn/log
 mkdir -p group3_cfg/Mich/log
 
 #iptables
+
 mkdir -p iptables
 
 sudo touch iptables/launchfirewall.sh
