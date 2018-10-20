@@ -55,7 +55,7 @@ sudo python3 firewall_config_creation.py
 #sudo ./service_config_creation.py
 #sudo ./host_config_creation.py
 #sudo ./end_user_management/deploy_end_user_management.sh
-sudo ./launchfirewall.sh
+sudo ./iptables/launchfirewall.sh
 # Network creation
 sudo ./create_network.sh group3_topo
 
