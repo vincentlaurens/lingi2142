@@ -86,7 +86,7 @@ for router, configs_firewall in data.items():
 						"ip6tables -A INPUT -p icmpv6 --icmpv6-type echo-request -m limit --limit 50/min -j ACCEPT\n"
 						"ip6tables -A INPUT -p icmpv6 --icmpv6-type echo-reply -m limit --limit 50/min -j ACCEPT\n"
 						"ip6tables -A OUTPUT -p icmpv6 -m limit --limit 5/second  -j ACCEPT\n\n"
-						"#DNS rule\n"
+						"#Allow Traceroute\n"
 						"ip6tables -I INPUT -p udp --sport 33434:33524 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT\n\n"
 						"# Allow logging in via SSH\n"
 						"ip6tables -A INPUT -p tcp --dport 22 -j ACCEPT\n\n"
