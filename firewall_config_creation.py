@@ -8,7 +8,7 @@ from pprint import pprint
 from constants import PATH
 
 #pprint(data)
-pprint("Writting:"+PATH+"iptables/launchfirewall.sh")
+#pprint("Writting:"+PATH+"iptables/launchfirewall.sh")
 
 
 ####################launchfirewall.sh###############################"
@@ -41,7 +41,7 @@ with open(PATH+'firewall_configuration_file.json') as data_file:
 
 
 for router, configs_firewall in data.items():
-	pprint(router)
+	#pprint(router)
 	router_firewall_config_file = open(PATH+"iptables/"+router+".sh", "w")
 
 	router_firewall_config_file.write(
@@ -92,31 +92,34 @@ for router, configs_firewall in data.items():
 		"# Allow logging in via SSH\n"
 		"ip6tables -A INPUT -p tcp --dport 22 -j ACCEPT\n\n"
 		"# Restrict incoming SSH to a specific network interface\n"
-		"for a in 200 300"
-		"do"
+		"for a in 200 300\n"
+		"do\n"
 		"		ip6tables -A INPUT -i "+router+"-eth1 -p tcp --dport 22 -j ACCEPT\n"
 		"		ipt6ables -I OUTPUT -o  "+router+"-eth1 -p udp --dport 33434:33524 -m state --state NEW -j ACCEPT\n"
 		"		#Restrict incoming SSH to the local network\n"
-		"		ip6tables -A INPUT -i "+router+"-eth1 -p tcp -s fd00:$a:3::"+router_id+"/48 --dport 22 -j ACCEPT\n\n"
-		if configs["bgp"] == "true":
-			"		#allow BGP(router connected with provider)\n"
-			"		for k in 'd' 's'"
-			"		do"
-			"			ip6tables -A INPUT -$k fd00:$a::b -p tcp --$kport 179 -j ACCEPT\n"
-			"			ip6tables -A OUTPUT -$k fd00:$a::b -p tcp --$kport 179 -j ACCEPT\n"
-			"			ip6tables -A FORWARD -$k fd00:$a::b -p tcp --$kport 179 -j ACCEPT\n"
-			"		done"
-		"			ip6tables -A OUTPUT -p udp -d fd00:$a:3:1000::1 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT\n"
-		"			ip6tables -A INPUT  -p udp -s fd00:$a:3:1000::1 --sport 53 -m state --state ESTABLISHED     -j ACCEPT\n"
-		"			ip6tables -A OUTPUT -p tcp -d fd00:$a:3:1000::1 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT\n"
-		"			ip6tables -A INPUT -p tcp -s fd00:$a:3:1000::1 --sport 53 -m state --state ESTABLISHED -j ACCEPT\n"
-		"done"
-		"# Allow external access to your HTTP and HTTPS server\n"
-		"sudo ip6tables -A INPUT -p tcp -m multiport --dports 80,443,8080 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT\n"
-		"sudo ip6tables -A OUTPUT -p tcp -m multiport --dports 80,443,8080 -m conntrack --ctstate ESTABLISHED -j ACCEPT\n\n"
-		"# Allow external access to your unencrypted mail server, SMTP,IMAP, and Telnet.\n"
-		"ip6tables -A INPUT -p tcp -m multiport --dports 25,110,143 -j ACCEPT\n"
+		"		ip6tables -A INPUT -i "+router+"-eth1 -p tcp -s fd00:${a}:3::"+configs_firewall["router_id"]+"/48 --dport 22 -j ACCEPT\n\n"
+	)
+	if configs_firewall["bgp"] == "true":
+		router_firewall_config_file.write(
+		"		#allow BGP(router connected with provider)\n"
+		"		for k in 'd' 's'\n"
+		"		do\n"
+		"			ip6tables -A INPUT -${k} fd00:$a::b -p tcp --${k}port 179 -j ACCEPT\n"
+		"			ip6tables -A OUTPUT -${k} fd00:$a::b -p tcp --${k}port 179 -j ACCEPT\n"
+		"			ip6tables -A FORWARD -${k} fd00:$a::b -p tcp --${k}port 179 -j ACCEPT\n"
+		"		done\n"
+		)
+	router_firewall_config_file.write(
+	"			ip6tables -A OUTPUT -p udp -d fd00:${a}:3:1000::1 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT\n"
+	"			ip6tables -A INPUT  -p udp -s fd00:${a}:3:1000::1 --sport 53 -m state --state ESTABLISHED     -j ACCEPT\n"
+	"			ip6tables -A OUTPUT -p tcp -d fd00:${a}:3:1000::1 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT\n"
+	"			ip6tables -A INPUT -p tcp -s fd00:${a}:3:1000::1 --sport 53 -m state --state ESTABLISHED -j ACCEPT\n"
+	"done\n"
+	"# Allow external access to your HTTP and HTTPS server\n"
+	"sudo ip6tables -A INPUT -p tcp -m multiport --dports 80,443,8080 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT\n"
+	"sudo ip6tables -A OUTPUT -p tcp -m multiport --dports 80,443,8080 -m conntrack --ctstate ESTABLISHED -j ACCEPT\n\n"
+	"# Allow external access to your unencrypted mail server, SMTP,IMAP, and Telnet.\n"
+	"ip6tables -A INPUT -p tcp -m multiport --dports 25,110,143 -j ACCEPT\n"
 	)
 	router_firewall_config_file.close()
 	os.chmod(PATH+"iptables/"+router+".sh", 0o766)
-	##########
