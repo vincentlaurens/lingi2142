@@ -1,26 +1,26 @@
 {
 	"Halles": {
-		"router_id": "1"
+		"router_id": "1",
 		"bgp": "true"
 	},
 	"Pyth": {
-		"router_id": "2"
+		"router_id": "2",
 		"bgp": "true"
 	},
 	"Stev": {
-		"router_id": "3" 
+		"router_id": "3", 
 		"bgp": "false"
 	},
 	"Carn": {
-		"router_id": "4"
+		"router_id": "4",
 		"bgp": "false"
 	},
 	"Mich":{
-		"router_id": "5"
+		"router_id": "5",
 		"bgp": "false"
 	},
 	"SH1C": {
-		"router_id": "6"
+		"router_id": "6",
 		"bgp": "false"
 	}
 }
