@@ -1,50 +1,20 @@
 {
 	"Halles": {
-		"conf_firewall":[
-			"ip6tables -A INPUT -i $Halles-eth1 -p tcp --dport 22 -j ACCEPT",
-			"# Restrict incoming SSH to the local network",
-			"ip6tables -A INPUT -i $Halles-eth1 -p tcp -s fd00:300:3::1/48 --dport 22 -j ACCEPT",
-			"ip6tables -A INPUT -i $Halles-eth1 -p tcp -s fd00:200:3::1/48 --dport 22 -j ACCEPT"
-		]
+		"router_id": 1
 	},
 	"Pyth": {
-		"conf_firewall": [
-			"ip6tables -A INPUT -i $Pyth-eth1 -p tcp --dport 22 -j ACCEPT",
-			"# Restrict incoming SSH to the local network",
-			"ip6tables -A INPUT -i $Pyth-eth1 -p tcp -s fd00:300:3::1/48 --dport 22 -j ACCEPT",
-			"ip6tables -A INPUT -i $Pyth-eth1 -p tcp -s fd00:200:3::1/48 --dport 22 -j ACCEPT"
-		]
+		"router_id": 2
 	},
 	"Stev": {
-		"conf_firewall": [
-			"ip6tables -A INPUT -i $Stev-eth1 -p tcp --dport 22 -j ACCEPT",
-			"# Restrict incoming SSH to the local network",
-			"ip6tables -A INPUT -i $Stev-eth1 -p tcp -s fd00:300:3::1/48 --dport 22 -j ACCEPT",
-			"ip6tables -A INPUT -i $Stev-eth1 -p tcp -s fd00:200:3::1/48 --dport 22 -j ACCEPT"
-		]
-	},
-	"Mich":{
-		"conf_firewall":[
-			"ip6tables -A INPUT -i $Mich-eth1 -p tcp --dport 22 -j ACCEPT",
-			"# Restrict incoming SSH to the local network",
-			"ip6tables -A INPUT -i $Mich-eth1 -p tcp -s fd00:300:3::1/48 --dport 22 -j ACCEPT",
-			"ip6tables -A INPUT -i $Mich-eth1 -p tcp -s fd00:200:3::1/48 --dport 22 -j ACCEPT"
-		]
+		"router_id": 3 
 	},
 	"Carn": {
-		"conf_firewall": [
-			"ip6tables -A INPUT -i $Carn-eth1 -p tcp --dport 22 -j ACCEPT",
-			"# Restrict incoming SSH to the local network",
-			"ip6tables -A INPUT -i $Carn-eth1 -p tcp -s fd00:300:3::1/48 --dport 22 -j ACCEPT",
-			"ip6tables -A INPUT -i $Carn-eth1 -p tcp -s fd00:200:3::1/48 --dport 22 -j ACCEPT"
-		]
+		"router_id": 4
+	},
+	"Mich":{
+		"router_id": 5
 	},
 	"SH1C": {
-		"conf_firewall": [
-			"ip6tables -A INPUT -i $SH1C-eth1 -p tcp --dport 22 -j ACCEPT",
-			"# Restrict incoming SSH to the local network",
-			"ip6tables -A INPUT -i $SH1C-eth1 -p tcp -s fd00:300:3::1/48 --dport 22 -j ACCEPT",
-			"ip6tables -A INPUT -i $SH1C-eth1 -p tcp -s fd00:200:3::1/48 --dport 22 -j ACCEPT"
-		]
+		"router_id": 6
 	}
 }
