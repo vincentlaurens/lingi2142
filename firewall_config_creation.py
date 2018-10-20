@@ -16,17 +16,17 @@ iptables_file = open(PATH+"iptables/launchfirewall.sh", "w")
 iptables_file.write("#!/bin/bash\n\n"
 	"echo \"Starting the firewalls on all routers ...\"\n\n"
 
-	"sudo ip netns exec \"Halles\" ./Halles.sh\n\n"
+	"sudo ip netns exec \"Halles\" ./iptables/Halles.sh\n\n"
 
-	"sudo ip netns exec \"Pyth\" ./Pyth.sh\n\n"
+	"sudo ip netns exec \"Pyth\" ./iptables/Pyth.sh\n\n"
 
-	"sudo ip netns exec \"Stev\" ./Stev.sh\n\n"
+	"sudo ip netns exec \"Stev\" ./iptables/Stev.sh\n\n"
 
-	"sudo ip netns exec \"SH1C\" ./SH1C.sh\n\n"
+	"sudo ip netns exec \"SH1C\" ./iptables/SH1C.sh\n\n"
 
-	"sudo ip netns exec \"Carn\" ./Carno.sh\n\n"
+	"sudo ip netns exec \"Carn\" ./iptables/Carno.sh\n\n"
 
-	"sudo ip netns exec \"Mich\" ./Mich.sh\n\n"
+	"sudo ip netns exec \"Mich\" ./iptables/Mich.sh\n\n"
 
 	"echo \"All the firewalls have been set !\"\n\n"
 
