@@ -1,20 +1,20 @@
 {
 	"Halles": {
-		"router_id": 1
+		"router_id": "1"
 	},
 	"Pyth": {
-		"router_id": 2
+		"router_id": "2"
 	},
 	"Stev": {
-		"router_id": 3 
+		"router_id": "3" 
 	},
 	"Carn": {
-		"router_id": 4
+		"router_id": "4"
 	},
 	"Mich":{
-		"router_id": 5
+		"router_id": "5"
 	},
 	"SH1C": {
-		"router_id": 6
+		"router_id": "6"
 	}
 }
