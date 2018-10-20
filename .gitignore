@@ -9,6 +9,13 @@ ucl_topo
 Vagrantfile
 git-push.sh
 git-pull.sh
+build_vm.sh
+cleanup.sh
+command_history
+connect_to.sh
+constant.py
+create_network.sh
+provision.sh
 group3_cfg/*/group
 group3_cfg/*/hostname
 group3_cfg/*/hosts
