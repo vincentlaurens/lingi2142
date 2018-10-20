@@ -10,7 +10,7 @@ sudo ip netns exec "Stev" ./Stev.sh
 
 sudo ip netns exec "SH1C" ./SH1C.sh
 
-sudo ip netns exec "Carno" ./Carno.sh
+sudo ip netns exec "Carn" ./Carno.sh
 
 sudo ip netns exec "Mich" ./Mich.sh
 
