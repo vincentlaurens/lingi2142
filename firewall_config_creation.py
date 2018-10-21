@@ -24,7 +24,7 @@ iptables_file.write("#!/bin/bash\n\n"
 
 	"sudo ip netns exec \"SH1C\" ./iptables/SH1C.sh\n\n"
 
-	"sudo ip netns exec \"Carn\" ./iptables/Carno.sh\n\n"
+	"sudo ip netns exec \"Carn\" ./iptables/Carn.sh\n\n"
 
 	"sudo ip netns exec \"Mich\" ./iptables/Mich.sh\n\n"
 
