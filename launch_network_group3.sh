@@ -47,6 +47,23 @@ sudo touch group3_cfg/SH1C/log/bird_log
 sudo touch group3_cfg/Carn/log/bird_log
 sudo touch group3_cfg/Mich/log/bird_log
 
+#DomainName
+
+mkdir -p DomainName
+
+mkdir -p DomainName/bind
+mkdir -p DomainName/bind/named_Zones
+mkdir -p DomainName/bind/named_Zones/Zones
+mkdir -p DomainName/src
+mkdir -p DomainName/DHCP
+
+sudo touch DomainName/bind/deploy_bind_conf.sh
+sudo touch DomainName/bind/named_Zones/named.conf
+sudo touch DomainName/bind/named_Zones/named.conf.local
+sudo touch DomainName/bind/named_Zones/named.conf.option
+sudo touch DomainName/bind/named_Zones/Zones/db.group3.ingi
+sudo touch DomainName/src/dns_conf_named.py
+sudo touch DomainName/src/dns_creation.sh
 
 
 # Configuration files creation
