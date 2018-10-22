@@ -112,6 +112,7 @@ for router, configs in data.items():
 	router_bird_file.write("protocol kernel {\n"
                             "        learn;\n"
                             "        scan time 20;\n"
+						    "		 import all;\n"
                             "        export all;\n"
                             "}\n\n"
 
@@ -140,7 +141,7 @@ for router, configs in data.items():
                                     )
 
 	router_bird_file.write("protocol ospf {\n"
-                            "        export filter export_ospf_filter ;\n"
+                            "        export filter export_ospf_filter;\n"
                             "        import filter import_ospf_filter;\n"
                         
                             "        area 0.0.0.0{\n"
