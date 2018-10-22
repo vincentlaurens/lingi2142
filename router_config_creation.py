@@ -20,7 +20,7 @@ for router, configs in data.items():
 	###########################"Write _boot file config"##################
 	router_boot_file = open(PATH+"group3_cfg/"+router+"_boot.sh", "w")
 	router_boot_file.write("#!/bin/bash\n\n"
-	                        "sysctl -p"
+	                        "sysctl -p\n"
                            )
 	router_boot_file.close()
 	##########
