@@ -14,8 +14,8 @@ REACHABLE=""
 #declare -A PREFIXES # Dictionary
 #PREFIXES+=( ["pop200"]="fd00:200:3:" ["pop300"]="fd00:300:3:" )
 
-# Wait one minute at network creation before checking ISPs status
-sleep 10
+# Wait for start of the network
+sleep 15
 
 while true
 do
@@ -25,15 +25,14 @@ do
 	# Check connectivity with ISP on each router
 	for (( i=0; i<${#ROUTERS_TO_CHECK[@]}; i++ ));
 	do
-		sudo ip netns exec "${ROUTERS_TO_CHECK[$i]}" sudo /etc/check_bgp_status.sh ${ROUTERS_TO_CHECK[$i]} ${BGP[$i]}
+		status=$(birdc6 -s /tmp/${ROUTERS_TO_CHECK[$i]}_bird.ctl "show protocol ${BGP[$i]}" | grep ${BGP[$i]} | awk {'print $6'})
 
 		# If ISP is reachable
-		if [ $? -eq 1 ]
+		if [ "$status" = "Established"  ]
 		then
 			REACHABLE="$REACHABLE ${BGP[$i]}"
-			echo "[OK] ${BGP[$i]} BGP peering is established" >> $LOG_FILE
 		else
-			echo "[WARN] ${BGP[$i]} BGP peering is not established" >> $LOG_FILE
+			echo "[WARN] `date` ${BGP[$i]} BGP peering is ${status}" >> $LOG_FILE
 		fi
 	done
 
@@ -67,7 +66,7 @@ do
 
 	PREVIOUS_REACHABLE=$REACHABLE
 
-	sleep 5
+	sleep 8
 done
 
 exit
