@@ -17,5 +17,5 @@ Mich:
 SH1C:
 	sudo ./connect_to.sh group3_cfg SH1C
 Mon:
-    sudo ./connect_to.sh group3_cfg Mon
+	sudo ./connect_to.sh group3_cfg Mon
 

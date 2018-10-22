@@ -32,7 +32,7 @@ do
 		then
 			REACHABLE="$REACHABLE ${BGP[$i]}"
 		else
-			echo "[WARN] `date` ${BGP[$i]} BGP peering is ${status}" >> $LOG_FILE
+			echo "[WARN] (`date`) ${BGP[$i]}, Status of BGP peering is: ${status}." >> $LOG_FILE
 		fi
 	done
 
