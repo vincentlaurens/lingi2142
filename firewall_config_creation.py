@@ -82,6 +82,7 @@ for router, configs_firewall in data.items():
 		"ip6tables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
 		"ip6tables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
 		"ip6tables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT\n\n"
+		"#ip6tables -A INPUT -j REJECT –reject-with icmp6-adm-prohibited"
 		"#Authorize important ICMP Packet\n"
 		"ip6tables -A INPUT -p icmpv6 --icmpv6-type echo-request -j ACCEPT\n"
 		"ip6tables -A INPUT -p icmpv6 --icmpv6-type time-exceeded -j ACCEPT\n"
