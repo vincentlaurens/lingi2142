@@ -112,7 +112,7 @@ for router, configs in data.items():
 	router_bird_file.write("protocol kernel {\n"
                             "        learn;\n"
                             "        scan time 20;\n"
-						    "		 import all;\n"
+						    "        import all;\n"
                             "        export all;\n"
                             "}\n\n"
 
