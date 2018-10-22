@@ -23,6 +23,7 @@ for router, configs in data.items():
 	                        "sysctl -p \n"
                            )
 	router_boot_file.close()
+	os.chmod(PATH+"group3_cfg/"+router+"_boot.sh", 0o766)
 	##########
 	########################"Write _start file Config"###################################
 	router_start_file = open(PATH+"group3_cfg/"+router+"_start.sh", "w")
