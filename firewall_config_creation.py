@@ -50,16 +50,15 @@ for router, configs_firewall in data.items():
 
 		"# Flush all rules and delete all chains\n"
 		"# because it is best to startup cleanly\n"
-		"ip6tables -F INPUT"
-		"ip6tables -F OUTPUT"
-		"ip6tables -F FORWARD"
+		"ip6tables -F INPUT\n"
+		"ip6tables -F OUTPUT\n"
+		"ip6tables -F FORWARD\n"
 		"ip6tables -F\n"
 		"ip6tables -X\n"
 		#"ip6tables -t nat -F\n"
 		#"ip6tables -t nat -X\n"
 		#"ip6tables -t mangle -F \n"
 		#"ip6tables -t mangle -X \n"
-		"ip6tables -L\n\n"
 		"#all to Zero\n"
 		#"ip6tables -Z\n"
 		#"ip6tables -t nat -Z\n"
@@ -83,6 +82,7 @@ for router, configs_firewall in data.items():
 		"ip6tables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
 		"ip6tables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
 		"ip6tables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT\n\n"
+		"#ip6tables -A INPUT -j REJECT –reject-with icmp6-adm-prohibited"
 		"#Authorize important ICMP Packet\n"
 		"ip6tables -A INPUT -p icmpv6 --icmpv6-type echo-request -j ACCEPT\n"
 		"ip6tables -A INPUT -p icmpv6 --icmpv6-type time-exceeded -j ACCEPT\n"
@@ -123,7 +123,8 @@ for router, configs_firewall in data.items():
 		"sudo ip6tables -A OUTPUT -p tcp -m multiport --dports 80,443,8080 -m conntrack --ctstate ESTABLISHED -j ACCEPT\n\n"
 		"# Allow external access to your unencrypted mail server, SMTP,IMAP, and Telnet.\n"
 		"ip6tables -A INPUT -p tcp -m multiport --dports 25,110,143 -j ACCEPT\n"
-		"ip6tables -L\n\n"
+		"Print table from routers and display the rules added before"
+		"ip6tables -L"
 	)
 	router_firewall_config_file.close()
 	os.chmod(PATH+"iptables/"+router+".sh", 0o766)
