@@ -41,13 +41,26 @@ ip6tables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 ip6tables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
 
 #Authorize important ICMP Packet
-ip6tables -A INPUT -p icmpv6 --icmpv6-type echo-request -j ACCEPT
+#ip6tables -A INPUT -p icmpv6 --icmpv6-type echo-request -j ACCEPT
+#ip6tables-A INPUT -p icmpv6 --icmpv6-type time-exceeded -j ACCEPT
+#ip6tables -A INPUT -p icmpv6 --icmpv6-type destination-unreachable -j ACCEPT
+#ip6tables -A INPUT -p icmpv6 --icmpv6-type echo-request -m limit --limit 50/min -j ACCEPT
+#ip6tables -A INPUT -p icmpv6 --icmpv6-type echo-reply -m limit --limit 50/min -j ACCEPT
+#ip6tables -A OUTPUT -p icmpv6 -m limit --limit 5/second  -j ACCEPT
+#Authorize outgoing ping
+ip6tables -A INPUT -p icmpv6 --icmpv6-type echo-reply -j ACCEPT
 ip6tables-A INPUT -p icmpv6 --icmpv6-type time-exceeded -j ACCEPT
 ip6tables -A INPUT -p icmpv6 --icmpv6-type destination-unreachable -j ACCEPT
-ip6tables -A INPUT -p icmpv6 --icmpv6-type echo-request -m limit --limit 50/min -j ACCEPT
+ip6tables -A OUTPUT -p icmpv6 --icmpv6-type echo-request -m limit --limit 50/min -j ACCEPT
 ip6tables -A INPUT -p icmpv6 --icmpv6-type echo-reply -m limit --limit 50/min -j ACCEPT
-ip6tables -A OUTPUT -p icmpv6 -m limit --limit 5/second  -j ACCEPT
-
+#ip6tables -A OUTPUT -p icmpv6 -m limit --limit 5/second  -j ACCEPT
+ip6tables -A OUTPUT -p icmpv6 --icmpv6-type echo-request -j ACCEPT
+#Authorize incoming pings
+ip6tables -A OUTPUT -p icmpv6 --icmpv6-type echo-reply -j ACCEPT
+ip6tables -A INPUT -p icmpv6 --icmpv6-type echo-request -j ACCEPT
+ip6tables -A INPUT -p icmpv6 --icmpv6-type echo-request -m limit --limit 50/min -j ACCEPT
+ip6tables -A OUTPUT -p icmpv6 --icmpv6-type echo-reply -m limit --limit 50/min -j ACCEPT
+ip6tables -A OUTPUT -p icmpv6 --icmpv6-type destination-unreachable -j ACCEPT
 #Allow Traceroute
 ip6tables -I INPUT -p udp --sport 33434:33524 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 
