@@ -52,6 +52,7 @@ sudo touch group3_cfg/Mich/log/bird_log
 # Configuration files creation
 sudo python3 router_config_creation.py
 sudo python3 firewall_config_creation.py
+sudo ./monitoring/monitoring_config_creation.sh
 #sudo ./service_config_creation.py
 #sudo ./host_config_creation.py
 #sudo ./end_user_management/deploy_end_user_management.sh
@@ -67,3 +68,4 @@ sudo sh iptables/launchfirewall.sh
 
 # Webservice
 #sudo ./start_haproxy.sh
+
