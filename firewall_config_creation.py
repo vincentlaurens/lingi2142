@@ -99,7 +99,7 @@ for router, configs_firewall in data.items():
 		"ip6tables -A FORWARD -p icmpv6 -j ACCEPT\n"
 		
 		"#Allow Traceroute\n"
-		"#ip6tables -I INPUT -p udp --sport 33434:33524 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT\n\n"
+		"ip6tables -I INPUT -p udp --sport 33434:33524 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT\n\n"
 		
 		"# Allow logging in via SSH\n"
 		"#ip6tables -A INPUT -p tcp --dport 22 -j ACCEPT\n\n"
