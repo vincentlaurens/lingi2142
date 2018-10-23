@@ -64,7 +64,7 @@ for router, configs_firewall in data.items():
 		"ip6tables -P OUTPUT DROP\n\n"
 		"#Enable stateful inspection\n"
 		"ip6tables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT\n"
-		"ip6tables -A OUTPUT -m conntrack ! --ctstate INVALID -j ACCEPT"
+		"ip6tables -A OUTPUT -m conntrack ! --ctstate INVALID -j ACCEPT\n"
 		"ip6tables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
 		"ip6tables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
 		"ip6tables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT\n\n"
