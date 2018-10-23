@@ -54,7 +54,7 @@ for router, configs_firewall in data.items():
 		"ip6tables -F OUTPUT\n"
 		"ip6tables -F FORWARD\n"
 		"ip6tables -F\n"
-		"ip6tables -X\n"
+		"#ip6tables -X\n"
 		#"ip6tables -t nat -F\n"
 		#"ip6tables -t nat -X\n"
 		#"ip6tables -t mangle -F \n"
