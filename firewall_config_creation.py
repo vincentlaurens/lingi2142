@@ -84,8 +84,8 @@ for router, configs_firewall in data.items():
 		"#Authorize outgoing ping\n"
 		
 		"SERVER_IP=\"fd00:200::b\"
-		"iptables -A INPUT -p icmp --icmp-type 8 -s 0/0 -d $SERVER_IP -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT"
-		"iptables -A OUTPUT -p icmp --icmp-type 0 -s $SERVER_IP -d 0/0 -m state --state ESTABLISHED,RELATED -j ACCEPT"
+		"iptables -A INPUT -p icmpv6 --icmpv6-type 8 -s 0/0 -d $SERVER_IP -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT"
+		"iptables -A OUTPUT -p icmpv6 --icmpv6-type 0 -s $SERVER_IP -d 0/0 -m state --state ESTABLISHED,RELATED -j ACCEPT"
 		"#Authorize incoming pings\n"
 		"ip6tables -A OUTPUT -p icmpv6 --icmpv6-type 0 -j ACCEPT\n"
 		"ip6tables -A INPUT -p icmpv6 --icmpv6-type 8 -j ACCEPT\n"
