@@ -83,7 +83,7 @@ for router, configs_firewall in data.items():
 		"ip6tables -A FORWARD -p 89 -j ACCEPT\n\n"
 		"#Authorize outgoing ping\n"
 		
-		"SERVER_IP=\"fd00:200::b\"
+		"SERVER_IP=\"fd00:200::b\""
 		"iptables -A INPUT -p icmpv6 --icmpv6-type 8 -s 0/0 -d $SERVER_IP -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT"
 		"iptables -A OUTPUT -p icmpv6 --icmpv6-type 0 -s $SERVER_IP -d 0/0 -m state --state ESTABLISHED,RELATED -j ACCEPT"
 		"#Authorize incoming pings\n"
