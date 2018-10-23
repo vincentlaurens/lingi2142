@@ -63,9 +63,9 @@ for router, configs_firewall in data.items():
 		
 		"# Required for the loopback interface\n"
 		"ip6tables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT"
-		"ip6tables -A INPUT -i lo -j ACCEPT #local loopback"
+		"ip6tables -A INPUT -i lo -j ACCEPT"
 		"ip6tables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT"
-		"ip6tables -A OUTPUT -o lo -j ACCEPT #local loopback"
+		"ip6tables -A OUTPUT -o lo -j ACCEPT "
 		"ip6tables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT"
 
 		"# Reject connection attempts not initiated from the host\n"
