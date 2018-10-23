@@ -48,14 +48,16 @@ for router, configs_firewall in data.items():
 		"#!/bin/bash\n"
 		"#Document generates by script firewall_config_creation.py, have a look on this python script for more details\n\n\n"
 
+		"#Reinitialize the configuration\n"
+		"ip6tables -F\n"
+		"ip6tables -X\n"
+		
 		"# Flush all rules and delete all chains\n"
 		"# because it is best to startup cleanly\n"
 		"#ip6tables -F INPUT\n"
 		"#ip6tables -F OUTPUT\n"
 		"#ip6tables -F FORWARD\n"
-		"#Reinitialize the configuration\n"
-		"ip6tables -F\n"
-		"ip6tables -X\n"
+		
 
 		"# Required for the loopback interface\n"
 		"ip6tables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
