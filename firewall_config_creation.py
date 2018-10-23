@@ -63,7 +63,7 @@ for router, configs_firewall in data.items():
 		
 		"# Required for the loopback interface\n"
 		"ip6tables -A INPUT -i lo -j ACCEPT\n"
-		"ip6tables -A OUTPUT -o lo -j ACCEPT\n\n"
+		"#ip6tables -A OUTPUT -o lo -j ACCEPT\n\n"
 
 		"# Reject connection attempts not initiated from the host\n"
 		"#ip6tables -A INPUT -p tcp --syn -j DROP\n\n"
