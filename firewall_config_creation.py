@@ -81,9 +81,11 @@ for router, configs_firewall in data.items():
 		"ip6tables -A INPUT -p 89 -j ACCEPT\n"
 		"ip6tables -A OUTPUT -p 89 -j ACCEPT\n"
 		"ip6tables -A FORWARD -p 89 -j ACCEPT\n\n"
-		"#Authorize outgoing ping\n"
-		"ip6tables -A INPUT -p icmpv6 -j ACCEPT\n"
-		"ip6tables -A OUTPUT -p icmpv6 -j ACCEPT\n"
+		"#Authorize outgoing and incoming ping\n"
+		"ip6tables -A INPUT -p icmpv6 -m limit --limit 50/min -j ACCEPT\n"
+		"ip6tables -A OUTPUT -p icmpv6 -m limit --limit 50/min -j ACCEPT\n"
+		
+		
 		"#Authorize incoming pings\n"
 		"#ip6tables -A OUTPUT -p icmpv6 --icmpv6-type 0 -j ACCEPT\n"
 		"#ip6tables -A INPUT -p icmpv6 --icmpv6-type 8 -j ACCEPT\n"
