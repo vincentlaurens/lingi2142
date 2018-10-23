@@ -58,7 +58,7 @@ for router, configs_firewall in data.items():
 		"#ip6tables -F OUTPUT\n"
 		"#ip6tables -F FORWARD\n"
 
-        "#DROP Polycies"
+        "#DROP Polycies\n"
         "ip6tables -P INPUT DROP\n"
         "ip6tables -P FORWARD DROP\n"
         "ip6tables -P OUTPUT DROP\n\n"
