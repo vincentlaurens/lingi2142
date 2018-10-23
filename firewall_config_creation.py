@@ -78,7 +78,7 @@ for router, configs_firewall in data.items():
 		"ip6tables -A INPUT -i lo -j ACCEPT\n"
 		"ip6tables -A OUTPUT -o lo -j ACCEPT\n\n"
 		"# Reject connection attempts not initiated from the host\n"
-		"ip6tables -A INPUT -p tcp --syn -j DROP\n\n"
+		"#ip6tables -A INPUT -p tcp --syn -j DROP\n\n"
 		"#allow OSPF\n"
 		"ip6tables -A INPUT -p 89 -j ACCEPT\n"
 		"ip6tables -A OUTPUT -p 89 -j ACCEPT\n"
