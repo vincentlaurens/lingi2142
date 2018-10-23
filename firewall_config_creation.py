@@ -62,11 +62,11 @@ for router, configs_firewall in data.items():
 		"ip6tables -P OUTPUT DROP\n\n"
 		
 		"# Required for the loopback interface\n"
-		"ip6tables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT"
-		"ip6tables -A INPUT -i lo -j ACCEPT"
-		"ip6tables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT"
-		"ip6tables -A OUTPUT -o lo -j ACCEPT "
-		"ip6tables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT"
+		"ip6tables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
+		"ip6tables -A INPUT -i lo -j ACCEPT\n"
+		"ip6tables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
+		"ip6tables -A OUTPUT -o lo -j ACCEPT\n"
+		"ip6tables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
 
 		"# Reject connection attempts not initiated from the host\n"
 		"#ip6tables -A INPUT -p tcp --syn -j DROP\n\n"
