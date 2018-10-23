@@ -58,7 +58,7 @@ for router, configs_firewall in data.items():
 		"ip6tables -X\n"
 		#"ip6tables -t filter -D INPUT -s 2001:db8::/32 -j DROP\n"
 		#"ip6tables -t filter -D INPUT -s 2001:db8::/32 -j DROP\n"
-		"#Define our policy"
+		"#Define our policy\n"
 		"ip6tables -P INPUT DROP\n"
 		"ip6tables -P FORWARD DROP\n"
 		"ip6tables -P OUTPUT DROP\n\n"
