@@ -57,7 +57,11 @@ for router, configs_firewall in data.items():
 		"#ip6tables -F INPUT\n"
 		"#ip6tables -F OUTPUT\n"
 		"#ip6tables -F FORWARD\n"
-		
+
+        "#DROP Polycies"
+        "ip6tables -P INPUT DROP\n"
+        "ip6tables -P FORWARD DROP\n"
+        "ip6tables -P OUTPUT DROP\n\n"
 
 		"# Required for the loopback interface\n"
 		"ip6tables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
@@ -65,11 +69,6 @@ for router, configs_firewall in data.items():
 		"ip6tables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
 		"ip6tables -A OUTPUT -o lo -j ACCEPT\n"
 		"ip6tables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
-		
-		"#DROP Polycies"
-		"ip6tables -P INPUT DROP\n"
-		"ip6tables -P FORWARD DROP\n"
-		"ip6tables -P OUTPUT DROP\n\n"
 		
 		
 		"#Define our policy\n"
