@@ -1,5 +1,5 @@
 {
-	"Halles": {
+	"Hall": {
 		"router_id": "1",
 		"setup_bgp_conf":"true",
 		"default_bgp_prefix_to_advertise": "fd00:200:3::/48",

@@ -4,8 +4,8 @@ all:
 clean:
 	sudo rm -r group3_cfg/*
 
-Halles:
-	sudo ./connect_to.sh group3_cfg Halles
+Hall:
+	sudo ./connect_to.sh group3_cfg Hall
 Pyth:
 	sudo ./connect_to.sh group3_cfg Pyth
 Stev:

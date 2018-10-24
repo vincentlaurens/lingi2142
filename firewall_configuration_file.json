@@ -1,5 +1,5 @@
 {
-	"Halles": {
+	"Hall": {
 		"router_id": "1",
 		"bgp": "true",
 		"suffixe_provider": "b",
