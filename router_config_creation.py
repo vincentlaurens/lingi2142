@@ -43,21 +43,8 @@ for router, configs in data.items():
 		for prefix_address in PREFIXES_ADDRESS:
 			router_start_file.write("ip address add dev "+router+"-"+eth+" "+prefix_address+eth_configs+"::"+configs["router_id"]+"/64 \n")
 
-	#if configs["setup_bgp_conf"] == "true":
-	#	for command in configs["load_balancing"]:
-	#		router_start_file.write(command+"\n")
-	#	router_start_file.write("\n")
-
-	#if "lans" in configs:
-	#	for lan, lan_configs in configs["lans"].items():
-	#		router_start_file.write("ip link set dev "+router+"-"+lan+" up \n")
-	#		for prefix_address in PREFIXES_ADDRESS:
-	#			router_start_file.write("ip address add dev "+router+"-"+lan+" "+prefix_address+lan_configs+"::"+configs["router_id"]+"/64 \n")
-	#		router_start_file.write("\n")
 
 	router_start_file.write("bird6 -s /tmp/"+router+"_bird.ctl -P /tmp/"+router+"_bird.pid \n")
-	#router_start_filewrite("radvd -p /var/run/radvd/"+router+"_radvd.pid -C /etc/radvd/"+router+".conf -m logfile -l /var/log radvd/"+router+".log\n")
-
 	router_start_file.close()
 	os.chmod(PATH+"group3_cfg/"+router+"_start.sh", 0o766)
 	###########
@@ -85,7 +72,7 @@ for router, configs in data.items():
 		router_bird_file.write("filter import_ospf_filter\n"
 		                        " { \n"
 
-		                        "	if net = ::/0 then accept;\n\n"
+                                "	if net = ::/0 then accept;\n\n"
                                 "	if net ~ fd00:200:3::/48 then accept;\n"
 		                        "	if net ~ fd00:300:3::/48 then accept;\n"
 		                        "else reject;\n"
@@ -93,7 +80,7 @@ for router, configs in data.items():
 
 		                        "filter export_ospf_filter\n"
                                 " { \n"
-							   	"	if net = ::/0 then accept;\n\n"
+                                "	if net = ::/0 then accept;\n\n"
                                 "	if proto = \"static_bpg\" then reject;\n"
 
                                 "	if net = fd00:200:3::/48 then reject;\n"
@@ -116,7 +103,7 @@ for router, configs in data.items():
 
                                 "filter export_ospf_filter\n"
                                 " { \n"
-							    "	if net = ::/0 then accept;\n\n"
+                                "	if net = ::/0 then accept;\n\n"
                                 "	if net ~ fd00:200:3::/48 then accept;\n"
                                 "	if net ~ fd00:300:3::/48 then accept;\n"
                                 "else reject;\n"
@@ -126,7 +113,7 @@ for router, configs in data.items():
 	router_bird_file.write("protocol kernel {\n"
                             "        learn;\n"
                             "        scan time 20;\n"
-						    "        import all;\n"
+                            "        import all;\n"
                             "        export all;\n"
                             "}\n\n"
 
