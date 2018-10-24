@@ -16,7 +16,7 @@ iptables_file = open(PATH+"iptables/launchfirewall.sh", "w")
 iptables_file.write("#!/bin/bash\n\n"
 	"echo \"Starting the firewalls on all routers ...\"\n\n"
 
-	"sudo ip netns exec \"Halles\" ./iptables/Halles.sh\n\n"
+	"sudo ip netns exec \"Hall\" ./iptables/Hall.sh\n\n"
 
 	"sudo ip netns exec \"Pyth\" ./iptables/Pyth.sh\n\n"
 
