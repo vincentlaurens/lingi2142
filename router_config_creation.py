@@ -43,10 +43,10 @@ for router, configs in data.items():
 		for prefix_address in PREFIXES_ADDRESS:
 			router_start_file.write("ip address add dev "+router+"-"+eth+" "+prefix_address+eth_configs+"::"+configs["router_id"]+"/64 \n")
 
-	if configs["setup_bgp_conf"] == "true":
-		for command in configs["load_balancing"]:
-			router_start_file.write(command+"\n")
-		router_start_file.write("\n")
+	#if configs["setup_bgp_conf"] == "true":
+	#	for command in configs["load_balancing"]:
+	#		router_start_file.write(command+"\n")
+	#	router_start_file.write("\n")
 
 	if "lans" in configs:
 		for lan, lan_configs in configs["lans"].items():
