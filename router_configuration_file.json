@@ -25,6 +25,9 @@
 			"eth1": "2",
 			"eth2": "1"
 		},
+		"lans": {
+			"lan2": "ffff"
+		},
 		"isp": {
 			"belneta": {
 				"asn": "3",

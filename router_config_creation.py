@@ -43,6 +43,12 @@ for router, configs in data.items():
 			router_start_file.write("ip address add dev "+router+"-"+eth+" "+prefix_address+eth_configs+"::"+configs["router_id"]+"/64 \n")
 		router_start_file.write("\n")
 
+	for lan, lan_configs in configs["lans"].items():
+		router_start_file.write("ip link set dev "+router+"-"+lan+" up \n")
+		for prefix_address in PREFIXES_ADDRESS:
+			router_start_file.write("ip address add dev "+router+"-"+lan+" "+prefix_address+lan_configs+"::/64 \n")
+		router_start_file.write("\n")
+
 	router_start_file.write("bird6 -s /tmp/"+router+"_bird.ctl -P /tmp/"+router+"_bird.pid \n")
 	#router_start_filewrite("radvd -p /var/run/radvd/"+router+"_radvd.pid -C /etc/radvd/"+router+".conf -m logfile -l /var/log radvd/"+router+".log\n")
 
