@@ -10,7 +10,7 @@ IP+=( ["Halles-eth0"]="fd00:300:3:6::1" \
       ["Pyth-eth0"]="fd00:300:3:3::2"   \
       ["Pyth-eth1"]="fd00:300:3:2::2"   \
       ["Pyth-eth2"]="fd00:300:3:1::2"   \
-      ["belneta"]="fd00:300::3"         \
+      ["belnetb"]="fd00:300::3"         \
       ["Stev-eth0"]="fd00:300:3:3::3"   \
       ["Stev-eth1"]="fd00:300:3:1::3"   \
       ["Carn-eth0"]="fd00:300:3:4::4"   \
@@ -22,7 +22,7 @@ IP+=( ["Halles-eth0"]="fd00:300:3:6::1" \
       ["SH1C-eth1"]="fd00:300:3:6::6"   )
 
 # Wait for start of the network
-sleep 60
+sleep 20
 
 for interface in "${!IP[@]}"
 do
@@ -30,7 +30,7 @@ do
 
     if [ $? != 0 ]
     then
-        echo "[ERROR] Failed to ping ${interface}, ip: ${IP[$interface]}" >> LOG_FILE
+        echo "[ERROR] Failed to ping ${interface}, ip: ${IP[$interface]}" >> $LOG_FILE
     fi
 done
 
