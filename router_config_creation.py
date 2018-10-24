@@ -81,7 +81,7 @@ for router, configs in data.items():
 
 		                        "filter export_ospf_filter\n"
                                 " { \n"
-							   		"if net = ::/0 then accept;\n\n"
+							   	"	if net = ::/0 then accept;\n\n"
                                 "	if proto = \"static_bpg\" then reject;\n"
 
                                 "	if net = fd00:200:3::/48 then reject;\n"
