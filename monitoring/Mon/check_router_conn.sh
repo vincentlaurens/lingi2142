@@ -26,11 +26,11 @@ sleep 30
 
 for interface in "${IP[@]}"
 do
-    ping6 -c 1 -W 1 ${IP[interface]} > /dev/null
+    ping6 -c 1 -W 1 ${IP[$interface]} > /dev/null
 
     if [ $? != 0 ]
     then
-        echo "[ERROR] Failed to ping ${interface}, ip: ${IP[interface]}" >> LOG_FILE
+        echo "[ERROR] Failed to ping ${interface}, ip: ${IP[$interface]}" >> LOG_FILE
     fi
 done
 
