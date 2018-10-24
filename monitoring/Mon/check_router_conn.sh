@@ -22,11 +22,11 @@ IP+=( ["Halles-eth0"]="fd00:300:3:6::1" \
       ["SH1C-eth1"]="fd00:300:3:6::6"   )
 
 # Wait for start of the network
-sleep 30
+sleep 60
 
 for interface in "${!IP[@]}"
 do
-    ping6 -c 1 -W 1 ${IP[$interface]} #> /dev/null
+    ping6 -c 1 -W 1 ${IP[$interface]} > /dev/null
 
     if [ $? != 0 ]
     then
