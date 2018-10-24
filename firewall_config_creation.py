@@ -73,7 +73,7 @@ for router, configs_firewall in data.items():
 		
 		"#Define our policy\n"
 		"# Reject connection attempts not initiated from the host\n"
-		"ip6tables -A INPUT -p tcp --syn -j DROP\n\n"
+		"#ip6tables -A INPUT -p tcp --syn -j DROP\n\n"
 		
 		"#Enable TCP, UDP\n"
 		"ip6tables -A INPUT -p tcp -j ACCEPT\n"
