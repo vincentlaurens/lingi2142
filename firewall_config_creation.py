@@ -58,6 +58,8 @@ for router, configs_firewall in data.items():
 		"#ip6tables -F OUTPUT\n"
 		"#ip6tables -F FORWARD\n"
 
+		
+		"#Define our policy\n"
 	        "#DROP Polycies\n"
         	"ip6tables -P INPUT DROP\n"
         	"ip6tables -P FORWARD DROP\n"
@@ -71,16 +73,10 @@ for router, configs_firewall in data.items():
 		"ip6tables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
 		
 		
-		"#Define our policy\n"
 		"# Reject connection attempts not initiated from the host\n"
-		"#ip6tables -A INPUT -p tcp --syn -j DROP\n\n"
+		"ip6tables -A INPUT -p tcp --syn -j DROP\n\n"
 		
 		"#Enable stateful inspection\n"
-		"#ip6tables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT\n"
-		"#ip6tables -A OUTPUT -m conntrack ! --ctstate INVALID -j ACCEPT\n"
-		"#ip6tables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
-		"#ip6tables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
-		"#ip6tables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT\n\n"
 		"ip6tables -A INPUT -p tcp -j ACCEPT\n"
 		"ip6tables -A FORWARD -p tcp -j ACCEPT\n"
 		"ip6tables -A OUTPUT -p tcp -j ACCEPT\n"
