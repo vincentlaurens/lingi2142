@@ -31,6 +31,7 @@ for router, configs in data.items():
 	                        "# This file has been generated automatically, see router_config_creation.py \n"
                             )
 
+
 	if configs["setup_bgp_conf"] == "true":
 		for isp, isp_configs in configs["isp"].items():
 			router_start_file.write("ip link set dev "+isp+" up \n"
