@@ -1,26 +1,38 @@
 {
 	"Halles": {
 		"router_id": "1",
-		"bgp": "true"
+		"bgp": "true",
+		"suffixe_provider": "b",
+		"suffixe_DNS": "1000::1"
 	},
 	"Pyth": {
 		"router_id": "2",
-		"bgp": "true"
+		"bgp": "true",
+		"suffixe_provider": "b",
+		"suffixe_DNS": "1000::1"
 	},
 	"Stev": {
 		"router_id": "3", 
-		"bgp": "false"
+		"bgp": "false",
+		"suffixe_provider": "b",
+		"suffixe_DNS": "1000::1"
 	},
 	"Carn": {
 		"router_id": "4",
-		"bgp": "false"
+		"bgp": "false",
+		"suffixe_provider": "b",
+		"suffixe_DNS": "1000::1"
 	},
 	"Mich":{
 		"router_id": "5",
-		"bgp": "false"
+		"bgp": "false",
+		"suffixe_provider": "b",
+		"suffixe_DNS": "1000::1"
 	},
 	"SH1C": {
 		"router_id": "6",
-		"bgp": "false"
+		"bgp": "false",
+		"suffixe_provider": "b",
+		"suffixe_DNS": "1000::1"
 	}
 }
