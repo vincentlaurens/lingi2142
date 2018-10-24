@@ -116,9 +116,9 @@ for router, configs_firewall in data.items():
 		"		#allow BGP(router connected with provider)\n"
 		"		for k in 'd' 's'\n"
 		"		do\n"
-		"			ip6tables -A INPUT -\"${k}\" fd00:\"$a\"::b/48 -p tcp --\"${k}\"port 179 -j ACCEPT\n"
-		"			ip6tables -A OUTPUT -${k} fd00:$a::b/48 -p tcp --${k}port 179 -j ACCEPT\n"
-		"			ip6tables -A FORWARD -${k} fd00:$a::b/48 -p tcp --${k}port 179 -j ACCEPT\n"
+		"			ip6tables -A INPUT -${k} fd00:${a}::b -p tcp --${k}port 179 -j ACCEPT\n"
+		"			ip6tables -A OUTPUT -${k} fd00:${a}::b -p tcp --${k}port 179 -j ACCEPT\n"
+		"			ip6tables -A FORWARD -${k} fd00:${a}::b -p tcp --${k}port 179 -j ACCEPT\n"
 		"		done\n"
 		)
 	router_firewall_config_file.write(
