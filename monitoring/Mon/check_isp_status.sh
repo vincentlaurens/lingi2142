@@ -3,7 +3,7 @@
 LOG_FILE="/etc/log/isp_status_log"
 exec &>> $LOG_FILE
 
-ROUTERS_TO_CHECK=("Halles" "Pyth")
+ROUTERS_TO_CHECK=("Hall" "Pyth")
 BGP=("provider200" "provider300")
 
 # Wait for start of the network

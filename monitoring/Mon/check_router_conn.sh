@@ -4,8 +4,8 @@ LOG_FILE="/etc/log/conn_status_log"
 exec &>> $LOG_FILE
 
 declare -A IP
-IP+=( ["Halles-eth0"]="fd00:300:3:6::1" \
-      ["Halles-eth1"]="fd00:300:3:3::1" \
+IP+=( ["Hall-eth0"]="fd00:300:3:6::1" \
+      ["Hall-eth1"]="fd00:300:3:3::1" \
       ["belneta"]="fd00:200::3"         \
       ["Pyth-eth0"]="fd00:300:3:3::2"   \
       ["Pyth-eth1"]="fd00:300:3:2::2"   \
