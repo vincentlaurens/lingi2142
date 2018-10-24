@@ -14,7 +14,7 @@ do
 	# Check connectivity with ISP on each router
 	for (( i =0 ; i < ${#ROUTERS_TO_CHECK[@]}; i++ ));
 	do
-		status = $(birdc6 -s /tmp/${ROUTERS_TO_CHECK[$i]}_bird.ctl "show protocol ${BGP[$i]}" | grep ${BGP[$i]} | awk {'print $6'})
+		status=$(birdc6 -s /tmp/${ROUTERS_TO_CHECK[$i]}_bird.ctl "show protocol ${BGP[$i]}" | grep ${BGP[$i]} | awk {'print $6'})
 
 		# If ISP is reachable
 		if [ "$status" = "Established"  ]
