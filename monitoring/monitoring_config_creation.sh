@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script is called from parent folder (cd ./..)
+
 # Create directory
 sudo mkdir -p ./group3_cfg/
 

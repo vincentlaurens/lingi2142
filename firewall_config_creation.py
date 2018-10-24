@@ -58,6 +58,8 @@ for router, configs_firewall in data.items():
 		"#ip6tables -F OUTPUT\n"
 		"#ip6tables -F FORWARD\n"
 
+		
+		"#Define our policy\n"
 	        "#DROP Polycies\n"
         	"ip6tables -P INPUT DROP\n"
         	"ip6tables -P FORWARD DROP\n"
@@ -71,16 +73,10 @@ for router, configs_firewall in data.items():
 		"ip6tables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
 		
 		
-		"#Define our policy\n"
 		"# Reject connection attempts not initiated from the host\n"
-		"#ip6tables -A INPUT -p tcp --syn -j DROP\n\n"
+		"ip6tables -A INPUT -p tcp --syn -j DROP\n\n"
 		
 		"#Enable stateful inspection\n"
-		"#ip6tables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT\n"
-		"#ip6tables -A OUTPUT -m conntrack ! --ctstate INVALID -j ACCEPT\n"
-		"#ip6tables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
-		"#ip6tables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
-		"#ip6tables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT\n\n"
 		"ip6tables -A INPUT -p tcp -j ACCEPT\n"
 		"ip6tables -A FORWARD -p tcp -j ACCEPT\n"
 		"ip6tables -A OUTPUT -p tcp -j ACCEPT\n"
@@ -115,14 +111,8 @@ for router, configs_firewall in data.items():
 		router_firewall_config_file.write(
 		"		#allow BGP(router connected with provider)\n"
 		"		ip6tables -A INPUT -p tcp -m tcp --dport 179 -j ACCEPT\n"
-    	"		ip6tables -A OUTPUT -p tcp -m tcp --dport 179 -j ACCEPT\n" 
+    		"		ip6tables -A OUTPUT -p tcp -m tcp --dport 179 -j ACCEPT\n" 
 		"		ip6tables -A FORWARD -p tcp -m tcp --dport 179 -j ACCEPT\n"
-		#"#		for k in 's' 'd'\n"
-		#"#		do\n"
-		#"#			ip6tables -A INPUT -${k} fd00:${a}::"+configs_firewall["suffixe_provider"]+"/48 -p tcp --${k}port 179 -j ACCEPT\n"
-		#"#			ip6tables -A OUTPUT -${k} fd00:${a}::"+configs_firewall["suffixe_provider"]+"/48 -p tcp --${k}port 179 -j ACCEPT\n"
-		#"#			ip6tables -A FORWARD -${k} fd00:${a}::"+configs_firewall["suffixe_provider"]+"/48 -p tcp --${k}port 179 -j ACCEPT\n"
-		#"#		done\n"
 		)
 	router_firewall_config_file.write(
 		"		ip6tables -A OUTPUT -p udp -d fd00:${a}:3:"+configs_firewall["suffixe_DNS"]+"/64 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT\n"
