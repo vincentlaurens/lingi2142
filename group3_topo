@@ -49,6 +49,7 @@ function mk_topo {
     mk_LAN Pyth ns2   # Pyth-lan0-network-management:Secondary DNS
     mk_LAN Pyth Py1 # Pyth-lan1-host
     mk_LAN Pyth Mon # Pyth-lan2-monitoring
+    mk_LAN Carn Students, teachers
 
     echo "@@ Bridging the network"
     # Connect to belneta and belnetb
