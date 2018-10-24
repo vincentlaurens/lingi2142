@@ -10,4 +10,5 @@ ip -6 route add ::/0 via fd00:200:3:ffff::
 
 # Scripts
 /etc/check_isp_status.sh &
-#/etc/check....
+/etc/check_dns_status.sh &
+/etc/check_router_conn.sh
