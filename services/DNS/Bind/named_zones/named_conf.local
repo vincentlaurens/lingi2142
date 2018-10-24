@@ -1,0 +1,5 @@
+//Zone group3.ingi : public zone
+zone "group3.ingi" IN {
+    type master;
+    file "/etc/bind/zones/db.group3.ingi";
+};
