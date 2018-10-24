@@ -9,18 +9,18 @@
 		},
 		"isp": {
 			"belnetb": {
-				"asn": "3",
-				"name_bgp": "200",
-				"self_address": "fd00:200::3/48",
-				"neighbor_address": "fd00:200::b"
-			},
-			"load_balancing": [
-				"ip -6 rule add from fd00:200:3::/48 to fd00:200:3::/48 pref 1000 table main",
-				"ip -6 rule add from fd00:200:3::/48 to fd00:300:3::/48 pref 1000 table main",
-				"ip -6 route add ::/0 via fd00:200:3::2 dev HALL-eth1 metric 1 table lb",
-				"ip -6 rule add from fd00:200:3::/48 pref 2000 table lb"
-			]
-		}
+              "asn": "3",
+              "name_bgp": "200",
+              "self_address": "fd00:200::3/48",
+              "neighbor_address": "fd00:200::b"
+            }
+		},
+        "load_balancing": [
+          "ip -6 rule add from fd00:200:3::/48 to fd00:200:3::/48 pref 1000 table main",
+          "ip -6 rule add from fd00:200:3::/48 to fd00:300:3::/48 pref 1000 table main",
+          "ip -6 route add ::/0 via fd00:200:3::2 dev HALL-eth1 metric 1 table lb",
+          "ip -6 rule add from fd00:200:3::/48 pref 2000 table lb"
+        ]
 	},
 	"Pyth": {
 		"router_id": "2",
@@ -33,18 +33,18 @@
 		},
 		"isp": {
 			"belneta": {
-				"asn": "3",
-				"name_bgp": "300",
-				"self_address": "fd00:300::3/48",
-				"neighbor_address": "fd00:300::b"
-			},
-			"load_balancing": [
-				"ip -6 rule add from fd00:300:3::/48 to fd00:300:3::/48 pref 1000 table main",
-				"ip -6 rule add from fd00:300:3::/48 to fd00:200:3::/48 pref 1000 table main",
-				"ip -6 route add ::/0 via fd00:300:3::1 dev Pyth-eth0 metric 1 table lb",
-				"ip -6 rule add from fd00:300:3::/48 pref 2000 table lb"
-			]
-		},
+              "asn": "3",
+              "name_bgp": "300",
+              "self_address": "fd00:300::3/48",
+              "neighbor_address": "fd00:300::b"
+            }
+        },
+        "load_balancing": [
+            "ip -6 rule add from fd00:300:3::/48 to fd00:300:3::/48 pref 1000 table main",
+            "ip -6 rule add from fd00:300:3::/48 to fd00:200:3::/48 pref 1000 table main",
+            "ip -6 route add ::/0 via fd00:300:3::1 dev Pyth-eth0 metric 1 table lb",
+            "ip -6 rule add from fd00:300:3::/48 pref 2000 table lb"
+        ],
 		"bgp_peers": {
 			"group1": {
 				"asn": "1",
