@@ -22,4 +22,4 @@ group3_cfg/*/hosts
 group3_cfg/*/manpath.config
 group3_cfg/*/passwd
 group3_cfg/*/services
-
+./idea
