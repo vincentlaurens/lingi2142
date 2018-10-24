@@ -37,14 +37,16 @@ for router, configs in data.items():
 			router_start_file.write("ip link set dev "+isp+" up \n"
 			                        "ip address add dev "+isp+" "+isp_configs["self_address"]+"  \n\n"
                                     )
-		#router_start_file.write(configs["static_path"])
+		for command in configs["load_balancing"]:
+			router_start_file.write("	"+command+"\n")
+		router_start_file.write("\n")
+
 	for eth, eth_configs in configs["eths"].items():
 		router_start_file.write("ip link set dev "+router+"-"+eth+" up \n")
 		for prefix_address in PREFIXES_ADDRESS:
 			router_start_file.write("ip address add dev "+router+"-"+eth+" "+prefix_address+eth_configs+"::"+configs["router_id"]+"/64 \n")
-		router_start_file.write("\n")
-	for command in configs["load_balancing"]:
-		router_start_file.write("	"+command)
+
+
 
 	for lan, lan_configs in configs["lans"].items():
 		router_start_file.write("ip link set dev "+router+"-"+lan+" up \n")
