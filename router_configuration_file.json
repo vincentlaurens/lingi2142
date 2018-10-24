@@ -31,9 +31,6 @@
 			"eth1": "2",
 			"eth2": "1"
 		},
-		"lans": {
-			"lan2": "ffff"
-		},
 		"isp": {
 			"belneta": {
 				"asn": "3",
@@ -54,6 +51,9 @@
 				"peer_address": "fd00:200::1",
 				"accepted_prefix": "fd00:200:1:1000::/64"
 			}
+		},
+		"lans": {
+			"lan2": "ffff"
 		}
 	},
     "Stev":{
