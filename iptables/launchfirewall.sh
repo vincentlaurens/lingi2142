@@ -2,7 +2,7 @@
 
 echo "Starting the firewalls on all routers ..."
 
-sudo ip netns exec "Halles" ./Halles.sh
+sudo ip netns exec "Halles" ./iptables/Halles.sh
 
 sudo ip netns exec "Pyth" ./Pyth.sh
 

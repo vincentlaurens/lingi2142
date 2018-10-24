@@ -4,7 +4,7 @@ LOG_FILE="/etc/log/dns_status_log"
 exec &>> $LOG_FILE
 
 declare -A DNS
-DNS+=( ["ns1"]="fd00:300:3:1000::1" ["ns2"]="fd00:300:3:2000::1" )
+DNS+=( ["ns1"]="fd00:300:3:1000::1" ["ns2"]="fd00:300:3:1000::2" )
 
 # Wait for start of the network
 sleep 15
