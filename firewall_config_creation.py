@@ -122,10 +122,10 @@ for router, configs_firewall in data.items():
 		"		done\n"
 		)
 	router_firewall_config_file.write(
-		"		ip6tables -A OUTPUT -p udp -d fd00:${a}:3:1000::1/64 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT\n"
-		"		ip6tables -A INPUT  -p udp -s fd00:${a}:3:1000::1/64 --sport 53 -m state --state ESTABLISHED     -j ACCEPT\n"
-		"		ip6tables -A OUTPUT -p tcp -d fd00:${a}:3:1000::1/64 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT\n"
-		"		ip6tables -A INPUT -p tcp -s fd00:${a}:3:1000::1/64 --sport 53 -m state --state ESTABLISHED -j ACCEPT\n"
+		"		ip6tables -A OUTPUT -p udp -d fd00:${a}:3:1000::1 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT\n"
+		"		ip6tables -A INPUT  -p udp -s fd00:${a}:3:1000::1 --sport 53 -m state --state ESTABLISHED     -j ACCEPT\n"
+		"		ip6tables -A OUTPUT -p tcp -d fd00:${a}:3:1000::1 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT\n"
+		"		ip6tables -A INPUT -p tcp -s fd00:${a}:3:1000::1 --sport 53 -m state --state ESTABLISHED -j ACCEPT\n"
 		"done\n"
 		"# Allow external access to your HTTP and HTTPS server\n"
 		"sudo ip6tables -A INPUT -p tcp -m multiport --dports 80,443,8080 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT\n"
