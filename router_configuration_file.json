@@ -39,7 +39,10 @@
 				"peer_address": "fd00:200::1",
 				"accepted_prefix": "fd00:200:1:1000::/64"
 			}
-		}
+		},
+      "lans": {
+        "lan2": "ffff"
+      }
 	},
     "Stev":{
 		"router_id":"3",
@@ -56,7 +59,11 @@
 			"eth0":"4",
 			"eth1":"2",
             "eth2":"3"
-		}
+		},
+      "lans": {
+        "Stud": "10",
+        "Staff": "20"
+      }
 	},
 	"Mich":{
 		"router_id":"5",
