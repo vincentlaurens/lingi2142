@@ -14,13 +14,7 @@
               "self_address": "fd00:200::3/48",
               "neighbor_address": "fd00:200::b"
             }
-		},
-        "load_balancing": [
-          "ip -6 rule add from fd00:200:3::/48 to fd00:200:3::/48 pref 1000 table main",
-          "ip -6 rule add from fd00:200:3::/48 to fd00:300:3::/48 pref 1000 table main",
-          "ip -6 route add ::/0 via fd00:200:3::2 dev HALL-eth1 metric 1 table lb",
-          "ip -6 rule add from fd00:200:3::/48 pref 2000 table lb"
-        ]
+		}
 	},
 	"Pyth": {
 		"router_id": "2",
@@ -39,21 +33,12 @@
               "neighbor_address": "fd00:300::b"
             }
         },
-        "load_balancing": [
-            "ip -6 rule add from fd00:300:3::/48 to fd00:300:3::/48 pref 1000 table main",
-            "ip -6 rule add from fd00:300:3::/48 to fd00:200:3::/48 pref 1000 table main",
-            "ip -6 route add ::/0 via fd00:300:3::1 dev Pyth-eth0 metric 1 table lb",
-            "ip -6 rule add from fd00:300:3::/48 pref 2000 table lb"
-        ],
 		"bgp_peers": {
 			"group1": {
 				"asn": "1",
 				"peer_address": "fd00:200::1",
 				"accepted_prefix": "fd00:200:1:1000::/64"
 			}
-		},
-		"lans": {
-			"lan2": "ffff"
 		}
 	},
     "Stev":{
@@ -62,7 +47,8 @@
 		"eths":{
 			"eth0":"3",
 			"eth1":"1"
-		}
+		},
+        "load_balancing": []
 	},
 	"Carn":{
 		"router_id":"4",
@@ -71,7 +57,8 @@
 			"eth0":"4",
 			"eth1":"2",
             "eth2":"3"
-		}
+		},
+        "load_balancing": []
 	},
 	"Mich":{
 		"router_id":"5",
@@ -79,7 +66,8 @@
 		"eths":{
 			"eth0":"5",
 			"eth1":"4"
-		}
+		},
+        "load_balancing": []
 	},
 	"SH1C":{
 		"router_id":"6",
@@ -87,6 +75,7 @@
 		"eths":{
 			"eth0":"5",
 			"eth1":"6"
-		}
+		},
+        "load_balancing": []
 	}
 }
