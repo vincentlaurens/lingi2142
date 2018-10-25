@@ -113,17 +113,14 @@ for router, configs_firewall in data.items():
 				if lan == "stud" and lan2 == "staff":
 					"#Drop connexion from stud to staff\n"
 					"ip6tables -A FORWARD -s fd00:${a}:3:"+lan+"::"+configs_firewall["router_id"]+"/48 -d fd00:${a}:3:"+lan2+"::"+configs_firewall["router_id"]+"/48 -j DROP\n"
-				)
 			if configs_firewall["lans"] == "stud":
 				"#Prohibit Router Advertisement for the student\n"
 				"ip6tables -A INPUT -s fd00:${a}:3:"+lan+"::"+configs_firewall["router_id"]+"/48 -p icmpv6 --icmpv6-type 134/0 -j ACCEPT\n"
-			)
 		"		# Restrict incoming SSH to a specific network interface\n"
 		"		ip6tables -A INPUT -i "+router+"-eth1 -p tcp --dport 22 -j ACCEPT\n"
 		"		ip6tables -I OUTPUT -o  "+router+"-eth1 -p udp --dport 33434:33524 -m state --state NEW -j ACCEPT\n"
 		"		#Restrict incoming SSH to the local network\n"
 		"		ip6tables -A INPUT -i "+router+"-eth1 -p tcp -s fd00:${a}:3::"+configs_firewall["router_id"]+"/48 --dport 22 -j ACCEPT\n\n"
-	)
 	if configs_firewall["bgp"] == "true":
 		router_firewall_config_file.write(
 		"		#allow BGP(router connected with provider)\n"
