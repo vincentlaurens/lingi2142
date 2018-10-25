@@ -22,10 +22,10 @@
 		"bgp": "false",
 		"suffixe_provider": "b",
 		"suffixe_DNS": "1000::1",
-		"lans":{
+		"lans": {
 			"lan0-Stud": "040",
-			"lan1-Staff": "041"
-			}
+			"lan1-Staff:": "041"
+		}
 	},
 	"Mich":{
 		"router_id": "5",
