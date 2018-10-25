@@ -61,8 +61,8 @@
             "eth2":"3"
 		},
 		"lans": {
-			"Carn-lan0-Stud": "h10",
-			"Carn-lan1-Staff:": "h20"
+			"lan0-Stud": "h10",
+			"lan1-Staff:": "h20"
 	      }
 	},
 	"Mich":{
