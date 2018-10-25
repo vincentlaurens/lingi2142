@@ -61,8 +61,8 @@
             "eth2":"3"
 		},
       "lans": {
-        "Stud": "10",
-        "Staff": "20"
+        "Stud": "h10",
+        "Staff": "h20"
       }
 	},
 	"Mich":{
