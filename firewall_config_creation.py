@@ -7,9 +7,6 @@ import sys
 from pprint import pprint
 from constants import PATH
 
-#pprint(data)
-#pprint("Writting:"+PATH+"iptables/launchfirewall.sh")
-
 
 ####################launchfirewall.sh###############################"
 iptables_file = open(PATH+"iptables/launchfirewall.sh", "w")
@@ -47,6 +44,8 @@ for router, configs_firewall in data.items():
 	router_firewall_config_file.write(
 		"#!/bin/bash\n"
 		"#Document generates by script firewall_config_creation.py, have a look on this python script for more details\n\n\n"
+		
+		"\n"
 
 		"#Reinitialize the configuration\n"
 		"ip6tables -F\n"
@@ -89,18 +88,36 @@ for router, configs_firewall in data.items():
 		"ip6tables -A FORWARD -p 89 -j ACCEPT\n\n"
 		
 		"#Authorize outgoing and incoming ping\n"
+		"#https://www.iana.org/assignments/icmpv6-parameters/icmpv6-parameters.xhtml"
 		"ip6tables -A INPUT -p icmpv6 -j ACCEPT\n"
 		"ip6tables -A OUTPUT -p icmpv6 -j ACCEPT\n"
 		"ip6tables -A FORWARD -p icmpv6 -j ACCEPT\n"
+		"#limitation on 128/0\n"
+		"ip6tables -A INPUT -p icmpv6 --icmpv6-type echo-request -j ACCEPT --match limit --limit 5/minute\n"
+		"# Neighbor Solicitation limitation to avoid DoS\n"
+		"ip6tables -A INPUT -p icmpv6 --icmpv6-type 135/0 -j ACCEPT --match limit --limit 15/minute\n"
+		
+		"# Allow DHCPv6 traffic"
+		"ip6tables -A INPUT -m state --state NEW -m udp -p udp --dport 546 -d fe80::/64 -j ACCEPT\n"
+		
 		
 		"#Allow Traceroute\n"
 		"ip6tables -I INPUT -p udp --sport 33434:33524 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT\n\n"
 		
 		"# Allow logging in via SSH\n"
 		"#ip6tables -A INPUT -p tcp --dport 22 -j ACCEPT\n\n"
-		"# Restrict incoming SSH to a specific network interface\n"
 		"for a in 200 300\n"
 		"do\n"
+	if "lans" in configs_firewall:
+		for lan in configs_firewall["lan"]:
+			if lan == "stud" && "staff":
+			"		#Drop connexion from stud to staff\n"
+			"		ip6tables -A FORWARD -s fd00:${a}:3:"+configs_firewall["stud"]+"::"+configs_firewall["router_id"]+"/48 -d fd00:${a}:3:"+configs_firewall["stud"]+"::"+configs_firewall["router_id"]+"/48 -j DROP\n"
+			if configs_firewall["lans"] == "stud":
+				"#Prohibit Router Advertisement for the student\n"
+				"ip6tables -A INPUT -s fd00:${a}:3:"+lan+"::"+configs_firewall["router_id"]+"/48 -p icmpv6 --icmpv6-type 134/0 -j ACCEPT\n"
+			)
+		"		# Restrict incoming SSH to a specific network interface\n"
 		"		ip6tables -A INPUT -i "+router+"-eth1 -p tcp --dport 22 -j ACCEPT\n"
 		"		ip6tables -I OUTPUT -o  "+router+"-eth1 -p udp --dport 33434:33524 -m state --state NEW -j ACCEPT\n"
 		"		#Restrict incoming SSH to the local network\n"
