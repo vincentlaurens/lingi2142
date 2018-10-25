@@ -61,8 +61,8 @@
             "eth2":"3"
 		},
 		"lans": {
-			"lan0-Stud": "h10",
-			"lan1-Staff:": "h20"
+			"lan0-Stud": "040",
+			"lan1-Staff:": "041"
 	      }
 	},
 	"Mich":{
