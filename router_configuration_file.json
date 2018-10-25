@@ -60,9 +60,15 @@
 			"eth1":"2",
             		"eth2":"3"
 		},
-	      "lans": {
-		"Stud": "h10",
-		"Staff": "h20"
+		"lans": {
+			"lan0": {
+				"id_lan": "Stud",
+				"addr": "h10"
+			},
+			"lan1": {
+				"id_lan": "Staff",
+				"addr": "h20"
+			}
 	      }
 	},
 	"Mich":{
