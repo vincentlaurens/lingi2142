@@ -88,7 +88,6 @@ for router, configs_firewall in data.items():
 		"ip6tables -A FORWARD -p 89 -j ACCEPT\n\n"
 		
 		"#Authorize outgoing and incoming ping\n"
-		"#https://www.iana.org/assignments/icmpv6-parameters/icmpv6-parameters.xhtml"
 		"ip6tables -A INPUT -p icmpv6 -j ACCEPT\n"
 		"ip6tables -A OUTPUT -p icmpv6 -j ACCEPT\n"
 		"ip6tables -A FORWARD -p icmpv6 -j ACCEPT\n"
