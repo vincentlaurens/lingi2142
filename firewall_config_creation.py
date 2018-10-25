@@ -110,20 +110,20 @@ for router, configs_firewall in data.items():
 		)
 	if "lans" in configs_firewall:
 		
-		for lan, lan_configs in configs["lans"].items():
+		for lan, lan_configs in configs_firewall["lans"].items():
 					router_firewall_config_file.write(
 					"#Drop connexion from stud to staff\n"
-					"ip6tables -A FORWARD -s fd00:${a}:3:"+lans_configs["Stud"]+"::"+configs_firewall["router_id"]+"/48 -d fd00:${a}:3:"+lans_configs["Straff"]+"::"+configs_firewall["router_id"]+"/48 -j DROP\n\n"
+					"ip6tables -A FORWARD -s fd00:${a}:3:"+lan_configs["Stud"]+"::"+configs_firewall["router_id"]+"/48 -d fd00:${a}:3:"+lan_configs["Straff"]+"::"+configs_firewall["router_id"]+"/48 -j DROP\n\n"
 					"# Allow SSH for students and staff members\n"
-					"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lans_configs["Stud"]+"::"+configs_firewall["router_id"]+"/48  -d fd00:${a}:3:"+lans_configs["Straff"]+"::"+configs_firewall["router_id"]+"/48 --dport 22 -j ACCEPT\n\n"
+					"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lan_configs["Stud"]+"::"+configs_firewall["router_id"]+"/48  -d fd00:${a}:3:"+lan_configs["Straff"]+"::"+configs_firewall["router_id"]+"/48 --dport 22 -j ACCEPT\n\n"
 					"# Allow SMTP for students and staff members\n"
-					"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lans_configs["Stud"]+"::"+configs_firewall["router_id"]+"/48  -d fd00:${a}:3:"+lans_configs["Straff"]+"::"+configs_firewall["router_id"]+"/48 --dport 25 -j ACCEPT\n\n"
+					"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lan_configs["Stud"]+"::"+configs_firewall["router_id"]+"/48  -d fd00:${a}:3:"+lan_configs["Straff"]+"::"+configs_firewall["router_id"]+"/48 --dport 25 -j ACCEPT\n\n"
 					"# Allow HTTP and HTTPS for students and staff members\n"
-					"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lans_configs["Stud"]+"::"+configs_firewall["router_id"]+"/48  -d fd00:${a}:3:"+lans_configs["Straff"]+"::"+configs_firewall["router_id"]+"/48 --dport 80 -j ACCEPT\n"
-					"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lans_configs["Stud"]+"::"+configs_firewall["router_id"]+"/48  -d fd00:${a}:3:"+lans_configs["Straff"]+"::"+configs_firewall["router_id"]+"/48 --dport 443 -j ACCEPT\n\n"
+					"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lan_configs["Stud"]+"::"+configs_firewall["router_id"]+"/48  -d fd00:${a}:3:"+lan_configs["Straff"]+"::"+configs_firewall["router_id"]+"/48 --dport 80 -j ACCEPT\n"
+					"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lan_configs["Stud"]+"::"+configs_firewall["router_id"]+"/48  -d fd00:${a}:3:"+lan_configs["Straff"]+"::"+configs_firewall["router_id"]+"/48 --dport 443 -j ACCEPT\n\n"
 					
 					"#Prohibit Router Advertisement for the student\n"
-					"ip6tables -A INPUT -s fd00:${a}:3:"+lans_configs["Stud"]+"::"+configs_firewall["router_id"]+"/48 -p icmpv6 --icmpv6-type 134/0 -j ACCEPT\n"
+					"ip6tables -A INPUT -s fd00:${a}:3:"+lan_configs["Stud"]+"::"+configs_firewall["router_id"]+"/48 -p icmpv6 --icmpv6-type 134/0 -j ACCEPT\n"
 
 					)
 		
