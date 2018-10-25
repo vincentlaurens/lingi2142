@@ -112,7 +112,7 @@ for router, configs_firewall in data.items():
 		lan_rules = []
 		for lan, lan_configs in configs_firewall["lans"].items():
 			lan_rules += lan_configs
-
+		pprint(configs_firewall["router_id"])
 		router_firewall_config_file.write(
 				"#Drop connexion from stud to staff\n"
 				"ip6tables -A FORWARD -s fd00:${a}:3:"+lan_rules[0]+"::"+configs_firewall["router_id"]+"/48 -d fd00:${a}:3:"+lan_rules[1]+"::"+configs_firewall["router_id"]+"/48 -j DROP\n\n"
