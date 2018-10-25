@@ -23,13 +23,9 @@
 		"suffixe_provider": "b",
 		"suffixe_DNS": "1000::1",
 		"lans":{
-			"lan1":{
-				"stud": "h10"
-			},
-			"lan2":{
-				"staff": "h20"
+			"Stud": "h10",
+			"Staff": "h20"
 			}
-		}
 	},
 	"Mich":{
 		"router_id": "5",
