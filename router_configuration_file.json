@@ -58,12 +58,12 @@
 		"eths":{
 			"eth0":"4",
 			"eth1":"2",
-            "eth2":"3"
+            		"eth2":"3"
 		},
-      "lans": {
-        "Stud": "h10",
-        "Staff": "h20"
-      }
+	      "lans": {
+		"Stud": "h10",
+		"Staff": "h20"
+	      }
 	},
 	"Mich":{
 		"router_id":"5",
