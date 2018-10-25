@@ -49,7 +49,8 @@ for router, configs in data.items():
 			router_start_file.write("ip link set dev "+router+"-"+lan+"-"+lan_configs["id_lan"]+" up \n")
 			for prefix_address in PREFIXES_ADDRESS:
 				router_start_file.write("ip address add dev "+router+"-"+lan+"-"+lan_configs["id_lan"]+" "+prefix_address+lan_configs["addr"]+"::"+configs["router_id"]+"/64 \n")
-
+				pprint(lan+"\n")
+				pprint(lan_configs["id_lan"]+"\n")
 	router_start_file.write("bird6 -s /tmp/"+router+"_bird.ctl -P /tmp/"+router+"_bird.pid \n")
 	router_start_file.close()
 	os.chmod(PATH+"group3_cfg/"+router+"_start.sh", 0o766)
