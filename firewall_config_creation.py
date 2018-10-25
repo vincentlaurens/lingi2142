@@ -57,10 +57,10 @@ for router, configs_firewall in data.items():
 		"#ip6tables -F OUTPUT\n"
 		"#ip6tables -F FORWARD\n"
 
-	        "#DROP Polycies\n"
-        	"ip6tables -P INPUT DROP\n"
-        	"ip6tables -P FORWARD DROP\n"
-        	"ip6tables -P OUTPUT DROP\n\n"
+		"#DROP Polycies\n"
+		"ip6tables -P INPUT DROP\n"
+		"ip6tables -P FORWARD DROP\n"
+		"ip6tables -P OUTPUT DROP\n\n"
 
 		"# Required for the loopback interface\n"
 		"ip6tables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
@@ -107,25 +107,38 @@ for router, configs_firewall in data.items():
 		"#ip6tables -A INPUT -p tcp --dport 22 -j ACCEPT\n\n"
 		"for a in 200 300\n"
 		"do\n"
+		)
 	if "lans" in configs_firewall:
-		for lan in configs_firewall["lan"]:
-			for lan2 in configs_firewall["lan"]:
-				if lan == "stud" and lan2 == "staff":
+		
+		for lan, lan_configs in configs["lans"].items():
+					router_firewall_config_file.write(
 					"#Drop connexion from stud to staff\n"
-					"ip6tables -A FORWARD -s fd00:${a}:3:"+lan+"::"+configs_firewall["router_id"]+"/48 -d fd00:${a}:3:"+lan2+"::"+configs_firewall["router_id"]+"/48 -j DROP\n"
-			if configs_firewall["lans"] == "stud":
-				"#Prohibit Router Advertisement for the student\n"
-				"ip6tables -A INPUT -s fd00:${a}:3:"+lan+"::"+configs_firewall["router_id"]+"/48 -p icmpv6 --icmpv6-type 134/0 -j ACCEPT\n"
+					"ip6tables -A FORWARD -s fd00:${a}:3:"+lans_configs["Stud"]+"::"+configs_firewall["router_id"]+"/48 -d fd00:${a}:3:"+lans_configs["Straff"]+"::"+configs_firewall["router_id"]+"/48 -j DROP\n\n"
+					"# Allow SSH for students and staff members\n"
+					"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lans_configs["Stud"]+"::"+configs_firewall["router_id"]+"/48  -d fd00:${a}:3:"+lans_configs["Straff"]+"::"+configs_firewall["router_id"]+"/48 --dport 22 -j ACCEPT\n\n"
+					"# Allow SMTP for students and staff members\n"
+					"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lans_configs["Stud"]+"::"+configs_firewall["router_id"]+"/48  -d fd00:${a}:3:"+lans_configs["Straff"]+"::"+configs_firewall["router_id"]+"/48 --dport 25 -j ACCEPT\n\n"
+					"# Allow HTTP and HTTPS for students and staff members\n"
+					"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lans_configs["Stud"]+"::"+configs_firewall["router_id"]+"/48  -d fd00:${a}:3:"+lans_configs["Straff"]+"::"+configs_firewall["router_id"]+"/48 --dport 80 -j ACCEPT\n"
+					"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lans_configs["Stud"]+"::"+configs_firewall["router_id"]+"/48  -d fd00:${a}:3:"+lans_configs["Straff"]+"::"+configs_firewall["router_id"]+"/48 --dport 443 -j ACCEPT\n\n"
+					
+					"#Prohibit Router Advertisement for the student\n"
+					"ip6tables -A INPUT -s fd00:${a}:3:"+lans_configs["Stud"]+"::"+configs_firewall["router_id"]+"/48 -p icmpv6 --icmpv6-type 134/0 -j ACCEPT\n"
+
+					)
+		
+		router_firewall_config_file.write(
 		"		# Restrict incoming SSH to a specific network interface\n"
 		"		ip6tables -A INPUT -i "+router+"-eth1 -p tcp --dport 22 -j ACCEPT\n"
 		"		ip6tables -I OUTPUT -o  "+router+"-eth1 -p udp --dport 33434:33524 -m state --state NEW -j ACCEPT\n"
 		"		#Restrict incoming SSH to the local network\n"
 		"		ip6tables -A INPUT -i "+router+"-eth1 -p tcp -s fd00:${a}:3::"+configs_firewall["router_id"]+"/48 --dport 22 -j ACCEPT\n\n"
+		)
 	if configs_firewall["bgp"] == "true":
 		router_firewall_config_file.write(
 		"		#allow BGP(router connected with provider)\n"
 		"		ip6tables -A INPUT -p tcp -m tcp --dport 179 -j ACCEPT\n"
-    		"		ip6tables -A OUTPUT -p tcp -m tcp --dport 179 -j ACCEPT\n" 
+		"		ip6tables -A OUTPUT -p tcp -m tcp --dport 179 -j ACCEPT\n" 
 		"		ip6tables -A FORWARD -p tcp -m tcp --dport 179 -j ACCEPT\n"
 		)
 	router_firewall_config_file.write(
