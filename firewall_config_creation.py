@@ -7,9 +7,6 @@ import sys
 from pprint import pprint
 from constants import PATH
 
-#pprint(data)
-#pprint("Writting:"+PATH+"iptables/launchfirewall.sh")
-
 
 ####################launchfirewall.sh###############################"
 iptables_file = open(PATH+"iptables/launchfirewall.sh", "w")
