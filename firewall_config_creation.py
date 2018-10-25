@@ -106,7 +106,6 @@ for router, configs_firewall in data.items():
 		
 		"# Allow logging in via SSH\n"
 		"#ip6tables -A INPUT -p tcp --dport 22 -j ACCEPT\n\n"
-		"# Restrict incoming SSH to a specific network interface\n"
 		"for a in 200 300\n"
 		"do\n"
 	if "lans" in configs_firewall:
@@ -118,6 +117,7 @@ for router, configs_firewall in data.items():
 				"#Prohibit Router Advertisement for the student\n"
 				"ip6tables -A INPUT -s fd00:${a}:3:"+lan+"::"+configs_firewall["router_id"]+"/48 -p icmpv6 --icmpv6-type 134/0 -j ACCEPT\n"
 			)
+		"		# Restrict incoming SSH to a specific network interface\n"
 		"		ip6tables -A INPUT -i "+router+"-eth1 -p tcp --dport 22 -j ACCEPT\n"
 		"		ip6tables -I OUTPUT -o  "+router+"-eth1 -p udp --dport 33434:33524 -m state --state NEW -j ACCEPT\n"
 		"		#Restrict incoming SSH to the local network\n"
