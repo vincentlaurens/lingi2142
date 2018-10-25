@@ -23,8 +23,12 @@
 		"suffixe_provider": "b",
 		"suffixe_DNS": "1000::1",
 		"lans":{
-			"stud": "h10",
-			"staff": "h20"
+			"lan1":{
+				"stud": "h10"
+			},
+			"lan2":{
+				"staff": "h20"
+			}
 		}
 	},
 	"Mich":{
