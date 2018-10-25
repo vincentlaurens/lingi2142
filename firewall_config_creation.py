@@ -110,9 +110,11 @@ for router, configs_firewall in data.items():
 		"do\n"
 	if "lans" in configs_firewall:
 		for lan in configs_firewall["lan"]:
-			if lan == "stud" && "staff":
-			"		#Drop connexion from stud to staff\n"
-			"		ip6tables -A FORWARD -s fd00:${a}:3:"+configs_firewall["stud"]+"::"+configs_firewall["router_id"]+"/48 -d fd00:${a}:3:"+configs_firewall["stud"]+"::"+configs_firewall["router_id"]+"/48 -j DROP\n"
+			for lan2 in configs_firewall["lan"]:
+				if lan == "stud" and lan2 == "staff":
+					"#Drop connexion from stud to staff\n"
+					"ip6tables -A FORWARD -s fd00:${a}:3:"+lan+"::"+configs_firewall["router_id"]+"/48 -d fd00:${a}:3:"+lan2+"::"+configs_firewall["router_id"]+"/48 -j DROP\n"
+				)
 			if configs_firewall["lans"] == "stud":
 				"#Prohibit Router Advertisement for the student\n"
 				"ip6tables -A INPUT -s fd00:${a}:3:"+lan+"::"+configs_firewall["router_id"]+"/48 -p icmpv6 --icmpv6-type 134/0 -j ACCEPT\n"
