@@ -1,84 +1,42 @@
 {
 	"Hall": {
 		"router_id": "1",
-		"setup_bgp_conf":"true",
-		"default_bgp_prefix_to_advertise": "fd00:200:3::/48",
-		"eths": {
-			"eth0": "6",
-			"eth1": "0"
-		},
-		"isp": {
-			"belnetb": {
-              "asn": "3",
-              "name_bgp": "200",
-              "self_address": "fd00:200::3/48",
-              "neighbor_address": "fd00:200::b"
-            }
-		}
+		"bgp": "true",
+		"suffixe_provider": "b",
+		"suffixe_DNS": "1000::1"
 	},
 	"Pyth": {
 		"router_id": "2",
-		"setup_bgp_conf":"true",
-		"default_bgp_prefix_to_advertise": "fd00:300:3::/48",
-		"eths": {
-			"eth0": "0",
-			"eth1": "2",
-			"eth2": "1"
-		},
-		"isp": {
-			"belneta": {
-              "asn": "3",
-              "name_bgp": "300",
-              "self_address": "fd00:300::3/48",
-              "neighbor_address": "fd00:300::b"
-            }
-        },
-		"bgp_peers": {
-			"group1": {
-				"asn": "1",
-				"peer_address": "fd00:200::1",
-				"accepted_prefix": "fd00:200:1:1000::/64"
-			}
-		},
-      "lans": {
-        "lan2": "ffff"
-      }
+		"bgp": "true",
+		"suffixe_provider": "b",
+		"suffixe_DNS": "1000::1"
 	},
-    "Stev":{
-		"router_id":"3",
-		"setup_bgp_conf":"false",
-		"eths":{
-			"eth0":"3",
-			"eth1":"1"
+	"Stev": {
+		"router_id": "3",
+		"bgp": "false",
+		"suffixe_provider": "b",
+		"suffixe_DNS": "1000::1"
+	},
+	"Carn": {
+		"router_id": "4",
+		"bgp": "false",
+		"suffixe_provider": "b",
+		"suffixe_DNS": "1000::1",
+		"lans":{
+			"stud": "h10",
+			"staff": "h20"
 		}
-	},
-	"Carn":{
-		"router_id":"4",
-		"setup_bgp_conf":"false",
-		"eths":{
-			"eth0":"4",
-			"eth1":"2",
-            "eth2":"3"
-		},
-      "lans": {
-        "Stud": "h10",
-        "Staff": "h20"
-      }
 	},
 	"Mich":{
-		"router_id":"5",
-		"setup_bgp_conf":"false",
-		"eths":{
-			"eth0":"5",
-			"eth1":"4"
-		}
+		"router_id": "5",
+		"bgp": "false",
+		"suffixe_provider": "b",
+		"suffixe_DNS": "1000::1"
 	},
-	"SH1C":{
-		"router_id":"6",
-		"setup_bgp_conf":"false",
-		"eths":{
-			"eth0":"5",
-			"eth1":"6"
-		}
+	"SH1C": {
+		"router_id": "6",
+		"bgp": "false",
+		"suffixe_provider": "b",
+		"suffixe_DNS": "1000::1"
 	}
 }
