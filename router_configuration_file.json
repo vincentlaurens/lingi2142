@@ -61,14 +61,8 @@
             "eth2":"3"
 		},
 		"lans": {
-			"lan0": {
-				"id_lan": "Stud",
-				"addr": "h10"
-			},
-			"lan1": {
-				"id_lan": "Staff",
-				"addr": "h20"
-			}
+			"lan0": "h10",
+			"lan1": "h20"
 	      }
 	},
 	"Mich":{
