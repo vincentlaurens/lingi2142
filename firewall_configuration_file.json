@@ -21,7 +21,11 @@
 		"router_id": "4",
 		"bgp": "false",
 		"suffixe_provider": "b",
-		"suffixe_DNS": "1000::1"
+		"suffixe_DNS": "1000::1",
+		"lans":{
+			"stud": "10",
+			"staff": "20"
+		}
 	},
 	"Mich":{
 		"router_id": "5",
