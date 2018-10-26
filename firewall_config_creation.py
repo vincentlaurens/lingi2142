@@ -126,7 +126,7 @@ for router, configs_firewall in data.items():
 				"ip6tables -A FORWARD -s fd00:${a}:3:"+lan_rules[1]+"::"+configs_firewall["router_id"]+"/64 -d fd00:${a}:3:"+lan_rules[1]+"::"+configs_firewall["router_id"]+"/64 -j DROP\n\n"
 				"# Allow\Drop SSH between stud and staff members\n"
 				"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lan_rules[0]+"::"+configs_firewall["router_id"]+"/64  -d fd00:${a}:3:"+lan_rules[1]+"::"+configs_firewall["router_id"]+"/64 --dport 22 -j DROP\n\n"
-				"Drop SSH from stud to stud\n"
+				"# Drop SSH from stud to stud\n"
 				"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lan_rules[0]+"::"+configs_firewall["router_id"]+"/64 -d fd00:${a}:3:"+lan_rules[0]+"::"+configs_firewall["router_id"]+"/64 --dport 22 -j ACCEPT\n\n"
 				"#Drop SSH from staff to staff\n"
 				"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lan_rules[1]+"::"+configs_firewall["router_id"]+"/64 -d fd00:${a}:3:"+lan_rules[1]+"::"+configs_firewall["router_id"]+"/64 --dport 22 -j ACCEPT\n\n"
