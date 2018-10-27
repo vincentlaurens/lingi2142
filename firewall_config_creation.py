@@ -103,7 +103,7 @@ for router, configs_firewall in data.items():
 		"#Allow Traceroute\n"
 		"ip6tables -I INPUT -p udp --sport 33434:33524 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT\n\n"
 		
-		"# Authorize incoming SSH connections with the unicast routing addresses on Internet"
+		"#Authorize incoming SSH connections with the unicast routing addresses on Internet"
     		"ip6tables -A INPUT -s 2000::/3 -p tcp --dport 22 --syn -m state --state NEW -j ACCEPT\n"
 
 		
@@ -136,6 +136,8 @@ for router, configs_firewall in data.items():
 				"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lan_rules[0]+"::"+configs_firewall["router_id"]+"/64 -d fd00:${a}:3:"+lan_rules[0]+"::"+configs_firewall["router_id"]+"/64 -m multiport --dports 25,110,143 -j ACCEPT\n\n"
 				"#Allow SNMP from staff to staff\n"
 				"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lan_rules[1]+"::"+configs_firewall["router_id"]+"/64 -d fd00:${a}:3:"+lan_rules[1]+"::"+configs_firewall["router_id"]+"/64 -m multiport --dports 25,110,143 -j ACCEPT\n\n"
+				"#Prohibit Router Advertisement for the student\n"
+				"ip6tables -A INPUT -p icmpv6 -s fd00:${a}:3:"+lan_rules[0]+"::"+configs_firewall["router_id"]+"/64 --icmpv6-type 134/0 -j ACCEPT\n"
 				"# Allow HTTP and HTTPS for students and staff members\n"
 				"ip6tables -A INPUT -p tcp -s fd00:${a}:3:"+lan_rules[0]+"::"+configs_firewall["router_id"]+"/64  --dport 80 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT\n"
 				"ip6tables -A INPUT -p tcp -s fd00:${a}:3:"+lan_rules[0]+"::"+configs_firewall["router_id"]+"/64   --dport 8080 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT\n"
@@ -149,11 +151,12 @@ for router, configs_firewall in data.items():
 				"ip6tables -A OUTPUT -p tcp -s fd00:${a}:3:"+lan_rules[1]+"::"+configs_firewall["router_id"]+"/64  --dport 80 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT\n"
 				"ip6tables -A OUTPUT -p tcp -s fd00:${a}:3:"+lan_rules[1]+"::"+configs_firewall["router_id"]+"/64   --dport 8080 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT\n"
 				"ip6tables -A OUTPUT -p tcp -s fd00:${a}:3:"+lan_rules[1]+"::"+configs_firewall["router_id"]+"/64  -d  --dport 443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT\n\n"
-			
-				"#Prohibit Router Advertisement for the student\n"
-				"ip6tables -A INPUT -p icmpv6 -s fd00:${a}:3:"+lan_rules[0]+"::"+configs_firewall["router_id"]+"/64 --icmpv6-type 134/0 -j ACCEPT\n"
-
 				)
+			if configs_firewall["router"] == "Pyth":
+				router_firewall_config_file.write(
+				"#Allow SNMP for Monitoring LAN\n"
+				"ip6tables -A FORWARD -p tcp -d fd00:${a}:3:"+lan_rules[0]+"::"+configs_firewall["router_id"]+"/64 -m multiport --dports 25,110,143 -j ACCEPT\n\n"
+			)
 		
 		router_firewall_config_file.write(
 		"		# Restrict incoming SSH to a specific network interface\n"
