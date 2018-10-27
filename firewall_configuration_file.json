@@ -10,6 +10,7 @@
 		"bgp": "true",
 		"suffixe_provider": "b",
 		"suffixe_DNS": "1000::1",
+		"Monitoring": {},
 		"lans": {
 			"lan0-Mon": "ffff"
 		}
@@ -25,6 +26,7 @@
 		"bgp": "false",
 		"suffixe_provider": "b",
 		"suffixe_DNS": "1000::1",
+		"StudStaff": {},
 		"lans": {
 			"lan0-Stud": "040",
 			"lan1-Staff:": "041"
