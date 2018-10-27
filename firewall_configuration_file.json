@@ -9,7 +9,10 @@
 		"router_id": "2",
 		"bgp": "true",
 		"suffixe_provider": "b",
-		"suffixe_DNS": "1000::1"
+		"suffixe_DNS": "1000::1",
+		"lans": {
+			"lan0-Mon": "ffff"
+		}
 	},
 	"Stev": {
 		"router_id": "3",
