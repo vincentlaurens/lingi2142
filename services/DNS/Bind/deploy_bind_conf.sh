@@ -11,4 +11,4 @@ sudo cp $ROOT/netwok_server/bind/src/utils_dns.py $ROOT/group3_cfg/NS1/bind/
 sudo cp $ROOT/netwok_server/bind/named_zones/zones/* $ROOT/group3_cfg/NS1/bind/zones
 sudo cp $ROOT/netwok_server/bind/named_zones/named.conf* $ROOT/group3_cfg/NS1/bind/
 sudo cp $ROOT/netwok_server/bind/src/update_dns.py $ROOT/group3_cfg/NS1/bind/
-chmod +x $ROOT/group3_cfg/NS1/bind/update_dns.py
+#chmod +x $ROOT/group3_cfg/NS1/bind/update_dns.py

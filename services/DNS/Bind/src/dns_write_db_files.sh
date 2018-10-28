@@ -1,26 +1,21 @@
 #!/usr/bin/env python3
 import sys
-import json
-import os
 
 sys.path.append('/home/vagrant/lingi2142/')
 from constants import PREFIXES, PATH
 
 PATH = PATH+"end_user_management"
 
-###########################################
-# Configuration db.group3.ingi            #
-###########################################
 db_group3 = open(PATH+"/bind/out/zones/db.group3.ingi","w")
 
 db_group3.write(
 "$TTL 10800\n"
 "@   IN SOA  @ group3.ingi.(\n"
 "            2   	 ; serial\n"
-"            7200    ; refresh  (  2   hours)\n"
-"            900     ; retry    (  15  min)\n"
-"            1209600 ; expire   (  2   weeks)\n"
-"            1800 )  ; minimum  (  30  min)\n"
+"            7200    ; refresh \n"
+"            900     ; retry   \n"
+"            1209600 ; expire  \n"
+"            3600 )  ; minimum \n"
 )
 
 db_group3.write("@             IN        NS        ns1.group3.ingi. \n")
@@ -36,10 +31,10 @@ db_group3_reverse.write(
 "	$TTL 1h	; Default TTL\n"
 "@	IN	SOA	ns1.group3.ingi. (\n"
 "	2018102401	; serial\n"
-"	1h		; slave refresh interval\n"
-"	15m		; slave retry interval\n"
-"	1w		; slave copy expire time\n"
-"	1h		; NXDOMAIN cache time\n"
+"	2h		;\n"
+"	15m		;\n"
+"	2w		;\n"
+"	1h		;\n"
 	)
 db_group3_reverse.write("@	IN	NS	ns1.group3.ingi")
 db_group3_reverse.write("1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.3.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa.    IN    PTR    ns1.group3.ingi.")

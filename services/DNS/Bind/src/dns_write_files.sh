@@ -54,7 +54,26 @@ dns_conf_options = open(PATH+"/bind/named_zones/named.conf.options", "w")
 
 
 dns_conf_options.write(
-
+"//\n"
+"acl intern_user {\n"
+	"fd00:200:3::/48;\n"
+	"fd00:300:3::/48;\n"
+"};\n"
+"\n"
+"\n"
+"options {\n"
+       "directory \"/var/cache/bind/ns1\";\n"
+       "pid-file  \"/var/run/named_ns1.pid:\";\n"
+       "forward first;\n"
+       "forwarders { fd00::d; };\n"
+       "auth-nxdomain no;\n"
+	   "listen-on-v6 { any; };\n"
+       "allow-transfer { fd00::; };\n"
+       "allow-query { any; };\n"
+       "allow-recursion { intern_user; }\n;"
+       "allow-query-cache { intern_user;};\n"
+       "version none;\n"
+"};\n"
 
 	)
 
