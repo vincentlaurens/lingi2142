@@ -157,8 +157,8 @@ for router, configs_firewall in data.items():
 					pprint(configs_firewall["router_id"])
 					router_firewall_config_file.write(
 					"#Allow SNMP for Monitoring LAN and mailbox protocols\n"
-					"ip6tables -A FORWARD -p tcp -d fd00:${a}:3:"+lan_rules[0]+"::"+configs_firewall["router_id"]+"/64 -m multiport --dports 161,162 -j ACCEPT\n"
-					"ip6tables -A FORWARD -p tcp -d fd00:${a}:3:"+lan_rules[0]+"::"+configs_firewall["router_id"]+"/64 -m multiport --dports 25,110,143 -j ACCEPT\n\n"	
+					"ip6tables -A INPUT -p tcp -d fd00:${a}:3:"+lan_rules[0]+"::"+configs_firewall["router_id"]+"/64 -m multiport --dports 161,162 -j ACCEPT\n"
+					"ip6tables -A INPUT -p tcp -d fd00:${a}:3:"+lan_rules[0]+"::"+configs_firewall["router_id"]+"/64 -m multiport --dports 25,110,143 -j ACCEPT\n\n"	
 				)
 		
 		router_firewall_config_file.write(
