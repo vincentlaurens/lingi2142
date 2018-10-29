@@ -4,6 +4,9 @@
 		"bgp": "true",
 		"suffixe_provider": "b",
 		"suffixe_DNS": "1000::53"
+		"lans": {
+			"lan0-Serv": "1000"
+		}
 	},
 	"Pyth": {
 		"router_id": "2",
