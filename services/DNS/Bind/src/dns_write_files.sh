@@ -1,14 +1,7 @@
 #!/usr/bin/env python3
 import json
-import os
-import stat
-#import sys
-
-#dns = sys.argv[1]
 PATH = "/home/vagrant/lingi2142/network_server"
-#File namedX.conf
 dns_conf = open(PATH+"/bind/named_zones/named.conf", "w")
-
 dns_conf.write(
 "include \"/etc/bind/named.conf.options\";\n"
 "include \"/etc/bind/named.conf.local\";\n"
@@ -35,10 +28,10 @@ dns_conf_local.write(
 "\n"
 
 "\n"
-"//Zone 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.3.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa : public zone\n"
-"zone \"1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.3.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa\" IN {\n"
+"//Zone 3.5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.3.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa : public zone\n"
+"zone \"3.5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.3.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa\" IN {\n"
 "    type master;\n"
-"    file \"/etc/bind/zones/db.1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.3.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa\";\n"
+"    file \"/etc/bind/zones/db.3.5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.3.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa\";\n"
 "};\n"
 "\n"
 
@@ -67,7 +60,7 @@ dns_conf_options.write(
        "forward first;\n"
        "forwarders { fd00::d; };\n"
        "auth-nxdomain no;\n"
-	   "listen-on-v6 { any; };\n"
+	"listen-on-v6 { any; };\n"
        "allow-transfer { fd00::; };\n"
        "allow-query { any; };\n"
        "allow-recursion { intern_user; }\n;"
