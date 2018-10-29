@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sysctl -p
+sysctl -p 
