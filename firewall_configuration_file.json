@@ -3,7 +3,7 @@
 		"router_id": "1",
 		"bgp": "true",
 		"suffixe_provider": "b",
-		"suffixe_DNS": "1000::53"
+		"suffixe_DNS": "1000::53",
 		"lans": {
 			"lan0-Serv": "1000"
 		}
