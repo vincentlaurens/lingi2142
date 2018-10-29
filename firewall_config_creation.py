@@ -153,15 +153,15 @@ for router, configs_firewall in data.items():
 						"ip6tables -A OUTPUT -p tcp -s fd00:${a}:3:"+lan_rules[1]+"::/64   --dport 8080 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT\n"
 						"ip6tables -A OUTPUT -p tcp -s fd00:${a}:3:"+lan_rules[1]+"::/64  --dport 443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT\n\n"
 						)
-				if "Monitoring" in configs_firewall:
-					pprint(configs_firewall["router_id"])
-					router_firewall_config_file.write(
-					"#Allow SNMP for each hosts on Monitoring LAN and mailbox protocols and SSH for check log for instance\n"
-					"ip6tables -A INPUT -p tcp -d fd00:${a}:3:"+lan_rules[0]+"::/64 -m tcp --dport 161 -j ACCEPT\n"
-					"ip6tables -A INPUT -p udp -d fd00:${a}:3:"+lan_rules[0]+"::/64 -m udp --dport 162 -j ACCEPT\n"
-					"ip6tables -A INPUT -p tcp -d fd00:${a}:3:"+lan_rules[0]+"::/64 -m tcp --dport 22 -j ACCEPT\n"	
-					"ip6tables -A INPUT -p tcp -d fd00:${a}:3:"+lan_rules[0]+"::/64 -m multiport --dports 25,110,143 -j ACCEPT\n\n"	
-				)
+			if "Monitoring" in configs_firewall:
+				pprint(configs_firewall["router_id"])
+				router_firewall_config_file.write(
+				"#Allow SNMP for each hosts on Monitoring LAN and mailbox protocols and SSH for check log for instance\n"
+				"ip6tables -A INPUT -p tcp -d fd00:${a}:3:"+lan_rules[0]+"::/64 -m tcp --dport 161 -j ACCEPT\n"
+				"ip6tables -A INPUT -p udp -d fd00:${a}:3:"+lan_rules[0]+"::/64 -m udp --dport 162 -j ACCEPT\n"
+				"ip6tables -A INPUT -p tcp -d fd00:${a}:3:"+lan_rules[0]+"::/64 -m tcp --dport 22 -j ACCEPT\n"	
+				"ip6tables -A INPUT -p tcp -d fd00:${a}:3:"+lan_rules[0]+"::/64 -m multiport --dports 25,110,143 -j ACCEPT\n\n"	
+			)
 		
 		router_firewall_config_file.write(
 		"		# Restrict incoming SSH to a specific network interface\n"
