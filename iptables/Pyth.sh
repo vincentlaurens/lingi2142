@@ -59,6 +59,12 @@ ip6tables -A INPUT -s 2000::/3 -p tcp --dport 22 --syn -m state --state NEW -j A
 
 for a in 200 300
 do
+        #Allow SNMP for each hosts on Monitoring LAN and mailbox protocols and SSH for check log for instance
+        ip6tables -A INPUT -p tcp -d fd00:${a}:3:ffff::1/64 -m tcp --dport 161 -j ACCEPT
+        ip6tables -A INPUT -p udp -d fd00:${a}:3:ffff::1/64 -m udp --dport 162 -j ACCEPT
+        ip6tables -A INPUT -p tcp -d fd00:${a}:3:ffff::1/64 -m tcp --dport 22 -j ACCEPT
+        ip6tables -A INPUT -p tcp -d fd00:${a}:3:ffff::1/64 -m multiport --dports 25,110,143 -j ACCEPT
+
                 # Restrict incoming SSH to a specific network interface
                 ip6tables -A INPUT -i Pyth-eth1 -p tcp --dport 22 -j ACCEPT
                 ip6tables -I OUTPUT -o  Pyth-eth1 -p udp --dport 33434:33524 -m state --state NEW -j ACCEPT
