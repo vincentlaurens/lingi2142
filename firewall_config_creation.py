@@ -103,7 +103,7 @@ for router, configs_firewall in data.items():
 		"#Allow Traceroute\n"
 		"ip6tables -I INPUT -p udp --sport 33434:33524 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT\n\n"
 		
-		"#Authorize incoming SSH connections with the unicast routing addresses on Internet"
+		"#Authorize incoming SSH connections with the unicast routing addresses on Internet\n"
     		"ip6tables -A INPUT -s 2000::/3 -p tcp --dport 22 --syn -m state --state NEW -j ACCEPT\n"
 
 		
