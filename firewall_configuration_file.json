@@ -28,8 +28,8 @@
 		"suffixe_DNS": "1000::53",
 		"StudStaff": {},
 		"lans": {
-			"lan0-Stud": "040",
-			"lan1-Staff:": "041"
+			"lan0-Stud": "40",
+			"lan1-Staff:": "41"
 		}
 	},
 	"Mich":{
