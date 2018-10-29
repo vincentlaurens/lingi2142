@@ -3,13 +3,13 @@
 		"router_id": "1",
 		"bgp": "true",
 		"suffixe_provider": "b",
-		"suffixe_DNS": "1000::1"
+		"suffixe_DNS": "1000::53"
 	},
 	"Pyth": {
 		"router_id": "2",
 		"bgp": "true",
 		"suffixe_provider": "b",
-		"suffixe_DNS": "1000::1",
+		"suffixe_DNS": "1000::53",
 		"Monitoring": {},
 		"lans": {
 			"lan0-Mon": "ffff"
@@ -19,13 +19,13 @@
 		"router_id": "3",
 		"bgp": "false",
 		"suffixe_provider": "b",
-		"suffixe_DNS": "1000::1"
+		"suffixe_DNS": "1000::53"
 	},
 	"Carn": {
 		"router_id": "4",
 		"bgp": "false",
 		"suffixe_provider": "b",
-		"suffixe_DNS": "1000::1",
+		"suffixe_DNS": "1000::53",
 		"StudStaff": {},
 		"lans": {
 			"lan0-Stud": "040",
@@ -36,12 +36,12 @@
 		"router_id": "5",
 		"bgp": "false",
 		"suffixe_provider": "b",
-		"suffixe_DNS": "1000::1"
+		"suffixe_DNS": "1000::53"
 	},
 	"SH1C": {
 		"router_id": "6",
 		"bgp": "false",
 		"suffixe_provider": "b",
-		"suffixe_DNS": "1000::1"
+		"suffixe_DNS": "1000::53"
 	}
 }
