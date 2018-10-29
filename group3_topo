@@ -41,6 +41,7 @@ function mk_topo {
     add_link Carn Pyth   # Carnoy-eth1   <-> Pythagore-eth1
     add_link Carn Stev      # Carnoy-eth2   <-> Stevin-eth0
     add_link Stev Pyth   # Stevin-eth1   <-> Pythagore-eth2
+    add_link Pyth Mon  # Stevin-eth1   <-> Pythagore-eth2
 
     echo "@@ Adding LANs"
     # You can add your LANs here
