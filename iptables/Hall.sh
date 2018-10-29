@@ -52,20 +52,23 @@ ip6tables -A INPUT -m state --state NEW -m udp -p udp --dport 546 -d fe80::/64 -
 #Allow Traceroute
 ip6tables -I INPUT -p udp --sport 33434:33524 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 
-#Authorize incoming SSH connections with the unicast routing addresses on Internetip6tables -A INPUT -s 2000::/3 -p tcp --dport 22 --syn -m state --state NEW -j ACCEPT
+#Authorize incoming SSH connections with the unicast routing addresses on Internet
+ip6tables -A INPUT -s 2000::/3 -p tcp --dport 22 --syn -m state --state NEW -j ACCEPT
 # Allow logging in via SSH
 #ip6tables -A INPUT -p tcp --dport 22 -j ACCEPT
 
 for a in 200 300
 do
-		#allow BGP(router connected with provider)
-		ip6tables -A INPUT -p tcp -m tcp --dport 179 -j ACCEPT
-		ip6tables -A OUTPUT -p tcp -m tcp --dport 179 -j ACCEPT
-		ip6tables -A FORWARD -p tcp -m tcp --dport 179 -j ACCEPT
-		ip6tables -A OUTPUT -p udp -d fd00:${a}:3:1000::53/64 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
-		ip6tables -A INPUT  -p udp -s fd00:${a}:3:1000::53/64 --sport 53 -m state --state ESTABLISHED     -j ACCEPT
-		ip6tables -A OUTPUT -p tcp -d fd00:${a}:3:1000::53/64 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
-		ip6tables -A INPUT -p tcp -s fd00:${a}:3:1000::53/64 --sport 53 -m state --state ESTABLISHED -j ACCEPT
+                #allow BGP(router connected with provider)
+                ip6tables -A INPUT -p tcp -m tcp --dport 179 -j ACCEPT
+                ip6tables -A OUTPUT -p tcp -m tcp --dport 179 -j ACCEPT
+                ip6tables -A FORWARD -p tcp -m tcp --dport 179 -j ACCEPT
+
+                #Allow DNS server
+                ip6tables -A OUTPUT -p udp -d fd00:${a}:3:1000::53/64 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
+                ip6tables -A INPUT  -p udp -s fd00:${a}:3:1000::53/64 --sport 53 -m state --state ESTABLISHED     -j ACCEPT
+                ip6tables -A OUTPUT -p tcp -d fd00:${a}:3:1000::53/64 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
+                ip6tables -A INPUT -p tcp -s fd00:${a}:3:1000::53/64 --sport 53 -m state --state ESTABLISHED -j ACCEPT
 done
 # Allow external access to your HTTP and HTTPS server
 #ip6tables  -A INPUT -p tcp -m multiport --dports 80,443,8080 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
