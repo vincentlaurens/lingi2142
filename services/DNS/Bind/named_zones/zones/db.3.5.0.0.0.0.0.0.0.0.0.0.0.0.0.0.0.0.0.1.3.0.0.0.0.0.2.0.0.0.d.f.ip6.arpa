@@ -13,4 +13,4 @@ $TTL 1h	; Default TTL
 
 
 ; IPv6 PTR entries
-1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.3.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa.    IN    PTR    ns1.group3.ingi.
+3.5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.3.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa.    IN    PTR    ns1.group3.ingi.
