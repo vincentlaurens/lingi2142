@@ -113,30 +113,31 @@ for router, configs_firewall in data.items():
 		"do\n"
 		)
 	if "lans" in configs_firewall:
-		lan_rules = []
+		#lan_rules = []
 		for lan, lan_configs in configs_firewall["lans"].items():
-			lan_rules += lan_configs
-			if "StudStaff" in configs_firewall:
+		#	lan_rules += lan_configs
+			#if "StudStaff" in configs_firewall:
+			if "router" = Carn"
 				pprint(configs_firewall["router_id"])
 				router_firewall_config_file.write(
 						"#Drop connexion from stud to staff\n"
-						"ip6tables -A FORWARD -s fd00:${a}:3:"+lan_rules[0]+"::/64 -d fd00:${a}:3:"+lan_rules[1]+"::/64 -j DROP\n\n"
+						"ip6tables -A FORWARD -s fd00:${a}:3:40::/64 -d fd00:${a}:3:41::/64 -j DROP\n\n"
 						"#Drop connexion from stud to stud\n"
-						"ip6tables -A FORWARD -s fd00:${a}:3:"+lan_rules[0]+"::/64 -d fd00:${a}:3:"+lan_rules[0]+"::/64 -j DROP\n\n"
+						"ip6tables -A FORWARD -s fd00:${a}:3:"+lan_rules[0]+"::/64 -d fd00:${a}:3:41::/64 -j DROP\n\n"
 						"#Drop connexion from staff to staff\n"
-						"ip6tables -A FORWARD -s fd00:${a}:3:"+lan_rules[1]+"::/64 -d fd00:${a}:3:"+lan_rules[1]+"::/64 -j DROP\n\n"
+						"ip6tables -A FORWARD -s fd00:${a}:3:"+lan_rules[1]+"::/64 -d fd00:${a}:3:41::/64 -j DROP\n\n"
 						"# Allow\Drop SSH between stud and staff members\n"
-						"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lan_rules[0]+"::/64  -d fd00:${a}:3:"+lan_rules[1]+"::/64 --dport 22 -j DROP\n\n"
+						"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lan_rules[0]+"::/64  -d fd00:${a}:3:41::/64 --dport 22 -j DROP\n\n"
 						"# Drop SSH from stud to stud\n"
-						"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lan_rules[0]+"::/64 -d fd00:${a}:3:"+lan_rules[0]+"::/64 --dport 22 -j ACCEPT\n\n"
+						"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lan_rules[0]+"::/64 -d fd00:${a}:3:41::/64 --dport 22 -j ACCEPT\n\n"
 						"#Drop SSH from staff to staff\n"
-						"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lan_rules[1]+"::/64 -d fd00:${a}:3:"+lan_rules[1]+"::/64 --dport 22 -j ACCEPT\n\n"
+						"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lan_rules[1]+"::/64 -d fd00:${a}:3:41::/64 --dport 22 -j ACCEPT\n\n"
 						"# Allow SNMP between stud and staff members\n"
-						"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lan_rules[0]+"::/64  -d fd00:${a}:3:"+lan_rules[1]+"::/64 -m multiport --dports 25,110,143 -j ACCEPT\n\n"
+						"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lan_rules[0]+"::/64  -d fd00:${a}:3:41::/64 -m multiport --dports 25,110,143 -j ACCEPT\n\n"
 						"#llow SNMP from stud to stud\n"
-						"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lan_rules[0]+"::/64 -d fd00:${a}:3:"+lan_rules[0]+"::/64 -m multiport --dports 25,110,143 -j ACCEPT\n\n"
+						"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lan_rules[0]+"::/64 -d fd00:${a}:3:41::/64 -m multiport --dports 25,110,143 -j ACCEPT\n\n"
 						"#Allow SNMP from staff to staff\n"
-						"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lan_rules[1]+"::/64 -d fd00:${a}:3:"+lan_rules[1]+"::/64 -m multiport --dports 25,110,143 -j ACCEPT\n\n"
+						"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:"+lan_rules[1]+"::/64 -d fd00:${a}:3:41::/64 -m multiport --dports 25,110,143 -j ACCEPT\n\n"
 						"#Prohibit Router Advertisement for the student\n"
 						"ip6tables -A INPUT -p icmpv6 -s fd00:${a}:3:"+lan_rules[0]+"::/64 --icmpv6-type 134/0 -j ACCEPT\n"
 						"# Allow HTTP and HTTPS for students and staff members\n"
