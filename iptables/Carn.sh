@@ -155,7 +155,7 @@ ip6tables -A OUTPUT -p tcp -s fd00:${a}:3:4::/64  --dport 443 -m conntrack --cts
 		ip6tables -I OUTPUT -o  Carn-eth1 -p udp --dport 33434:33524 -m state --state NEW -j ACCEPT
 		#Restrict incoming SSH to the local network
 		ip6tables -A INPUT -i Carn-eth1 -p tcp -s fd00:${a}:3::4/48 --dport 22 -j ACCEPT
-
+        #Allow DNS Server
 		ip6tables -A OUTPUT -p udp -d fd00:${a}:3:1000::53/64 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
 		ip6tables -A INPUT  -p udp -s fd00:${a}:3:1000::53/64 --sport 53 -m state --state ESTABLISHED     -j ACCEPT
 		ip6tables -A OUTPUT -p tcp -d fd00:${a}:3:1000::53/64 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
