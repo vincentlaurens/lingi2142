@@ -188,8 +188,8 @@ for router, configs_firewall in data.items():
 		"#ip6tables -A OUTPUT -p tcp -m multiport --dports 80,443,8080 -m conntrack --ctstate ESTABLISHED -j ACCEPT\n\n"
 		"# Allow external access to your unencrypted mail server, SMTP,IMAP, and Telnet.\n"
 		"ip6tables -A INPUT -p tcp -m multiport --dports 25,110,143 -j ACCEPT\n"
-		"#Print table from routers and display the rules added before"
-		"ip6tables -L"
+		"#Print table from routers and display the rules added before\n"
+		"ip6tables -L\n"
 	)
 	router_firewall_config_file.close()
 	os.chmod(PATH+"iptables/"+router+".sh", 0o766)
