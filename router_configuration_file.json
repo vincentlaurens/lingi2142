@@ -13,7 +13,10 @@
               "name_bgp": "200",
               "self_address": "fd00:200::3/48",
               "neighbor_address": "fd00:200::b"
-            }
+            		}
+	     	},
+		"lans": {
+        		"lan1-Serv": "1000"
 		}
 	},
 	"Pyth": {
