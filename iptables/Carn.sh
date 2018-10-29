@@ -150,16 +150,16 @@ ip6tables -A OUTPUT -p tcp -s fd00:${a}:3:4::/64  --dport 80 -m conntrack --ctst
 ip6tables -A OUTPUT -p tcp -s fd00:${a}:3:4::/64   --dport 8080 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
 ip6tables -A OUTPUT -p tcp -s fd00:${a}:3:4::/64  --dport 443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
 
-                # Restrict incoming SSH to a specific network interface
-                ip6tables -A INPUT -i Carn-eth1 -p tcp --dport 22 -j ACCEPT
-                ip6tables -I OUTPUT -o  Carn-eth1 -p udp --dport 33434:33524 -m state --state NEW -j ACCEPT
-                #Restrict incoming SSH to the local network
-                ip6tables -A INPUT -i Carn-eth1 -p tcp -s fd00:${a}:3::4/48 --dport 22 -j ACCEPT
+		# Restrict incoming SSH to a specific network interface
+		ip6tables -A INPUT -i Carn-eth1 -p tcp --dport 22 -j ACCEPT
+		ip6tables -I OUTPUT -o  Carn-eth1 -p udp --dport 33434:33524 -m state --state NEW -j ACCEPT
+		#Restrict incoming SSH to the local network
+		ip6tables -A INPUT -i Carn-eth1 -p tcp -s fd00:${a}:3::4/48 --dport 22 -j ACCEPT
 
-                ip6tables -A OUTPUT -p udp -d fd00:${a}:3:1000::53/64 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
-                ip6tables -A INPUT  -p udp -s fd00:${a}:3:1000::53/64 --sport 53 -m state --state ESTABLISHED     -j ACCEPT
-                ip6tables -A OUTPUT -p tcp -d fd00:${a}:3:1000::53/64 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
-                ip6tables -A INPUT -p tcp -s fd00:${a}:3:1000::53/64 --sport 53 -m state --state ESTABLISHED -j ACCEPT
+		ip6tables -A OUTPUT -p udp -d fd00:${a}:3:1000::53/64 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
+		ip6tables -A INPUT  -p udp -s fd00:${a}:3:1000::53/64 --sport 53 -m state --state ESTABLISHED     -j ACCEPT
+		ip6tables -A OUTPUT -p tcp -d fd00:${a}:3:1000::53/64 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
+		ip6tables -A INPUT -p tcp -s fd00:${a}:3:1000::53/64 --sport 53 -m state --state ESTABLISHED -j ACCEPT
 done
 # Allow external access to your HTTP and HTTPS server
 #ip6tables  -A INPUT -p tcp -m multiport --dports 80,443,8080 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
@@ -167,4 +167,5 @@ done
 
 # Allow external access to your unencrypted mail server, SMTP,IMAP, and Telnet.
 ip6tables -A INPUT -p tcp -m multiport --dports 25,110,143 -j ACCEPT
-#Print table from routers and display the rules added beforeip6tables -L
+#Print table from routers and display the rules added before
+ip6tables -L
