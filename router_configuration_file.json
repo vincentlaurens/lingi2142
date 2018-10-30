@@ -16,7 +16,7 @@
             		}
 	     	},
 		"lans": {
-        	"lan0-Serv": "1000"
+        	"lan0": "1000"
 		}
 	},
 	"Pyth": {
@@ -44,7 +44,7 @@
 			}
 		},
       "lans": {
-        "lan1-Mon": "ffff"
+        "lan1": "ffff"
       }
 	},
     "Stev":{
@@ -64,8 +64,8 @@
             "eth2":"3"
 		},
 		"lans": {
-			"lan0-Stud": "040",
-			"lan1-Staff:": "041"
+			"lan0": "040",
+			"lan1": "041"
 	      }
 	},
 	"Mich":{

@@ -12,7 +12,7 @@
 		"suffixe_DNS": "1000::53",
 		"Monitoring": {},
 		"lans": {
-			"lan0-Mon": "ffff"
+			"lan0": "ffff"
 		}
 	},
 	"Stev": {
@@ -28,8 +28,8 @@
 		"suffixe_DNS": "1000::53",
 		"StudStaff": {},
 		"lans": {
-			"lan0-Stud": "40",
-			"lan1-Staff:": "41"
+			"lan0": "40",
+			"lan1": "41"
 		}
 	},
 	"Mich":{
