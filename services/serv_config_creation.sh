@@ -7,4 +7,4 @@ sudo mkdir -p ./group3_cfg/
 
 # Copy configuration
 sudo cp ./services/Serv_start.sh ./group3_cfg/Serv_start.sh
-sudo cp -R ./services/Serv ./group3_cfg/
+sudo  mkdir -p ./group3_cfg/Serv
