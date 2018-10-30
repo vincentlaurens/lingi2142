@@ -158,6 +158,7 @@ for router, configs in data.items():
                             "                        dead 3;\n"
                             "                };\n"
                             "                interface \"*lan*\" {\n"
+						   	"						 passive;\n"
                             "                        stub 1;\n"
                             "                };\n"
                             "                interface \"*lo*\" {\n"
