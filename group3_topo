@@ -44,7 +44,7 @@ function mk_topo {
 
     echo "@@ Adding LANs"
     # You can add your LANs here
-    mk_LAN Hall Serv # Halles-lan0-network-management:Primary DNS
+    mk_LAN Hall Dns,Dhcp # Halles-lan0-network-management:Primary DNS
     #mk_LAN Hall Ha1 #Halles-lan1-Host
     #mk_LAN Pyth ns2   # Pyth-lan0-network-management:Secondary DNS
     #mk_LAN Pyth Py1 # Pyth-lan1-host
