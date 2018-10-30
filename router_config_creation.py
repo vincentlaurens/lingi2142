@@ -46,7 +46,6 @@ for router, configs in data.items():
 	router_start_file.write("\n")
 	if "lans" in configs:
 		for lan, lan_configs in configs["lans"].items():
-			#router_start_file.write("ip link set dev "+router+"-"+lan+" up \n")
 			for prefix_address in PREFIXES_ADDRESS:
 				router_start_file.write("ip address add dev "+router+"-"+lan+" "+prefix_address+lan_configs+"::"+configs["router_id"]+"/64 \n")
 
