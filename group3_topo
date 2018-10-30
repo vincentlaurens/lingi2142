@@ -37,7 +37,7 @@ function mk_topo {
     add_link Mich SH1C      # Michotte-eth0 <-> SH1C-eth0
     add_link SH1C Hall        # SH1C-eth1     <-> Halles-eth0
     add_link Mich Carn    # Michotte-eth1 <-> Carnoy-eth0
-    add_link Hall Pyth   # Halles-eth1   <-> Pythagore-eth0
+    add_link Hall Pyth Mon # Halles-eth1   <-> Pythagore-eth0
     add_link Carn Pyth   # Carnoy-eth1   <-> Pythagore-eth1
     add_link Carn Stev      # Carnoy-eth2   <-> Stevin-eth0
     add_link Stev Pyth   # Stevin-eth1   <-> Pythagore-eth2
@@ -46,7 +46,7 @@ function mk_topo {
     # You can add your LANs here
     mk_LAN Hall Serv # Halles-lan0-network-management:Primary DNS
     #mk_LAN Hall Ha1 #Halles-lan1-Host
-    mk_LAN Pyth ns2   # Pyth-lan0-network-management:Secondary DNS
+    #mk_LAN Pyth ns2   # Pyth-lan0-network-management:Secondary DNS
     #mk_LAN Pyth Py1 # Pyth-lan1-host
     mk_LAN Pyth Mon # Pyth-lan1-monitoring
     mk_LAN Carn Stud # Lan for student because ran out of time and we could not create VLAN
