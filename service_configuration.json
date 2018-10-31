@@ -1,6 +1,7 @@
 {
   "ns1": {
     "machine_number": "::53",
+    "lan": "1000",
     "default_route": "fd00:200:3:1000::",
     "prefix_default_route": "1",
     "bind9": "named1",
@@ -11,6 +12,7 @@
 
   "Mon": {
     "machine_number": "::1",
+    "lan": "ffff",
     "default_route": "fd00:200:3:ffff::",
     "prefix_default_route": "2",
     "extra_commands": [
@@ -24,6 +26,7 @@
 
   "DHCP": {
     "forced_address": "::547",
+    "lan": "1000",
     "default_route": "fd00:200:3:1000::",
     "prefix_default_route": "1",
     "extra_commands": [
