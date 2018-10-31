@@ -44,7 +44,7 @@
 			}
 		},
       "lans": {
-        "lan1": "ffff"
+        "lan0": "ffff"
       }
 	},
     "Stev":{
