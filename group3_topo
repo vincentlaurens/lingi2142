@@ -45,12 +45,8 @@ function mk_topo {
     echo "@@ Adding LANs"
     # You can add your LANs here
     mk_LAN Hall DNS DHCP # Halles-lan0-network-management:Primary DNS, DHCP
-    #mk_LAN Hall Ha1 #Halles-lan1-Host
-    #mk_LAN Pyth ns2   # Pyth-lan0-network-management:Secondary DNS
-    #mk_LAN Pyth Py1 # Pyth-lan1-host
     mk_LAN Pyth Mon # Pyth-lan0-monitoring
-    mk_LAN Carn Stud # Lan for student because ran out of time and we could not create VLAN
-    mk_LAN Carn Staff # we create LAN to simulate the behavior
+    mk_LAN Carn Stud Staff# Lan for student because ran out of time and we could not create VLAN
 
     echo "@@ Bridging the network"
     # Connect to belneta and belnetb
