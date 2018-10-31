@@ -9,7 +9,6 @@
       "/usr/sbin/sshd"
     ]
   },
-
   "Mon": {
     "machine_number": "::1",
     "lan": "ffff",
@@ -21,9 +20,7 @@
       "/etc/check_router_conn.sh &",
       "/etc/download_bird_logs.sh"
     ]
-
   },
-
   "DHCP": {
     "forced_address": "::547",
     "lan": "1000",
