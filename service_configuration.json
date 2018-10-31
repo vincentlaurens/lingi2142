@@ -1,5 +1,5 @@
 {
-  "ns1": {
+  "DNS": {
     "machine_number": "::53",
     "lan": "1000",
     "default_route": "fd00:200:3:1000::",
