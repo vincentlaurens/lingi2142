@@ -33,5 +33,5 @@ for host, configs in data.items():
 
     host_start_config.close()
     # Add execution right to new file
-    file_stat = os.stat("group3_cfg/"+host+"_start.sh")
-    os.chmod("group3_cfg/"+host+"_start.sh", file_stat.st_mode | stat.S_IEXEC)
+    file_stat = os.stat(PATH+"group3_cfg/"+host+"_start.sh")
+    os.chmod(PATH+"group3_cfg/"+host+"_start.sh", file_stat.st_mode | stat.S_IEXEC)
