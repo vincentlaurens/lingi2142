@@ -1,3 +1,4 @@
+
 all:
 	sudo ./launch_network_group3.sh
 
@@ -18,4 +19,7 @@ SH1C:
 	sudo ./connect_to.sh group3_cfg SH1C
 Mon:
 	sudo ./connect_to.sh group3_cfg Mon
-
+DNS:
+	sudo ./connect_to.sh group3_cfg DNS
+DHCP:
+	sudo ./connect_to.sh group3_cfg DHCP
