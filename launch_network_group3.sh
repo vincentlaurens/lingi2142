@@ -55,7 +55,7 @@ sudo python3 firewall_config_creation.py
 sudo python3 service_config_creation.py
 #sudo python3 host_config_creation.py
 
-chmod 755 ./services/deploy_service.sh
+sudo chmod 755 ./services/deploy_service.sh
 sudo ./services/deploy_service.sh
 
 
