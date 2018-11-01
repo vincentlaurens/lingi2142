@@ -53,7 +53,7 @@ for router, configs in data.items():
 	router_start_file.write("\n")
 
 	##############vlan interfaces #######################################################
-	if "vlan" in configs:
+	if "vlans" in configs:
 		for vlan, location in configs["vlans"].items():
 			for vlan_use in VLAN_USES:
 				router_start_file.write("ip link add link "+router+"-"+vlan+" name "+router+"-"+vlan+"."+vlan_use+location+" type vlan id 0x"+vlan_use+location+" \n")
