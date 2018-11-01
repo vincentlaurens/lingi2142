@@ -6,14 +6,14 @@ import sys
 import string
 
 from pprint import pprint
-from constants import PATH, PREFIXES_ADDRESS
+from constants import PATH, PREFIXES_ADDRESS, VLAN_USES
 
 with open(PATH+'router_configuration_file.json') as data_file:
 	data = json.load(data_file)
 
 
-#pprint(data)
-pprint("Writting:")
+
+pprint("Writting router_config:")
 #read json items by items which are routers
 for router, configs in data.items():
 
@@ -31,23 +31,37 @@ for router, configs in data.items():
 	                        "# This file has been generated automatically, see router_config_creation.py \n"
                             )
 
-
+	##############isp interfaces on routers ########################################
 	if configs["setup_bgp_conf"] == "true":
 		for isp, isp_configs in configs["isp"].items():
 			router_start_file.write("ip link set dev "+isp+" up \n"
 			                        "ip address add dev "+isp+" "+isp_configs["self_address"]+"  \n\n"
                                     )
-
+	##############eth interfaces on routers ########################################
 	for eth, eth_configs in configs["eths"].items():
 		router_start_file.write("ip link set dev "+router+"-"+eth+" up \n")
 		for prefix_address in PREFIXES_ADDRESS:
 			router_start_file.write("ip address add dev "+router+"-"+eth+" "+prefix_address+eth_configs+"::"+configs["router_id"]+"/64 \n")
 
 	router_start_file.write("\n")
+
+	##############lans interfaces on routers ########################################
 	if "lans" in configs:
 		for lan, lan_configs in configs["lans"].items():
 			for prefix_address in PREFIXES_ADDRESS:
 				router_start_file.write("ip address add dev "+router+"-"+lan+" "+prefix_address+lan_configs+"::"+configs["router_id"]+"/64 \n")
+	router_start_file.write("\n")
+
+	##############vlan interfaces #######################################################
+	if "vlan" in configs:
+		for vlan, location in configs["vlans"].items():
+			for vlan_use in VLAN_USES:
+				router_start_file.write("ip link add link "+router+"-"+vlan+" name "+router+"-"+vlan+"."+vlan_use+location+" type vlan id 0x"+vlan_use+location+" \n")
+				router_start_file.write("ip link set dev "+router+"-"+vlan+"."+vlan_use+location+" up \n")
+				for prefix in PREFIXES_ADDRESS:
+					router_start_file.write("ip address add dev "+router+"-"+vlan+"."+vlan_use+location+" "+prefix+vlan_use+location+"::/64 \n")
+			router_start_file.write("\n")
+
 
 	router_start_file.write("\n")
 	router_start_file.write("bird6 -s /tmp/"+router+"_bird.ctl -P /tmp/"+router+"_bird.pid \n")
@@ -168,4 +182,8 @@ for router, configs in data.items():
 
 
 	router_bird_file.close()
-##############
+
+
+
+
+
