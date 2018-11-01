@@ -4,9 +4,9 @@ import os
 import stat
 
 
-PATH='/home/vagrant/test/group3/lingi2142/services/DNS'
+PATH='/home/vagrant/test/group3/lingi2142/'
 
-db_group3 = open(PATH+"/bind/out/zones/db.group3.ingi","w")
+db_group3 = open(PATH+"services/DNS/bind/named_zones/zones/db.group3.ingi","w")
 
 db_group3.write(
 "$TTL 10800\n"
@@ -25,7 +25,7 @@ db_group3.write("@             IN        AAAA      fd00:300:3:1000::53 \n")
 
 db_group3.close()
 
-db_group3_reverse = open(PATH+"/bind/out/zones/db.1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.3.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa","w")
+db_group3_reverse = open(PATH+"services/DNS/bind/named_zones/zones/db.1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.3.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa","w")
 
 db_group3_reverse.write(
 "	$TTL 1h	; Default TTL\n"

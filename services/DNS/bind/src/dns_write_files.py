@@ -4,7 +4,7 @@ import os
 import stat
 
 #from ../../../constants import PATH
-PATH='/home/vagrant/test/group3/lingi2142/services/DNS'
+PATH='/home/vagrant/test/group3/lingi2142/'
 
 dns_conf = open(PATH+"services/DNS/bind/named_zones/named.conf", "w")
 dns_conf.write(
@@ -78,7 +78,7 @@ dns_conf_options.write(
 dns_conf_options.close()
 
 
-dns_conf_log = open(PATH+"services/DNS/bind/out/named.conf.log", "w")
+dns_conf_log = open(PATH+"services/DNS/bind/named_zones/named.conf.log", "w")
 
 dns_conf_log.write(
 "logging {\n"
