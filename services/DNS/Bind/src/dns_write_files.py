@@ -77,12 +77,12 @@ dns_conf_options.write(
 dns_conf_options.close()
 
 
-dns_conf_log = open(PATH+"/bind/out/named"+dns+".conf.log", "w")
+dns_conf_log = open(PATH+"services/DNS/bind/out/named.conf.log", "w")
 
 dns_conf_log.write(
 "logging {\n"
 "  channel bind_log {\n"
-"    file \"/var/log/bind/bind"+dns+".log\" versions 3 size 5m;\n"
+"    file \"/var/log/bind/bind.log\" versions 3 size 5m;\n"
 "    severity info;\n"
 "    print-category yes;\n"
 "    print-severity yes;\n"
