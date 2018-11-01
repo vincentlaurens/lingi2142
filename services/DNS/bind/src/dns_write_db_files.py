@@ -4,7 +4,7 @@ import os
 import stat
 
 
-from constants import PATH
+from ../../../constants import PATH
 
 PATH = PATH+"services/DNS"
 
