@@ -1,7 +1,7 @@
 {
   "DNS": {
     "machine_number": "::53",
-    "lan": "1000",
+    "lan": "000",
     "default_route": "fd00:200:3:1000::",
     "prefix_default_route": "1",
     "bind9": "named1",
@@ -10,8 +10,8 @@
   },
   "Mon": {
     "machine_number": "::1",
-    "lan": "ffff",
-    "default_route": "fd00:200:3:ffff::",
+    "lan": "fff",
+    "default_route": "fd00:200:3:0fff::",
     "prefix_default_route": "2",
     "extra_commands": [
       "/etc/check_isp_status.sh &",
@@ -22,7 +22,7 @@
   },
   "DHCP": {
     "machine_number": "::547",
-    "lan": "1000",
+    "lan": "000",
     "default_route": "fd00:200:3:1000::",
     "prefix_default_route": "1",
     "extra_commands": [
@@ -31,7 +31,7 @@
   },
   "DNS2": {
     "machine_number": "::53",
-    "lan": "1000",
+    "lan": "001",
     "default_route": "fd00:200:3:1001::",
     "prefix_default_route": "3",
     "bind9": "named1",
@@ -40,7 +40,7 @@
   },
   "DHCP2": {
     "machine_number": "::547",
-    "lan": "1000",
+    "lan": "001",
     "default_route": "fd00:200:3:1001::",
     "prefix_default_route": "3",
     "extra_commands": [

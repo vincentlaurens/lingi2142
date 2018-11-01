@@ -44,14 +44,15 @@ function mk_topo {
 
     echo "@@ Adding LANs"
     # You can add your LANs here
-    mk_LAN Hall DNS DHCP # Halles-lan0-network-management:Primary DNS, DHCP
     mk_LAN Hall Ha1 Ha2 Ha3 Ha4 #Halles-lan1 host
+    mk_LAN Hall DNS DHCP # Halles-lan0-network-management:Primary DNS, DHCP
 
-    mk_LAN Pyth Mon # Pyth-lan0-monitoring
     #mk_LAN Pyth Py1 Py2 #Pyth-lan1 hosts
+    mk_LAN Pyth Mon # Pyth-lan0-monitoring
 
-    mk_LAN Stev DNS2 DHCP2 # Stev-lan0-network-management:secondary DNS, DHCP
     #mk_LAN Stev St1 St2 #Stev-lan1 hosts
+    mk_LAN Stev DNS2 DHCP2 # Stev-lan0-network-management:secondary DNS, DHCP
+
 
     mk_LAN Carn Stud Staff # Lan0 for student because ran out of time and we could not create VLAN
 
