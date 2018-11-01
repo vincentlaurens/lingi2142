@@ -13,7 +13,7 @@ with open(PATH+'host_configuration.json') as data_file:
 
 
 for host, configs in data.items():
-    host_start_config = open(PATH+"group3_cfg/"+host+"_start", "w")
+    host_start_config = open(PATH+"group3_cfg/"+host+"_start.sh", "w")
     host_start_config.write("#!/bin/bash \n\n")
     host_start_config.write("# This file has been generated automatically, see host_config_creation.py for details. \n\n")
 
@@ -44,5 +44,5 @@ for host, configs in data.items():
     host_start_config.close()
 
     # Add execution right to new file
-    file_stat = os.stat("group3_cfg/"+host+"_start")
+    file_stat = os.stat("group3_cfg/"+host+"_start.sh")
     os.chmod(PATH+"group3_cfg/"+host+"_start", 0o766)

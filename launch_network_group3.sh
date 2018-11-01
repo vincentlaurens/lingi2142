@@ -54,7 +54,10 @@ sudo python3 router_config_creation.py
 sudo python3 firewall_config_creation.py
 sudo python3 service_config_creation.py
 #sudo python3 host_config_creation.py
+
+chmod 755 ./services/deploy_service.sh
 sudo ./services/deploy_service.sh
+
 
 # Network creation
 sudo ./create_network.sh group3_topo
