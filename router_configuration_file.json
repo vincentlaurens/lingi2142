@@ -48,8 +48,12 @@
 		},
       "lans": {
         "lan1": "1fff"
-      }
-	},
+      },
+		"vlans": {
+			"lan0": "01"
+		}
+
+		},
     "Stev":{
 		"router_id":"3",
 		"setup_bgp_conf":"false",
