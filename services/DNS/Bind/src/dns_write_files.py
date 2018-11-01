@@ -3,7 +3,7 @@ import json
 import os
 import stat
 
-PATH = "/home/vagrant/lingi2142/services/DNS"
+PATH = "/home/vagrant/test/lingi2142/services/DNS"
 dns_conf = open(PATH+"/bind/named_zones/named.conf", "w")
 dns_conf.write(
 "include \"/etc/bind/named.conf.options\";\n"
@@ -74,3 +74,26 @@ dns_conf_options.write(
 	)
 
 dns_conf_options.close()
+
+
+dns_conf_log = open(PATH+"/bind/out/named"+dns+".conf.log", "w")
+
+dns_conf_log.write(
+"logging {\n"
+"  channel bind_log {\n"
+"    file \"/var/log/bind/bind"+dns+".log\" versions 3 size 5m;\n"
+"    severity info;\n"
+"    print-category yes;\n"
+"    print-severity yes;\n"
+"    print-time yes;\n"
+"  };\n"
+"        category default { bind_log; };\n"
+"        category lame-servers { null; };\n"
+"        category update { bind_log; };\n"
+"        category update-security { bind_log; };\n"
+"        category security { security_info; };\n"
+"};\n"
+
+)
+dns_conf_log.close()
+

@@ -1,0 +1,15 @@
+logging {
+        channel bind_log {
+                file "/var/log/bind.log" versions 3 size 1m;
+                severity info;
+                print-category  yes;
+                print-severity  yes;
+                print-time      yes;
+        };
+
+        category default { bind_log; };
+        category lame-servers { null; };
+        category update { bind_log; };
+        category update-security { bind_log; };
+        category security { security_info; };
+};
