@@ -56,7 +56,7 @@ sudo python3 service_config_creation.py
 #sudo python3 host_config_creation.py
 
 sudo chmod 755 ./services/deploy_service.sh
-sudo ./services/deploy_service.sh
+sudo sh ./services/deploy_service.sh
 
 
 # Network creation
