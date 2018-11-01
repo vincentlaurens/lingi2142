@@ -6,7 +6,6 @@
     "prefix_default_route": "1",
     "bind9": "named1",
     "extra_commands": [
-      //"/usr/sbin/sshd"
     ]
   },
   "Mon": {
@@ -38,7 +37,6 @@
     "prefix_default_route": "3",
     "bind9": "named1",
     "extra_commands": [
-      //"/usr/sbin/sshd"
     ]
   },
   "DHCP2": {
