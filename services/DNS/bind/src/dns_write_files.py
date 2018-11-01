@@ -3,7 +3,8 @@ import json
 import os
 import stat
 
-from ../../../constants import PATH
+#from ../../../constants import PATH
+PATH='/home/vagrant/test/group3/lingi2142/services/DNS'
 
 dns_conf = open(PATH+"services/DNS/bind/named_zones/named.conf", "w")
 dns_conf.write(
