@@ -6,7 +6,7 @@
     "prefix_default_route": "1",
     "bind9": "named1",
     "extra_commands": [
-      "/usr/sbin/sshd"
+      //"/usr/sbin/sshd"
     ]
   },
   "Mon": {
@@ -15,6 +15,7 @@
     "default_route": "fd00:200:3:ffff::",
     "prefix_default_route": "2",
     "extra_commands": [
+      "sudo cp -R ./monitoring/Mon ./group3_cfg/",
       "/etc/check_isp_status.sh &",
       "/etc/check_dns_status.sh &",
       "/etc/check_router_conn.sh &",
@@ -37,7 +38,7 @@
     "prefix_default_route": "3",
     "bind9": "named1",
     "extra_commands": [
-      "/usr/sbin/sshd"
+      //"/usr/sbin/sshd"
     ]
   },
   "DHCP2": {
