@@ -12,7 +12,7 @@ with open(PATH+'service_configuration.json') as data_file:
 
 
 for host, configs in data.items():
-    host_start_config = open("group3_cfg/"+host+"_start.sh", "w")
+    host_start_config = open(PATH+"group3_cfg/"+host+"_start.sh", "w")
     host_start_config.write("#!/bin/bash \n\n")
     host_start_config.write("# This file has been generated automatically, see service_config_creation.py for details. \n\n")
 
@@ -33,5 +33,5 @@ for host, configs in data.items():
 
     host_start_config.close()
     # Add execution right to new file
-    file_stat = os.stat("group3_cfg/"+host+"_start.sh")
-    os.chmod("group3_cfg/"+host+"_start.sh", file_stat.st_mode | stat.S_IEXEC)
+    file_stat = os.stat(PATH+"group3_cfg/"+host+"_start.sh")
+    os.chmod(PATH+"group3_cfg/"+host+"_start.sh", file_stat.st_mode | stat.S_IEXEC)
