@@ -48,6 +48,7 @@ sudo touch group3_cfg/Carn/log/bird_log
 sudo touch group3_cfg/Mich/log/bird_log
 
 
+sudo cp -R ./monitoring/Mon ./group3_cfg/
 
 # Configuration files creation
 sudo python3 router_config_creation.py
