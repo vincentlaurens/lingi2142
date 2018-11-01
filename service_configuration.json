@@ -11,7 +11,7 @@
   "Mon": {
     "machine_number": "::1",
     "lan": "fff",
-    "default_route": "fd00:200:3:0fff::",
+    "default_route": "fd00:200:3:1fff::",
     "prefix_default_route": "2",
     "extra_commands": [
       "/etc/check_isp_status.sh &",
