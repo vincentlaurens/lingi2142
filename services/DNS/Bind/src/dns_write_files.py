@@ -3,8 +3,9 @@ import json
 import os
 import stat
 
-PATH = "/home/vagrant/test/lingi2142/services/DNS"
-dns_conf = open(PATH+"/bind/named_zones/named.conf", "w")
+from constants import PATH
+
+dns_conf = open(PATH+"services/DNS/bind/named_zones/named.conf", "w")
 dns_conf.write(
 "include \"/etc/bind/named.conf.options\";\n"
 "include \"/etc/bind/named.conf.local\";\n"
@@ -13,7 +14,7 @@ dns_conf.write(
 
 dns_conf.close()
 
-dns_conf_local = open(PATH+"/bind/named_zones/named.conf.local", "w")
+dns_conf_local = open(PATH+"services/DNS/bind/named_zones/named.conf.local", "w")
 
 
 
@@ -45,7 +46,7 @@ dns_conf_local.close()
 
 
 
-dns_conf_options = open(PATH+"/bind/named_zones/named.conf.options", "w")
+dns_conf_options = open(PATH+"services/DNS/bind/named_zones/named.conf.options", "w")
 
 
 

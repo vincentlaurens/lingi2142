@@ -3,8 +3,8 @@ import json
 import os
 import stat
 
-sys.path.append('/home/vagrant/lingi2142/')
-from constants import PREFIXES, PATH
+
+from constants import PATH
 
 PATH = PATH+"services/DNS"
 
