@@ -5,9 +5,7 @@ import os
 import stat
 
 
-from pprint import pprint
-
-from constants import PATH, PREFIXES
+from constants import PATH, PREFIXES_ADDRESS
 
 with open(PATH+'service_configuration.json') as data_file:
     data = json.load(data_file)
@@ -20,9 +18,8 @@ for host, configs in data.items():
 
     # Interface to LAN
     interface = host+"-eth0"
-    for prefix in PREFIXES:
-        host_start_config.write("ip address add dev "+interface+" fd00:200:3:"+configs["lan"]+configs["machine_number"]+"/64 \n")
-        host_start_config.write("ip address add dev "+interface+" fd00:300:3:"+configs["lan"]+configs["machine_number"]+"/64 \n")
+    for prefix_address in PREFIXES_ADDRESS:
+        host_start_config.write("ip address add dev "+interface+" "+prefix_address+configs["lan"]+configs["machine_number"]+"/64 \n")
 
    # Add the default route
     host_start_config.write("\nip -6 route add ::/0 via "+configs["default_route"]+configs["prefix_default_route"]+" \n\n")
