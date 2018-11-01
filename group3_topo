@@ -46,7 +46,7 @@ function mk_topo {
     # You can add your LANs here
     mk_LAN Hall DNS DHCP # Halles-lan0-network-management:Primary DNS, DHCP
     mk_LAN Pyth Mon # Pyth-lan0-monitoring
-    mk_LAN SH1C DNS2 DHCP2 # Halles-lan0-network-management:secondary DNS, DHCP
+    mk_LAN Stev DNS2 DHCP2 # Halles-lan0-network-management:secondary DNS, DHCP
     mk_LAN Carn Stud Staff # Lan for student because ran out of time and we could not create VLAN
 
     echo "@@ Bridging the network"
