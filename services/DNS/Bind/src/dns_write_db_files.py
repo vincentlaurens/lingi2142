@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-import sys
+import json
+import os
+import stat
 
 sys.path.append('/home/vagrant/lingi2142/')
 from constants import PREFIXES, PATH
 
-PATH = PATH+"end_user_management"
+PATH = PATH+"services/DNS"
 
 db_group3 = open(PATH+"/bind/out/zones/db.group3.ingi","w")
 

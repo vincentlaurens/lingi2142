@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 import json
-PATH = "/home/vagrant/lingi2142/network_server"
+import os
+import stat
+
+PATH = "/home/vagrant/lingi2142/services/DNS"
 dns_conf = open(PATH+"/bind/named_zones/named.conf", "w")
 dns_conf.write(
 "include \"/etc/bind/named.conf.options\";\n"
