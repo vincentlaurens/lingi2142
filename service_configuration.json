@@ -29,4 +29,24 @@
     "extra_commands": [
       "dhcpd -q -6 -f -cf /etc/dhcp/dhcpd6.conf -pf /var/run/dhcpd1.pid -tf /var/log/dhcpd/dhcpd1.log  -lf /etc/dhcp/dhcpd6.leases"
     ]
+  },
+  "DNS2": {
+    "machine_number": "::53",
+    "lan": "1000",
+    "default_route": "fd00:200:3:1000::",
+    "prefix_default_route": "6",
+    "bind9": "named1",
+    "extra_commands": [
+      "/usr/sbin/sshd"
+    ]
+  },
+  "DHCP2": {
+    "forced_address": "::547",
+    "lan": "1000",
+    "default_route": "fd00:200:3:1000::",
+    "prefix_default_route": "6",
+    "extra_commands": [
+      "dhcpd -q -6 -f -cf /etc/dhcp/dhcpd6.conf -pf /var/run/dhcpd1.pid -tf /var/log/dhcpd/dhcpd1.log  -lf /etc/dhcp/dhcpd6.leases"
+    ]
+  }
 }
