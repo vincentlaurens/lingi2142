@@ -84,8 +84,7 @@ for router, configs_firewall in data.items():
 
 		"#Authorize OSPF\n"
 		"ip6tables -A INPUT -p 89 -j ACCEPT\n"
-		"ip6tables -A OUTPUT -p 89 -j ACCEPT\n"
-		"ip6tables -A FORWARD -p 89 -j ACCEPT\n\n"
+		"ip6tables -A OUTPUT -p 89 -j ACCEPT\n\n"
 		
 		"#Authorize outgoing and incoming ping\n"
 		"ip6tables -A INPUT -p icmpv6 -j ACCEPT\n"
@@ -153,10 +152,10 @@ for router, configs_firewall in data.items():
 			pprint(configs_firewall["router_id"])
 			router_firewall_config_file.write(
 			"	#Allow SNMP for each hosts on Monitoring LAN and mailbox protocols and SSH for check log for instance\n"
-			"	ip6tables -A INPUT -p tcp -d fd00:${a}:3:ffff::1/64 -m tcp --dport 161 -j ACCEPT\n"
-			"	ip6tables -A INPUT -p udp -d fd00:${a}:3:ffff::1/64 -m udp --dport 162 -j ACCEPT\n"
-			"	ip6tables -A INPUT -p tcp -d fd00:${a}:3:ffff::1/64 -m tcp --dport 22 -j ACCEPT\n"	
-			"	ip6tables -A INPUT -p tcp -d fd00:${a}:3:ffff::1/64 -m multiport --dports 25,110,143 -j ACCEPT\n\n"
+			"	ip6tables -A INPUT -p tcp -d fd00:${a}:3:1fff::1/64 -m tcp --dport 161 -j ACCEPT\n"
+			"	ip6tables -A INPUT -p udp -d fd00:${a}:3:1fff::1/64 -m udp --dport 162 -j ACCEPT\n"
+			"	ip6tables -A INPUT -p tcp -d fd00:${a}:3:1fff::1/64 -m tcp --dport 22 -j ACCEPT\n"	
+			"	ip6tables -A INPUT -p tcp -d fd00:${a}:3:1fff::1/64 -m multiport --dports 25,110,143 -j ACCEPT\n\n"
 			)
 		
 	router_firewall_config_file.write(
@@ -167,18 +166,37 @@ for router, configs_firewall in data.items():
 		"		ip6tables -A INPUT -i "+router+"-eth1 -p tcp -s fd00:${a}:3::"+configs_firewall["router_id"]+"/48 --dport 22 -j ACCEPT\n\n"
 	)
 	if configs_firewall["bgp"] == "true":
-		router_firewall_config_file.write(
-		"		#allow BGP(router connected with provider)\n"
-		"		ip6tables -A INPUT -p tcp -m tcp --dport 179 -j ACCEPT\n"
-		"		ip6tables -A OUTPUT -p tcp -m tcp --dport 179 -j ACCEPT\n" 
-		"		ip6tables -A FORWARD -p tcp -m tcp --dport 179 -j ACCEPT\n\n"
+		if router == "Hall":
+			router_firewall_config_file.write(
+			"		#allow external BGP(router connected with provider)\n"
+			"		ip6tables -A INPUT -i "+router+"-belnetb -p tcp -m tcp --dport 179 -j ACCEPT\n"
+			"		ip6tables -A OUTPUT -i "+router+"-belnetb -p tcp -m tcp --dport 179 -j ACCEPT\n" 
+			"		ip6tables -A FORWARD -p tcp -m tcp --dport 179 -j ACCEPT\n\n"
+			"		#Drop OSPF between Pyth and provider\n"
+			"		ip6tables -A INPUT -i "+router+"-belnetb  -p 89 -j DROP\n" #-s fd00:300::b/64
+			"		ip6tables -A OUTPUT -o "+router+"-belnetb -p 89 -j DROP\n\n" #-s fd00:300::b/64
 		)
+		if router == "Pyth":
+			router_firewall_config_file.write(
+			"		#allow external BGP(router connected with provider)\n"
+			"		ip6tables -A INPUT -i "+router+"-belneta -p tcp -m tcp --dport 179 -j ACCEPT\n"
+			"		ip6tables -A OUTPUT -i "+router+"-belneta -p tcp -m tcp --dport 179 -j ACCEPT\n" 
+			"		ip6tables -A FORWARD -p tcp -m tcp --dport 179 -j ACCEPT\n"
+			"		#Drop OSPF between Pyth and provider"
+			"		ip6tables -A INPUT -i "+router+"-belneta  -p 89 -j DROP\n" #-s fd00:200::b/64
+			"		ip6tables -A OUTPUT -o "+router+"-belneta -p 89 -j DROP\n" #-s fd00:200::b/64
+		)
+		
 	router_firewall_config_file.write(
 		"		#Allow DNS server\n"
 		"		ip6tables -A OUTPUT -p udp -d fd00:${a}:3:"+configs_firewall["suffixe_DNS"]+"/64 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT\n"
 		"		ip6tables -A INPUT  -p udp -s fd00:${a}:3:"+configs_firewall["suffixe_DNS"]+"/64 --sport 53 -m state --state ESTABLISHED     -j ACCEPT\n"
 		"		ip6tables -A OUTPUT -p tcp -d fd00:${a}:3:"+configs_firewall["suffixe_DNS"]+"/64 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT\n"
 		"		ip6tables -A INPUT -p tcp -s fd00:${a}:3:"+configs_firewall["suffixe_DNS"]+"/64 --sport 53 -m state --state ESTABLISHED -j ACCEPT\n"
+		"		ip6tables -A OUTPUT -p udp -d fd00:${a}:3:"+configs_firewall["suffixe_DNS2"]+"/64 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT\n"
+		"		ip6tables -A INPUT  -p udp -s fd00:${a}:3:"+configs_firewall["suffixe_DNS2"]+"/64 --sport 53 -m state --state ESTABLISHED     -j ACCEPT\n"
+		"		ip6tables -A OUTPUT -p tcp -d fd00:${a}:3:"+configs_firewall["suffixe_DNS2"]+"/64 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT\n"
+		"		ip6tables -A INPUT -p tcp -s fd00:${a}:3:"+configs_firewall["suffixe_DNS2"]+"/64 --sport 53 -m state --state ESTABLISHED -j ACCEPT\n"
 		"done\n"
 		"# Allow external access to your HTTP and HTTPS server\n"
 		"#ip6tables  -A INPUT -p tcp -m multiport --dports 80,443,8080 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT\n"
