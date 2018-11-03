@@ -39,7 +39,7 @@ for router, configs in data.items():
                                     )
 	##############eth interfaces on routers ########################################
 	for eth, eth_configs in configs["eths"].items():
-		site = configs["eth"]
+		site = configs["eths"]
 		router_start_file.write("ip link set dev "+router+"-"+eth+" up \n")
 		for prefix_address in PREFIXES_ADDRESS:
 			router_start_file.write("ip address add dev "+router+"-"+eth+" "+prefix_address+configs["City"]+site+"::"+configs["router_id"]+"/64 \n")
