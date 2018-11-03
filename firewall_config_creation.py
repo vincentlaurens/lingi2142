@@ -101,9 +101,9 @@ for router, configs_firewall in data.items():
 		"ip6tables -A OUTPUT -p icmpv6 -j ACCEPT\n"
 		"ip6tables -A FORWARD -p icmpv6 -j ACCEPT\n"
 		"#limitation on 128/0\n"
-		"ip6tables -A INPUT -p icmpv6 --icmpv6-type echo-request -j ACCEPT --match limit --limit 5/minute\n"
+		"ip6tables -A INPUT -p icmpv6 --icmpv6-type echo-request -m limit --limit 5/minute -j ACCEPT\n"
 		"# Neighbor Solicitation limitation to avoid DoS\n"
-		"ip6tables -A INPUT -p icmpv6 --icmpv6-type 135/0 -j ACCEPT --match limit --limit 15/minute\n"
+		"ip6tables -A INPUT -p icmpv6 --icmpv6-type 135/0 -m limit --limit 15/minute -j ACCEPT\n"
 		
 		"#Authorize DHCPv6 on the local link on the client site\n"
 		"ip6tables -A INPUT -m state --state NEW -m udp -p udp --dport 546 -d fe80::/64 -j ACCEPT\n\n"
