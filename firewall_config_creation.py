@@ -179,9 +179,13 @@ for router, configs_firewall in data.items():
 		if router == "Hall":
 			router_firewall_config_file.write(
 			"		#allow external BGP(router connected with provider)\n"
-			"		ip6tables -A INPUT -i "+router+"-belnetb -p tcp -m tcp --dport 179 -j ACCEPT\n"
-			"		ip6tables -A OUTPUT -i "+router+"-belnetb -p tcp -m tcp --dport 179 -j ACCEPT\n" 
-			"		ip6tables -A FORWARD -p tcp -m tcp --dport 179 -j ACCEPT\n\n"
+			"for p in "tcp" "udp";\n"
+			"do\n"		
+			"		ip6tables -A INPUT -i "+router+"-belnetb -p $p  --dport 179 -j ACCEPT\n"
+			"		ip6tables -A INPUT -i "+router+"-belnetb -p $p  --sport 179 -j ACCEPT\n"
+			"		ip6tables -A OUTPUT -i "+router+"-belnetb -p $p  --dport 179 -j ACCEPT\n" 
+			#"		ip6tables -A FORWARD -p $p -m $p --dport 179 -j ACCEPT\n\n"
+			"done\n"
 			"		#Drop OSPF between Pyth and provider\n"
 			"		ip6tables -A INPUT -i "+router+"-belnetb  -p 89 -j DROP\n" #-s fd00:300::b/64
 			"		ip6tables -A OUTPUT -o "+router+"-belnetb -p 89 -j DROP\n\n" #-s fd00:300::b/64
@@ -189,9 +193,13 @@ for router, configs_firewall in data.items():
 		if router == "Pyth":
 			router_firewall_config_file.write(
 			"		#allow external BGP(router connected with provider)\n"
-			"		ip6tables -A INPUT -i "+router+"-belneta -p tcp -m tcp --dport 179 -j ACCEPT\n"
-			"		ip6tables -A OUTPUT -i "+router+"-belneta -p tcp -m tcp --dport 179 -j ACCEPT\n" 
-			"		ip6tables -A FORWARD -p tcp -m tcp --dport 179 -j ACCEPT\n"
+			"for p in "tcp" "udp";\n"
+			"do\n"
+			"		ip6tables -A INPUT -i "+router+"-belneta -p $p  --dport 179 -j ACCEPT\n"
+			"		ip6tables -A INPUT -i "+router+"-belneta -p $p  --sport 179 -j ACCEPT\n"
+			"		ip6tables -A OUTPUT -i "+router+"-belneta -p $p --dport 179 -j ACCEPT\n" 
+			#"		ip6tables -A FORWARD -p tcp -m tcp --dport 179 -j ACCEPT\n"
+			"done\n"
 			"		#Drop OSPF between Pyth and provider"
 			"		ip6tables -A INPUT -i "+router+"-belneta  -p 89 -j DROP\n" #-s fd00:200::b/64
 			"		ip6tables -A OUTPUT -o "+router+"-belneta -p 89 -j DROP\n" #-s fd00:200::b/64
