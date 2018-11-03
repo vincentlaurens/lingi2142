@@ -1,11 +1,12 @@
 {
 	"Hall": {
 		"router_id": "1",
+		"City":"f",
 		"setup_bgp_conf":"true",
 		"default_bgp_prefix_to_advertise": "fd00:200:3::/48",
 		"eths": {
-			"eth0": "6",
-			"eth1": "0"
+			"eth0": "06",
+			"eth1": "00"
 		},
 		"isp": {
 			"belnetb": {
@@ -21,12 +22,13 @@
 	},
 	"Pyth": {
 		"router_id": "2",
+		"City":"f",
 		"setup_bgp_conf":"true",
 		"default_bgp_prefix_to_advertise": "fd00:300:3::/48",
 		"eths": {
-			"eth0": "0",
-			"eth1": "2",
-			"eth2": "1"
+			"eth0": "00",
+			"eth1": "02",
+			"eth2": "01"
 		},
 		"isp": {
 			"belneta": {
@@ -44,7 +46,7 @@
 			}
 		},
       "lans": {
-        "lan1": "1fff"
+        "lan1": "f"
       },
 		"vlans": {
 			"lan0": "01"
@@ -53,22 +55,25 @@
 		},
     "Stev":{
 		"router_id":"3",
+		"City":"f",
 		"setup_bgp_conf":"false",
 		"eths":{
 			"eth0":"3",
 			"eth1":"1"
 		},
 		"lans": {
-			"lan1": "1001"
+			"lan1": "1"
 		}
 	},
 	"Carn":{
 		"router_id":"4",
+		"City":"f",
+		"Site":"04",
 		"setup_bgp_conf":"false",
 		"eths":{
-			"eth0":"4",
-			"eth1":"2",
-            "eth2":"3"
+			"eth0":"04",
+			"eth1":"02",
+            "eth2":"03"
 		},
 		"lans": {
 			"lan0": "040"
@@ -76,21 +81,23 @@
 	},
 	"Mich":{
 		"router_id":"5",
+		"City":"f",
 		"setup_bgp_conf":"false",
 		"eths":{
-			"eth0":"5",
-			"eth1":"4"
+			"eth0":"05",
+			"eth1":"04"
 		}
 	},
 	"SH1C":{
 		"router_id":"6",
+		"City":"f",
 		"setup_bgp_conf":"false",
 		"eths":{
-			"eth0":"5",
-			"eth1":"6"
+			"eth0":"05",
+			"eth1":"06"
 		},
 		"lans": {
-			"lan1": "1000"
+			"lan1": "1"
 		}
 	}
 }

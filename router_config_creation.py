@@ -39,9 +39,10 @@ for router, configs in data.items():
                                     )
 	##############eth interfaces on routers ########################################
 	for eth, eth_configs in configs["eths"].items():
+		site = configs["eth"]
 		router_start_file.write("ip link set dev "+router+"-"+eth+" up \n")
 		for prefix_address in PREFIXES_ADDRESS:
-			router_start_file.write("ip address add dev "+router+"-"+eth+" "+prefix_address+eth_configs+"::"+configs["router_id"]+"/64 \n")
+			router_start_file.write("ip address add dev "+router+"-"+eth+" "+prefix_address+configs["City"]+site+"::"+configs["router_id"]+"/64 \n")
 
 	router_start_file.write("\n")
 
@@ -49,7 +50,7 @@ for router, configs in data.items():
 	if "lans" in configs:
 		for lan, lan_configs in configs["lans"].items():
 			for prefix_address in PREFIXES_ADDRESS:
-				router_start_file.write("ip address add dev "+router+"-"+lan+" "+prefix_address+lan_configs+"::"+configs["router_id"]+"/64 \n")
+				router_start_file.write("ip address add dev "+router+"-"+lan+" "+prefix_address+configs["City"]+configs["eth"]+lan_configs+"::"+configs["router_id"]+"/64 \n")
 	router_start_file.write("\n")
 
 	##############vlan interfaces #######################################################
