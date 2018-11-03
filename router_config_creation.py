@@ -50,7 +50,7 @@ for router, configs in data.items():
 	if "lans" in configs:
 		for lan, lan_configs in configs["lans"].items():
 			for prefix_address in PREFIXES_ADDRESS:
-				router_start_file.write("ip address add dev "+router+"-"+lan+" "+prefix_address+configs["City"]+configs["eth"]+lan_configs+"::"+configs["router_id"]+"/64 \n")
+				router_start_file.write("ip address add dev "+router+"-"+lan+" "+prefix_address+configs["City"]+configs["eths"]+lan_configs+"::"+configs["router_id"]+"/64 \n")
 	router_start_file.write("\n")
 
 	##############vlan interfaces #######################################################
