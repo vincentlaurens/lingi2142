@@ -1,6 +1,7 @@
 {
   "DNS": {
     "machine_number": "::53",
+    "City":"f",
     "lan": "000",
     "default_route": "fd00:200:3:1000::",
     "prefix_default_route": "6",
@@ -10,6 +11,7 @@
   },
   "Mon": {
     "machine_number": "::1",
+    "City":"f",
     "lan": "fff",
     "default_route": "fd00:200:3:1fff::",
     "prefix_default_route": "2",
@@ -22,6 +24,7 @@
   },
   "DHCP": {
     "machine_number": "::547",
+    "City":"f",
     "lan": "000",
     "default_route": "fd00:200:3:1000::",
     "prefix_default_route": "6",
@@ -31,6 +34,7 @@
   },
   "DNS2": {
     "machine_number": "::53",
+    "City":"f",
     "lan": "001",
     "default_route": "fd00:200:3:1001::",
     "prefix_default_route": "3",
@@ -40,6 +44,7 @@
   },
   "DHCP2": {
     "machine_number": "::547",
+    "City":"f",
     "lan": "001",
     "default_route": "fd00:200:3:1001::",
     "prefix_default_route": "3",
