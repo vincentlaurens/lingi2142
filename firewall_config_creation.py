@@ -50,6 +50,7 @@ for router, configs_firewall in data.items():
 		"#Reinitialize the configuration\n"
 		"ip6tables -F\n"
 		"ip6tables -X\n"
+		"ip6tables -Z\n"
 		
 		"# Flush all rules and delete all chains\n"
 		"# because it is best to startup cleanly\n"
