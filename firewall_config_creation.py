@@ -219,7 +219,7 @@ for router, configs_firewall in data.items():
 		"ip6tables -A LOGGING -m limit --limit 10/minute -j LOG --log-prefix \"IP6Tables-Dropped: \" --log-level 4\n"
 		"ip6tables -A LOGGING -j DROP\n"
 		"#Print table from routers and display the rules added before\n"
-		"ip6tables -L\n"
+		"#ip6tables -L\n"
 	)
 	router_firewall_config_file.close()
 	os.chmod(PATH+"iptables/"+router+".sh", 0o766)
