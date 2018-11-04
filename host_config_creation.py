@@ -45,4 +45,4 @@ for host, configs in data.items():
 
     # Add execution right to new file
     file_stat = os.stat("group3_cfg/"+host+"_start.sh")
-    os.chmod(PATH+"group3_cfg/"+host+"_start", 0o766)
+    os.chmod(PATH+"group3_cfg/"+host+"_start.sh", 0o766)
