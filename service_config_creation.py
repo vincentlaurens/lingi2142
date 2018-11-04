@@ -19,7 +19,7 @@ for host, configs in data.items():
     # Interface to LAN
     interface = host+"-eth0"
     for prefix_address in PREFIXES_ADDRESS:
-        host_start_config.write("ip address add dev "+interface+" "+prefix_address+configs["City"]+configs["site"]+configs["use"]+configs["machine_number"]+"\n\n")
+        host_start_config.write("ip address add dev "+interface+" "+prefix_address+configs["City"]+configs["site"]+configs["use"]+configs["machine_number"]+"/64\n\n")
     
 
    # Add the default route
