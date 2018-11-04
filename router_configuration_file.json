@@ -18,7 +18,7 @@
             		}
 	     	},
 		"vlans": {
-			"lan0": "00"
+			"lan0": "01"
 		},
 		"10_commands": [
 			"ip -6 rule add from fd00:200:3::/48 to fd00:200:3::/48 pref 1000 table main",
@@ -92,7 +92,7 @@
            		"eth2":"03"
 		},
 		"lans": {
-			"lan0": "040"
+			"lan0": "0"
 	      }
 	},
 	"Mich":{
