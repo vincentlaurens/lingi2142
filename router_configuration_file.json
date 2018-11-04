@@ -1,6 +1,7 @@
 {
 	"Hall": {
-		"router_id": "01",
+		"router_id": "1",
+		"lan_interface": "01",
 		"City":"f",
 		"setup_bgp_conf":"true",
 		"default_bgp_prefix_to_advertise": "fd00:200:3::/48",
@@ -21,7 +22,8 @@
 		}
 	},
 	"Pyth": {
-		"router_id": "02",
+		"router_id": "2",
+		"lan_interface": "02",
 		"City":"f",
 		"setup_bgp_conf":"true",
 		"default_bgp_prefix_to_advertise": "fd00:300:3::/48",
@@ -54,7 +56,8 @@
 
 		},
     "Stev":{
-		"router_id":"03",
+		"router_id":"3",
+		"lan_interface": "03",
 		"City":"f",
 		"setup_bgp_conf":"false",
 		"eths":{
@@ -66,7 +69,8 @@
 		}
 	},
 	"Carn":{
-		"router_id":"04",
+		"router_id":"4",
+		"lan_interface": "04",
 		"City":"f",
 		"Site":"04",
 		"setup_bgp_conf":"false",
@@ -80,7 +84,8 @@
 	      }
 	},
 	"Mich":{
-		"router_id":"05",
+		"router_id":"5",
+		"lan_interface": "05",
 		"City":"f",
 		"setup_bgp_conf":"false",
 		"eths":{
@@ -89,7 +94,8 @@
 		}
 	},
 	"SH1C":{
-		"router_id":"06",
+		"router_id":"6",
+		"lan_interface": "06",
 		"City":"f",
 		"setup_bgp_conf":"false",
 		"eths":{
