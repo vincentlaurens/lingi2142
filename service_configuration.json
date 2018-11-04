@@ -2,8 +2,9 @@
   "DNS": {
     "machine_number": "::53",
     "City":"f",
-    "lan": "1",
-    "default_route": "fd00:200:3:1000::",
+    "site": "06",
+    "use": "1",
+    "default_route": "fd00:200:3:f061::",
     "prefix_default_route": "6",
     "bind9": "named1",
     "extra_commands": [
@@ -12,8 +13,9 @@
   "Mon": {
     "machine_number": "::1",
     "City":"f",
-    "lan": "f",
-    "default_route": "fd00:200:3:1fff::",
+    "site": "02",
+    "use": "f",
+    "default_route": "fd00:200:3:f02f::",
     "prefix_default_route": "2",
     "extra_commands": [
       "/etc/check_isp_status.sh &",
@@ -25,8 +27,9 @@
   "DHCP": {
     "machine_number": "::547",
     "City":"f",
-    "lan": "1",
-    "default_route": "fd00:200:3:1000::",
+    "site": "06",
+    "use": "1",
+    "default_route": "fd00:200:3:f061::",
     "prefix_default_route": "6",
     "extra_commands": [
       "dhcpd -q -6 -f -cf /etc/dhcp/dhcpd6.conf -pf /var/run/dhcpd1.pid -tf /var/log/dhcpd/dhcpd1.log  -lf /etc/dhcp/dhcpd6.leases"
@@ -35,8 +38,9 @@
   "DNS2": {
     "machine_number": "::53",
     "City":"f",
-    "lan": "001",
-    "default_route": "fd00:200:3:1001::",
+    "site": "03",
+    "use": "2",
+    "default_route": "fd00:200:3:f032::",
     "prefix_default_route": "3",
     "bind9": "named1",
     "extra_commands": [
@@ -45,8 +49,9 @@
   "DHCP2": {
     "machine_number": "::547",
     "City":"f",
-    "lan": "001",
-    "default_route": "fd00:200:3:1001::",
+    "site": "03",
+    "use": "2",
+    "default_route": "fd00:200:3:f032::",
     "prefix_default_route": "3",
     "extra_commands": [
       "dhcpd -q -6 -f -cf /etc/dhcp/dhcpd6.conf -pf /var/run/dhcpd1.pid -tf /var/log/dhcpd/dhcpd1.log  -lf /etc/dhcp/dhcpd6.leases"
