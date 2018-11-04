@@ -62,7 +62,10 @@ for router, configs in data.items():
 				for prefix in PREFIXES_ADDRESS:
 					router_start_file.write("ip address add dev "+router+"-"+vlan+"."+vlan_use+location+" "+prefix+vlan_use+location+"::/64 \n")
 			router_start_file.write("\n")
-
+	########################"Prefix management rules"###################################
+	if "lb_commands" in configs:
+		for command in configs["lb_commands"].items():
+			router_start_file.write(command)
 
 	router_start_file.write("\n")
 	router_start_file.write("bird6 -s /tmp/"+router+"_bird.ctl -P /tmp/"+router+"_bird.pid \n")
