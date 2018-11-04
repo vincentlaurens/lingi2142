@@ -2,9 +2,8 @@
 
 import json
 import os
-import sys
 
-from pprint import pprint
+
 from constants import PATH
 
 
@@ -88,11 +87,11 @@ for router, configs_firewall in data.items():
 		
 		"# Drop INVALID packets\n"
    		"ip6tables -A INPUT -m state --state INVALID -j DROP\n"
-    		"ip6tables -A OUTPUT -m state --state INVALID -j DROP\n"
-    		"ip6tables -A FORWARD -m state --state INVALID -j DROP\n\n"
-    
-    		"ip6tables -A INPUT ! -p icmpv6 -m state --state INVALID -j DROP\n"
-    		"ip6tables -A OUTPUT ! -p icmpv6 -m state --state INVALID -j DROP\n"
+		"ip6tables -A OUTPUT -m state --state INVALID -j DROP\n"
+		"ip6tables -A FORWARD -m state --state INVALID -j DROP\n\n"
+
+		"ip6tables -A INPUT ! -p icmpv6 -m state --state INVALID -j DROP\n"
+		"ip6tables -A OUTPUT ! -p icmpv6 -m state --state INVALID -j DROP\n"
 		"ip6tables -A FORWARD ! -p icmpv6 -m state --state INVALID -j DROP\n\n"
 		
 		"#Authorize outgoing and incoming ping\n"
@@ -123,27 +122,24 @@ for router, configs_firewall in data.items():
 	if "lans" in configs_firewall:
 		if "StudStaff" in configs_firewall:
 			router_firewall_config_file.write(
-				"for i in \"200\" \"300\";\n"
-				"do\n"
-					"# Refuse router advertisement from students (flooding or misbehaviour)\n"
-					"ip6tables -A INPUT -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 -p icmpv6 --icmpv6-type 134/0 -j DROP\n"
-					"ip6tables -A INPUT -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 -p icmpv6 --icmpv6-type 134/0 -j DROP\n\n"
-																					 
-					"# Block student and staff from connecting with each other\n"
-					"ip6tables -A FORWARD -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 -d fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 -j DROP\n\n"
-																																		   	
-	
-					#"# Allow SSH for students and staff members\n"
-					#"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 -d fd00:$i::3/48 --destination-port 22 -j ACCEPT\n\n"
-	
-					#"# Allow SMTP for students and staff members\n"
-					#"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 -d fd00:$i::3/48 --destination-port 25 -j ACCEPT\n\n"
-	
-					#"# Allow HTTP and HTTPS for students and staff members\n"
-					#"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 -d fd00:$i::3/48 --destination-port 80 -j ACCEPT\n\n"
-					#"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 -d fd00:$i::3/48 --destination-port 443 -j ACCEPT\n\n"
-				"done\n"
-				)
+			"# Refuse router advertisement from students (flooding or misbehaviour)\n"
+			"ip6tables -A INPUT -s fd00:$a:3:"+configs_firewall["StudStaff"]+"::/64 -p icmpv6 --icmpv6-type 134/0 -j DROP\n"
+			"ip6tables -A INPUT -s fd00:$a:3:"+configs_firewall["StudStaff"]+"::/64 -p icmpv6 --icmpv6-type 134/0 -j DROP\n\n"
+																			 
+			"# Block student and staff from connecting with each other\n"
+			"ip6tables -A FORWARD -s fd00:$a:3:"+configs_firewall["StudStaff"]+"::/64 -d fd00:$a:3:"+configs_firewall["StudStaff"]+"::/64 -j DROP\n\n"
+
+
+			#"# Allow SSH for students and staff members\n"
+			#"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 -d fd00:$i::3/48 --destination-port 22 -j ACCEPT\n\n"
+
+			#"# Allow SMTP for students and staff members\n"
+			#"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 -d fd00:$i::3/48 --destination-port 25 -j ACCEPT\n\n"
+
+			#"# Allow HTTP and HTTPS for students and staff members\n"
+			#"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 -d fd00:$i::3/48 --destination-port 80 -j ACCEPT\n\n"
+			#"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 -d fd00:$i::3/48 --destination-port 443 -j ACCEPT\n\n"
+			)
 		if "Monitoring" in configs_firewall:
 			router_firewall_config_file.write(
 			"	#Allow SNMP for each hosts on Monitoring LAN and mailbox protocols and SSH for check log for instance\n"
@@ -165,7 +161,7 @@ for router, configs_firewall in data.items():
 	router_firewall_config_file.write(
 		"		# Restrict incoming SSH to a specific network interface\n"
 		"		ip6tables -A INPUT -i "+router+"-eth1 -p tcp --destination-port 22 -j ACCEPT\n"
-		"		ip6tables -I OUTPUT -o  "+router+"-eth1 -p udp --destination-port 33434:33524 -m state --state NEW -j ACCEPT\n"
+		"		ip6tables -A OUTPUT -o  "+router+"-eth1 -p udp --destination-port 33434:33524 -m state --state NEW -j ACCEPT\n"
 		"		#Restrict incoming SSH to the local network\n"
 		"		ip6tables -A INPUT -i "+router+"-eth1 -p tcp -s fd00:${a}:3::"+configs_firewall["router_id"]+"/48 --destination-port 22 -j ACCEPT\n\n"
 	)
@@ -177,7 +173,7 @@ for router, configs_firewall in data.items():
 			"do\n"		
 			"		ip6tables -A INPUT -i "+router+"-belnetb -p $p  --destination-port 179 -j ACCEPT\n"
 			"		ip6tables -A INPUT -i "+router+"-belnetb -p $p  --source-port 179 -j ACCEPT\n"
-			"		ip6tables -A OUTPUT -i "+router+"-belnetb -p $p  --destination-port 179 -j ACCEPT\n" 
+			"		ip6tables -A OUTPUT -o "+router+"-belnetb -p $p  --destination-port 179 -j ACCEPT\n" 
 			#"		ip6tables -A FORWARD -p $p -m $p --destination-port 179 -j ACCEPT\n\n"
 			"done\n"
 			"		#Drop OSPF between Pyth and provider\n"
@@ -191,7 +187,7 @@ for router, configs_firewall in data.items():
 			"do\n"
 			"		ip6tables -A INPUT -i "+router+"-belneta -p $p  --destination-port 179 -j ACCEPT\n"
 			"		ip6tables -A INPUT -i "+router+"-belneta -p $p  --source-port 179 -j ACCEPT\n"
-			"		ip6tables -A OUTPUT -i "+router+"-belneta -p $p --destination-port 179 -j ACCEPT\n" 
+			"		ip6tables -A OUTPUT -o "+router+"-belneta -p $p --destination-port 179 -j ACCEPT\n" 
 			#"		ip6tables -A FORWARD -p tcp -m tcp --destination-port 179 -j ACCEPT\n"
 			"done\n"
 			"		#Drop OSPF between Pyth and provider"
