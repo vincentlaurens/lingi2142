@@ -65,7 +65,7 @@ for router, configs in data.items():
 	########################"Prefix management rules"###################################
 	if "lb_commands" in configs:
 		for command in configs["lb_commands"]:
-			router_start_file.write("	"+command+"\n")
+			router_start_file.write(command+"\n")
 
 	router_start_file.write("\n")
 	router_start_file.write("bird6 -s /tmp/"+router+"_bird.ctl -P /tmp/"+router+"_bird.pid \n")
