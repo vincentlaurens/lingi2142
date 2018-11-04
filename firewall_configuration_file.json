@@ -2,45 +2,43 @@
 	"Hall": {
 		"router_id": "1",
 		"bgp": "true",
-		"suffixe_DNS": "1000::53",
-		"suffixe_DNS2": "1001::53"
+		"suffixe_DNS": "f011::53",
+		"suffixe_DNS2": "f012::53"
 	},
 	"Pyth": {
 		"router_id": "2",
 		"bgp": "true",
-		"suffixe_DNS": "1000::53",
-		"suffixe_DNS2": "1001::53",
-		"Monitoring": {},
+		"suffixe_DNS": "f011::53",
+		"suffixe_DNS2": "f012::53",
 		"lans": {
-			"lan0": "1fff"
+			"Monitoring": "f02f"
 		}
 	},
 	"Stev": {
 		"router_id": "3",
 		"bgp": "false",
-		"suffixe_DNS": "1000::53",
-		"suffixe_DNS2": "1001::53"
+		"suffixe_DNS": "f011::53",
+		"suffixe_DNS2": "f012::53"
 	},
 	"Carn": {
 		"router_id": "4",
 		"bgp": "false",
-		"suffixe_DNS": "1000::53",
-		"suffixe_DNS2": "1001::53",
-		"StudStaff": {},
+		"suffixe_DNS": "f011::53",
+		"suffixe_DNS2": "f012::53",
 		"lans": {
-			"lan0": "40"
+			"StudStaff": "f040"
 		}
 	},
 	"Mich":{
 		"router_id": "5",
 		"bgp": "false",
-		"suffixe_DNS": "1000::53",
-		"suffixe_DNS2": "1001::53"
+		"suffixe_DNS": "f011::53",
+		"suffixe_DNS2": "f012::53"
 	},
 	"SH1C": {
 		"router_id": "6",
 		"bgp": "false",
-		"suffixe_DNS": "1000::53",
-		"suffixe_DNS2": "1001::53"
+		"suffixe_DNS": "f011::53",
+		"suffixe_DNS2": "f012::53"
 	}
 }

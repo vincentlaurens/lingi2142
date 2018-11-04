@@ -38,7 +38,6 @@ with open(PATH+'firewall_configuration_file.json') as data_file:
 
 
 for router, configs_firewall in data.items():
-	#pprint(router)
 	router_firewall_config_file = open(PATH+"iptables/"+router+".sh", "w")
 
 	router_firewall_config_file.write(
@@ -106,74 +105,69 @@ for router, configs_firewall in data.items():
 		"ip6tables -A INPUT -p icmpv6 --icmpv6-type 135/0 -m limit --limit 15/minute -j ACCEPT\n"
 		
 		"#Authorize DHCPv6 on the local link on the client site\n"
-		"ip6tables -A INPUT -m state --state NEW -m udp -p udp --dport 546 -d fe80::/64 -j ACCEPT\n\n"
+		"ip6tables -A INPUT -m state --state NEW -m udp -p udp --destination-port 546 -d fe80::/64 -j ACCEPT\n\n"
 		
 		
 		"#Allow Traceroute\n"
-		"ip6tables -I INPUT -p udp --sport 33434:33524 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT\n\n"
+		"ip6tables -I INPUT -p udp --source-port 33434:33524 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT\n\n"
 		
 		"#Authorize incoming SSH connections with the unicast routing addresses on Internet\n"
-    		"ip6tables -A INPUT -s 2000::/3 -p tcp --dport 22 --syn -m state --state NEW -j ACCEPT\n"
+    		"ip6tables -A INPUT -s 2000::/3 -p tcp --destination-port 22 --syn -m state --state NEW -j ACCEPT\n"
 
 		
 		"# Allow logging in via SSH\n"
-		"#ip6tables -A INPUT -p tcp --dport 22 -j ACCEPT\n\n"
+		"#ip6tables -A INPUT -p tcp --destination-port 22 -j ACCEPT\n\n"
 		"for a in 200 300\n"
 		"do\n"
 		)
 	if "lans" in configs_firewall:
-		if router == "Carn":
+		if "StudStaff" in configs_firewall:
 			router_firewall_config_file.write(
-					"#Drop connexion from stud to staff\n"
-					"ip6tables -A FORWARD -s fd00:${a}:3:40::/64 -d fd00:${a}:3:40::/64 -j DROP\n\n"
-					#"#Drop connexion from stud to stud\n"
-					#"ip6tables -A FORWARD -s fd00:${a}:3:40::/64 -d fd00:${a}:3:41::/64 -j DROP\n\n"
-					#"#Drop connexion from staff to staff\n"
-					#"ip6tables -A FORWARD -s fd00:${a}:3:41::/64 -d fd00:${a}:3:41::/64 -j DROP\n\n"
-					#"# Allow\Drop SSH between stud and staff members\n"
-					#"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:40::/64  -d fd00:${a}:3:41::/64 --dport 22 -j DROP\n\n"
-					#"# Allow SSH from stud to stud\n"
-					"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:40::/64 -d fd00:${a}:3:40::/64 --dport 22 -j ACCEPT\n\n"
-					"#Allow SSH from staff to staff\n"
-					"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:41::/64 -d fd00:${a}:3:41::/64 --dport 22 -j ACCEPT\n\n"
-					"# Allow SNMP between stud and staff members\n"
-					"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:40::/64  -d fd00:${a}:3:41::/64 -m multiport --dports 25,110,143 -j ACCEPT\n\n"
-					"#llow SNMP from stud to stud\n"
-					"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:40::/64 -d fd00:${a}:3:41::/64 -m multiport --dports 25,110,143 -j ACCEPT\n\n"
-					"#Allow SNMP from staff to staff\n"
-					"ip6tables -A FORWARD -p tcp -s fd00:${a}:3:41::/64 -d fd00:${a}:3:41::/64 -m multiport --dports 25,110,143 -j ACCEPT\n\n"
-					"#Prohibit Router Advertisement for the student\n"
-					"ip6tables -A INPUT -p icmpv6 -s fd00:${a}:3:40::/64 --icmpv6-type 134/0 -j ACCEPT\n"
-					"# Allow HTTP and HTTPS for students and staff members\n"
-					"ip6tables -A INPUT -p tcp -s fd00:${a}:3:40::/64  --dport 80 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT\n"
-					"ip6tables -A INPUT -p tcp -s fd00:${a}:3:40::/64  --dport 8080 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT\n"
-					"ip6tables -A INPUT -p tcp -s fd00:${a}:3:40::/64  --dport 443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT\n\n"
-					"ip6tables -A INPUT -p tcp -s fd00:${a}:3:41::/64  --dport 80 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT\n"
-					"ip6tables -A INPUT -p tcp -s fd00:${a}:3:41::/64   --dport 8080 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT\n"
-					"ip6tables -A INPUT -p tcp -s fd00:${a}:3:41::/64  --dport 443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT\n\n"
-					"ip6tables -A OUTPUT -p tcp -s fd00:${a}:3:40::/64  --dport 80 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT\n"
-					"ip6tables -A OUTPUT -p tcp -s fd00:${a}:3:40::/64   --dport 8080 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT\n"
-					"ip6tables -A OUTPUT -p tcp -s fd00:${a}:3:40::/64  --dport 443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT\n\n"
-					"ip6tables -A OUTPUT -p tcp -s fd00:${a}:3:41::/64  --dport 80 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT\n"
-					"ip6tables -A OUTPUT -p tcp -s fd00:${a}:3:41::/64   --dport 8080 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT\n"
-					"ip6tables -A OUTPUT -p tcp -s fd00:${a}:3:41::/64  --dport 443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT\n\n"
-					)
-		if router == "Pyth":
-			pprint(configs_firewall["router_id"])
+				"for i in \"200\" \"300\";\n"
+				"do\n"
+					"# Refuse router advertisement from students (flooding or misbehaviour)\n"
+					"ip6tables -A INPUT -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 -p icmpv6 --icmpv6-type 134/0 -j DROP\n"
+					"ip6tables -A INPUT -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 -p icmpv6 --icmpv6-type 134/0 -j DROP\n\n"
+																					 
+					"# Block student and staff from connecting with each other\n"
+					"ip6tables -A FORWARD -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 -d fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 -j DROP\n\n"
+																																		   	
+	
+					#"# Allow SSH for students and staff members\n"
+					#"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 -d fd00:$i::3/48 --destination-port 22 -j ACCEPT\n\n"
+	
+					#"# Allow SMTP for students and staff members\n"
+					#"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 -d fd00:$i::3/48 --destination-port 25 -j ACCEPT\n\n"
+	
+					#"# Allow HTTP and HTTPS for students and staff members\n"
+					#"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 -d fd00:$i::3/48 --destination-port 80 -j ACCEPT\n\n"
+					#"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 -d fd00:$i::3/48 --destination-port 443 -j ACCEPT\n\n"
+				"done\n"
+				)
+		if "Monitoring" in configs_firewall:
 			router_firewall_config_file.write(
 			"	#Allow SNMP for each hosts on Monitoring LAN and mailbox protocols and SSH for check log for instance\n"
-			"	ip6tables -A INPUT -p tcp -d fd00:${a}:3:1fff::1/64 -m tcp --dport 161 -j ACCEPT\n"
-			"	ip6tables -A INPUT -p udp -d fd00:${a}:3:1fff::1/64 -m udp --dport 162 -j ACCEPT\n"
-			"	ip6tables -A INPUT -p tcp -d fd00:${a}:3:1fff::1/64 -m tcp --dport 22 -j ACCEPT\n"	
-			"	ip6tables -A INPUT -p tcp -d fd00:${a}:3:1fff::1/64 -m multiport --dports 25,110,143 -j ACCEPT\n\n"
+			"	ip6tables -A INPUT -p tcp -d fd00:${a}:3:"+configs_firewall["Monitoring"]+"::1/64 -m tcp --destination-port 161 -j ACCEPT\n"
+			"	ip6tables -A INPUT -p udp -d fd00:${a}:3:"+configs_firewall["Monitoring"]+"::1/64 -m udp --destination-port 162 -j ACCEPT\n"
+			"	ip6tables -A INPUT -p tcp -d fd00:${a}:3:"+configs_firewall["Monitoring"]+"::1/64 -m tcp --destination-port 22 -j ACCEPT\n"	
+			"	ip6tables -A INPUT -p tcp -d fd00:${a}:3:"+configs_firewall["Monitoring"]+"::1/64 -m multiport --destination-ports 25,110,143 -j ACCEPT\n\n"
+			)
+		if "visitor" in configs_firewall:
+			router_firewall_config_file.write(
+			"	# Allow HTTP and HTTPS for visitor\n"
+			"	for k in 200 300;\n"
+			"	do\n"
+				"	ip6tables -A FORWARD -p tcp -s fd00:$k:3:"+configs_firewall["visitor"]+"::/64 -d fd00:$k::3/48 --destination-port 80 -j ACCEPT\n"
+				"	ip6tables -A FORWARD -p tcp -s fd00:$k:3:"+configs_firewall["visitor"]+"::/64 -d fd00:$k::3/48 --destination-port 443 -j ACCEPT\n"
+			"	done\n"
 			)
 		
 	router_firewall_config_file.write(
 		"		# Restrict incoming SSH to a specific network interface\n"
-		"		ip6tables -A INPUT -i "+router+"-eth1 -p tcp --dport 22 -j ACCEPT\n"
-		"		ip6tables -I OUTPUT -o  "+router+"-eth1 -p udp --dport 33434:33524 -m state --state NEW -j ACCEPT\n"
+		"		ip6tables -A INPUT -i "+router+"-eth1 -p tcp --destination-port 22 -j ACCEPT\n"
+		"		ip6tables -I OUTPUT -o  "+router+"-eth1 -p udp --destination-port 33434:33524 -m state --state NEW -j ACCEPT\n"
 		"		#Restrict incoming SSH to the local network\n"
-		"		ip6tables -A INPUT -i "+router+"-eth1 -p tcp -s fd00:${a}:3::"+configs_firewall["router_id"]+"/48 --dport 22 -j ACCEPT\n\n"
+		"		ip6tables -A INPUT -i "+router+"-eth1 -p tcp -s fd00:${a}:3::"+configs_firewall["router_id"]+"/48 --destination-port 22 -j ACCEPT\n\n"
 	)
 	if configs_firewall["bgp"] == "true":
 		if router == "Hall":
@@ -181,10 +175,10 @@ for router, configs_firewall in data.items():
 			"		#allow external BGP(router connected with provider)\n"
 			"for p in \"tcp\" \"udp\";\n"
 			"do\n"		
-			"		ip6tables -A INPUT -i "+router+"-belnetb -p $p  --dport 179 -j ACCEPT\n"
-			"		ip6tables -A INPUT -i "+router+"-belnetb -p $p  --sport 179 -j ACCEPT\n"
-			"		ip6tables -A OUTPUT -i "+router+"-belnetb -p $p  --dport 179 -j ACCEPT\n" 
-			#"		ip6tables -A FORWARD -p $p -m $p --dport 179 -j ACCEPT\n\n"
+			"		ip6tables -A INPUT -i "+router+"-belnetb -p $p  --destination-port 179 -j ACCEPT\n"
+			"		ip6tables -A INPUT -i "+router+"-belnetb -p $p  --source-port 179 -j ACCEPT\n"
+			"		ip6tables -A OUTPUT -i "+router+"-belnetb -p $p  --destination-port 179 -j ACCEPT\n" 
+			#"		ip6tables -A FORWARD -p $p -m $p --destination-port 179 -j ACCEPT\n\n"
 			"done\n"
 			"		#Drop OSPF between Pyth and provider\n"
 			"		ip6tables -A INPUT -i "+router+"-belnetb  -p 89 -j DROP\n" #-s fd00:300::b/64
@@ -195,10 +189,10 @@ for router, configs_firewall in data.items():
 			"		#allow external BGP(router connected with provider)\n"
 			"for p in \"tcp\" \"udp\";\n"
 			"do\n"
-			"		ip6tables -A INPUT -i "+router+"-belneta -p $p  --dport 179 -j ACCEPT\n"
-			"		ip6tables -A INPUT -i "+router+"-belneta -p $p  --sport 179 -j ACCEPT\n"
-			"		ip6tables -A OUTPUT -i "+router+"-belneta -p $p --dport 179 -j ACCEPT\n" 
-			#"		ip6tables -A FORWARD -p tcp -m tcp --dport 179 -j ACCEPT\n"
+			"		ip6tables -A INPUT -i "+router+"-belneta -p $p  --destination-port 179 -j ACCEPT\n"
+			"		ip6tables -A INPUT -i "+router+"-belneta -p $p  --source-port 179 -j ACCEPT\n"
+			"		ip6tables -A OUTPUT -i "+router+"-belneta -p $p --destination-port 179 -j ACCEPT\n" 
+			#"		ip6tables -A FORWARD -p tcp -m tcp --destination-port 179 -j ACCEPT\n"
 			"done\n"
 			"		#Drop OSPF between Pyth and provider"
 			"		ip6tables -A INPUT -i "+router+"-belneta  -p 89 -j DROP\n" #-s fd00:200::b/64
@@ -207,26 +201,26 @@ for router, configs_firewall in data.items():
 		
 	router_firewall_config_file.write(
 		"		#Allow DNS server\n"
-		"		ip6tables -A OUTPUT -p udp -d fd00:${a}:3:"+configs_firewall["suffixe_DNS"]+"/64 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT\n"
-		"		ip6tables -A INPUT  -p udp -s fd00:${a}:3:"+configs_firewall["suffixe_DNS"]+"/64 --sport 53 -m state --state ESTABLISHED     -j ACCEPT\n"
-		"		ip6tables -A OUTPUT -p tcp -d fd00:${a}:3:"+configs_firewall["suffixe_DNS"]+"/64 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT\n"
-		"		ip6tables -A INPUT -p tcp -s fd00:${a}:3:"+configs_firewall["suffixe_DNS"]+"/64 --sport 53 -m state --state ESTABLISHED -j ACCEPT\n"
-		"		ip6tables -A OUTPUT -p udp -d fd00:${a}:3:"+configs_firewall["suffixe_DNS2"]+"/64 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT\n"
-		"		ip6tables -A INPUT  -p udp -s fd00:${a}:3:"+configs_firewall["suffixe_DNS2"]+"/64 --sport 53 -m state --state ESTABLISHED     -j ACCEPT\n"
-		"		ip6tables -A OUTPUT -p tcp -d fd00:${a}:3:"+configs_firewall["suffixe_DNS2"]+"/64 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT\n"
-		"		ip6tables -A INPUT -p tcp -s fd00:${a}:3:"+configs_firewall["suffixe_DNS2"]+"/64 --sport 53 -m state --state ESTABLISHED -j ACCEPT\n"
+		"		ip6tables -A OUTPUT -p udp -d fd00:${a}:3:"+configs_firewall["suffixe_DNS"]+"/64 --destination-port 53 -m state --state NEW,ESTABLISHED -j ACCEPT\n"
+		"		ip6tables -A INPUT  -p udp -s fd00:${a}:3:"+configs_firewall["suffixe_DNS"]+"/64 --source-port 53 -m state --state ESTABLISHED     -j ACCEPT\n"
+		"		ip6tables -A OUTPUT -p tcp -d fd00:${a}:3:"+configs_firewall["suffixe_DNS"]+"/64 --destination-port 53 -m state --state NEW,ESTABLISHED -j ACCEPT\n"
+		"		ip6tables -A INPUT -p tcp -s fd00:${a}:3:"+configs_firewall["suffixe_DNS"]+"/64 --source-port 53 -m state --state ESTABLISHED -j ACCEPT\n"
+		"		ip6tables -A OUTPUT -p udp -d fd00:${a}:3:"+configs_firewall["suffixe_DNS2"]+"/64 --destination-port 53 -m state --state NEW,ESTABLISHED -j ACCEPT\n"
+		"		ip6tables -A INPUT  -p udp -s fd00:${a}:3:"+configs_firewall["suffixe_DNS2"]+"/64 --source-port 53 -m state --state ESTABLISHED     -j ACCEPT\n"
+		"		ip6tables -A OUTPUT -p tcp -d fd00:${a}:3:"+configs_firewall["suffixe_DNS2"]+"/64 --destination-port 53 -m state --state NEW,ESTABLISHED -j ACCEPT\n"
+		"		ip6tables -A INPUT -p tcp -s fd00:${a}:3:"+configs_firewall["suffixe_DNS2"]+"/64 --source-port 53 -m state --state ESTABLISHED -j ACCEPT\n"
 		"done\n"
 		"# Allow external access to your HTTP and HTTPS server\n"
-		"#ip6tables  -A INPUT -p tcp -m multiport --dports 80,443,8080 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT\n"
-		"#ip6tables -A OUTPUT -p tcp -m multiport --dports 80,443,8080 -m conntrack --ctstate ESTABLISHED -j ACCEPT\n\n"
+		"#ip6tables  -A INPUT -p tcp -m multiport --destination-ports 80,443,8080 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT\n"
+		"#ip6tables -A OUTPUT -p tcp -m multiport --destination-ports 80,443,8080 -m conntrack --ctstate ESTABLISHED -j ACCEPT\n\n"
 		"# Allow external access to your unencrypted mail server, SMTP,IMAP, and Telnet.\n"
-		"ip6tables -A INPUT -p tcp -m multiport --dports 25,110,143 -j ACCEPT\n\n"
+		"ip6tables -A INPUT -p tcp -m multiport --destination-ports 25,110,143 -j ACCEPT\n\n"
 		"# Record all dropped packets in files\n"
-    		"ip6tables -N LOGGING\n"
-    		"ip6tables -A INPUT -j LOGGING\n"
-    		"ip6tables -A OUTPUT -j LOGGING\n"
-    		"ip6tables -A FORWARD -j LOGGING\n"
-    		"ip6tables -A LOGGING -m limit --limit 10/minute -j LOG --log-prefix \"IP6Tables-Dropped: \" --log-level 4\n"
+		"ip6tables -N LOGGING\n"
+		"ip6tables -A INPUT -j LOGGING\n"
+		"ip6tables -A OUTPUT -j LOGGING\n"
+		"ip6tables -A FORWARD -j LOGGING\n"
+		"ip6tables -A LOGGING -m limit --limit 10/minute -j LOG --log-prefix \"IP6Tables-Dropped: \" --log-level 4\n"
 		"ip6tables -A LOGGING -j DROP\n"
 		"#Print table from routers and display the rules added before\n"
 		"ip6tables -L\n"
