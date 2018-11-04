@@ -1,6 +1,6 @@
 {
 	"Hall": {
-		"router_id": "1",
+		"router_id": "01",
 		"City":"f",
 		"setup_bgp_conf":"true",
 		"default_bgp_prefix_to_advertise": "fd00:200:3::/48",
@@ -21,7 +21,7 @@
 		}
 	},
 	"Pyth": {
-		"router_id": "2",
+		"router_id": "02",
 		"City":"f",
 		"setup_bgp_conf":"true",
 		"default_bgp_prefix_to_advertise": "fd00:300:3::/48",
@@ -54,19 +54,19 @@
 
 		},
     "Stev":{
-		"router_id":"3",
+		"router_id":"03",
 		"City":"f",
 		"setup_bgp_conf":"false",
 		"eths":{
-			"eth0":"3",
-			"eth1":"1"
+			"eth0":"03",
+			"eth1":"01"
 		},
 		"lans": {
 			"lan1": "1"
 		}
 	},
 	"Carn":{
-		"router_id":"4",
+		"router_id":"04",
 		"City":"f",
 		"Site":"04",
 		"setup_bgp_conf":"false",
@@ -80,7 +80,7 @@
 	      }
 	},
 	"Mich":{
-		"router_id":"5",
+		"router_id":"05",
 		"City":"f",
 		"setup_bgp_conf":"false",
 		"eths":{
@@ -89,7 +89,7 @@
 		}
 	},
 	"SH1C":{
-		"router_id":"6",
+		"router_id":"06",
 		"City":"f",
 		"setup_bgp_conf":"false",
 		"eths":{
