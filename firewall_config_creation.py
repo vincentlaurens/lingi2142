@@ -130,15 +130,15 @@ for router, configs_firewall in data.items():
 			"ip6tables -A FORWARD -s fd00:$a:3:"+configs_firewall["StudStaff"]+"::/64 -d fd00:$a:3:"+configs_firewall["StudStaff"]+"::/64 -j DROP\n\n"
 
 
-			#"# Allow SSH for students and staff members\n"
-			#"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 -d fd00:$i::3/48 --destination-port 22 -j ACCEPT\n\n"
+			"# Allow SSH for students and staff members\n"
+			"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 --destination-port 22 -j ACCEPT\n\n"
 
-			#"# Allow SMTP for students and staff members\n"
-			#"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 -d fd00:$i::3/48 --destination-port 25 -j ACCEPT\n\n"
+			"# Allow SMTP for students and staff members\n"
+			"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 --destination-port 25 -j ACCEPT\n\n"
 
-			#"# Allow HTTP and HTTPS for students and staff members\n"
-			#"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 -d fd00:$i::3/48 --destination-port 80 -j ACCEPT\n\n"
-			#"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 -d fd00:$i::3/48 --destination-port 443 -j ACCEPT\n\n"
+			"# Allow HTTP and HTTPS for students and staff members\n"
+			"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 --destination-port 80 -j ACCEPT\n\n"
+			"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 --destination-port 443 -j ACCEPT\n\n"
 			)
 		if "Monitoring" in configs_firewall:
 			router_firewall_config_file.write(
@@ -151,10 +151,13 @@ for router, configs_firewall in data.items():
 		if "visitor" in configs_firewall:
 			router_firewall_config_file.write(
 			"	# Allow HTTP and HTTPS for visitor\n"
+			"	# Allow DNS for visitor\n"
 			"	for k in 200 300;\n"
 			"	do\n"
-				"	ip6tables -A FORWARD -p tcp -s fd00:$k:3:"+configs_firewall["visitor"]+"::/64 -d fd00:$k::3/48 --destination-port 80 -j ACCEPT\n"
-				"	ip6tables -A FORWARD -p tcp -s fd00:$k:3:"+configs_firewall["visitor"]+"::/64 -d fd00:$k::3/48 --destination-port 443 -j ACCEPT\n"
+				"	ip6tables -A FORWARD -p tcp -s fd00:$k:3:"+configs_firewall["visitor"]+"::/64 --destination-port 80 -j ACCEPT\n"
+				"	ip6tables -A FORWARD -p tcp -s fd00:$k:3:"+configs_firewall["visitor"]+"::/64 --destination-port 443 -j ACCEPT\n"
+				"	ip6tables -A FORWARD -p tcp -s fd00:$k:3:"+configs_firewall["visitor"]+"::/64 --destination-port 53 -j ACCEPT\n"
+				"	ip6tables -A FORWARD -p tcp -s fd00:$k:3:"+configs_firewall["visitor"]+"::/64 --destination-port 5001 -j ACCEPT\n"
 			"	done\n"
 			)
 		
@@ -174,7 +177,6 @@ for router, configs_firewall in data.items():
 			"		ip6tables -A INPUT -i "+router+"-belnetb -p $p  --destination-port 179 -j ACCEPT\n"
 			"		ip6tables -A INPUT -i "+router+"-belnetb -p $p  --source-port 179 -j ACCEPT\n"
 			"		ip6tables -A OUTPUT -o "+router+"-belnetb -p $p  --destination-port 179 -j ACCEPT\n" 
-			#"		ip6tables -A FORWARD -p $p -m $p --destination-port 179 -j ACCEPT\n\n"
 			"done\n"
 			"		#Drop OSPF between Pyth and provider\n"
 			"		ip6tables -A INPUT -i "+router+"-belnetb  -p 89 -j DROP\n" #-s fd00:300::b/64
@@ -188,7 +190,6 @@ for router, configs_firewall in data.items():
 			"		ip6tables -A INPUT -i "+router+"-belneta -p $p  --destination-port 179 -j ACCEPT\n"
 			"		ip6tables -A INPUT -i "+router+"-belneta -p $p  --source-port 179 -j ACCEPT\n"
 			"		ip6tables -A OUTPUT -o "+router+"-belneta -p $p --destination-port 179 -j ACCEPT\n" 
-			#"		ip6tables -A FORWARD -p tcp -m tcp --destination-port 179 -j ACCEPT\n"
 			"done\n"
 			"		#Drop OSPF between Pyth and provider"
 			"		ip6tables -A INPUT -i "+router+"-belneta  -p 89 -j DROP\n" #-s fd00:200::b/64
