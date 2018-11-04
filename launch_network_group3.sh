@@ -2,7 +2,7 @@
 
 # Cleanup
 sudo ./cleanup.sh
-sleep(5)
+sleep 5
 
 #creation of routers directories
 #logs
