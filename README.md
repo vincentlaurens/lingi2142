@@ -52,6 +52,8 @@ For launch the network, we write differnt python scripts:
  * firewall_config_creation.py: This script write every firewall rules on each router by creating a bash script (iptables/"router".sh) for each router containing their rules firewall. In the end, I implement a script (iptables/launchfirewall.sh) he execute each script "iptables/router.sh".
  After that, before creating the network, I launch by this command "sudo sh iptables/launchfirewall.sh" my security on network.
  * "sudo ./cleanup.sh": For information a clean of network has been executed everytime in "launch_network_group3.sh".
+
+  - You can install nmap : sudo apt-get install nmap.
  
  In pratice, for creating the entire network a Makefile has been written:
   * make: command to execute -> "./launch_network_group3.sh".
