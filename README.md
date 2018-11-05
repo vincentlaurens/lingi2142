@@ -39,28 +39,28 @@ virtual network as well as loads and apply its configuration files.
 You _should_ only run such a network within the VM.
 
 ## Description
-Each following scripts are executed in "launch_network_group3.sh":
+Each following scripts are executed in "[launch_network_group3.sh](launch_network_group3.sh)":
 For launch the network, we write differnt python scripts:
- * router_config_creation.py: This script write automatically every bird router configuration on the boot file, on the start file and on the bird file of every router. It allow to address each interface of every router.  
- * host_config_creation.py: This script create automatically every  Infrastructure and administration LAN.  
- * service_config_creation.py: This script create automatically every service LAN. Espacially, he create servers on each LAN (Monitoring, DNS, DHCP,...).
+ * [router_config_creation.py](router_config_creation.py): This script write automatically every bird router configuration on the boot file, on the start file and on the bird file of every router. It allow to address each interface of every router.  
+ * [host_config_creation.py](host_config_creation.py): This script create automatically every  Infrastructure and administration LAN.  
+ * [service_config_creation.py](service_config_creation.py): This script create automatically every service LAN. Espacially, he create servers on each LAN (Monitoring, DNS, DHCP,...).
 
-    -Don't forget to install the dhcp server : sudo apt-get install isc-dhcp-server.
+    -Don't forget to install the dhcp server : [sudo apt-get install isc-dhcp-server](sudo apt-get install isc-dhcp-server).
 
-    -Don't forget to install the DNS server  : sudo apt-get install bind9.
+    -Don't forget to install the DNS server  : [sudo apt-get install bind9](sudo apt-get install bind9).
     
- * firewall_config_creation.py: This script write every firewall rules on each router by creating a bash script (iptables/"router".sh) for each router containing their rules firewall. In the end, I implement a script (iptables/launchfirewall.sh) he execute each script "iptables/router.sh".
- After that, before creating the network, I launch by this command "sudo sh iptables/launchfirewall.sh" my security on network.
- * "sudo ./cleanup.sh": For information a clean of network has been executed everytime in "launch_network_group3.sh".
+ * [firewall_config_creation.py](firewall_config_creation.py): This script write every firewall rules on each router by creating a bash script ([iptables/"router".sh](iptables/"router".sh)) for each router containing their rules firewall. In the end, I implement a script ([iptables/launchfirewall.sh](iptables/launchfirewall.sh)) he execute each script "[iptables/router.sh](iptables/router.sh)".
+ After that, before creating the network, I launch by this command "[sudo sh iptables/launchfirewall.sh](sudo sh iptables/launchfirewall.sh)" my security on network.
+ * "sudo [./cleanup.sh](./cleanup.sh)": For information a clean of network has been executed everytime in "[launch_network_group3.sh](launch_network_group3.sh)".
 
-  - You can install nmap : sudo apt-get install nmap.
+  - You can install nmap : [sudo apt-get install nmap](sudo apt-get install nmap).
  
  In pratice, for creating the entire network a Makefile has been written:
-  * make: command to execute -> "./launch_network_group3.sh".
-  * make clean: can execute "sudo ./cleanup.sh" but it's not necessary because a clean of network are already realized before (see "For launch the network").
-  * make "name of router": execute sudo ./connect_to.sh group3_cfg $name of router. Connect on routers.
+  * [make](make): command to execute -> "./launch_network_group3.sh".
+  * [make clean](make clean): can execute "sudo ./cleanup.sh" but it's not necessary because a clean of network are already realized before (see "For launch the network").
+  * [make "name of router"](make name of router): execute sudo ./connect_to.sh group3_cfg $name of router. Connect on routers.
      "name of router": Hall, Pyth, Stev, Carn, Mich and SH1C.
-  * make "name of server": execute sudo ./connect_to.sh group3_cfg $name of server. Connect on servers.
+  * [make "name of server"](make name of server): execute sudo ./connect_to.sh group3_cfg $name of server. Connect on servers.
      "name of server": Mon, DNS, DHCP, DNS2 and DHCP2.
   
 
