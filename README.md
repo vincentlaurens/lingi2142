@@ -57,10 +57,10 @@ For launch the network, we write differnt python scripts:
  
  In pratice, for creating the entire network a Makefile has been written:
   * [make](make): command to execute -> "./launch_network_group3.sh".
-  * [make clean](make clean): can execute "sudo ./cleanup.sh" but it's not necessary because a clean of network are already realized before (see "For launch the network").
-  * [make "name of router"](make name of router): execute sudo ./connect_to.sh group3_cfg $name of router. Connect on routers.
+  * make clean: can execute "sudo ./cleanup.sh" but it's not necessary because a clean of network are already realized before (see "For launch the network").
+  * make "name of router": execute sudo ./connect_to.sh group3_cfg $name of router. Connect on routers.
      "name of router": Hall, Pyth, Stev, Carn, Mich and SH1C.
-  * [make "name of server"](make name of server): execute sudo ./connect_to.sh group3_cfg $name of server. Connect on servers.
+  * make "name of server": execute sudo ./connect_to.sh group3_cfg $name of server. Connect on servers.
      "name of server": Mon, DNS, DHCP, DNS2 and DHCP2.
   
 
