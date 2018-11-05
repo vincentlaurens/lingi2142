@@ -44,6 +44,8 @@ For launch the network, we write differnt python scripts:
  * router_config_creation.py: This script write automatically every bird router configuration on the boot file, on the start file and on the bird file of every router. It allow to address each interface of every router.  
  * host_config_creation.py: This script create automatically every  Infrastructure and administration LAN.  
  * service_config_creation.py: This script create automatically every service LAN. Espacially, he create servers on each LAN (Monitoring, DNS, DHCP,...).
+    -Don't forget to install the dhcp server : sudo apt-get install isc-dhcp-server.
+    -Don't forget to install the DNS server  : sudo apt-get install bind9.
  * firewall_config_creation.py: This script write every firewall rules on each router by creating a bash script (iptables/"router".sh) for each router containing their rules firewall. In the end, I implement a script (iptables/launchfirewall.sh) he execute each script "iptables/router.sh".
  After that, before creating the network, I launch by this command "sudo sh iptables/launchfirewall.sh" my security on network.
  * "sudo ./cleanup.sh": For information a clean of network has been executed everytime in "launch_network_group3.sh".
