@@ -5,7 +5,7 @@ import os
 
 from random import random
 
-from constants import PATH, PREFIXES
+from constants import PATH
 
 with open(PATH+'host_configuration.json') as data_file:
     data = json.load(data_file)
