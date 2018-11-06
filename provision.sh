@@ -14,7 +14,7 @@ apt-get -y -qq --force-yes update
 #fi
 apt-get -y -qq --force-yes update
 
-apt-get -y -qq --force-yes install git bash vim-nox tcpdump nano\
+apt-get -y -qq --force-yes install git bash lib32z1 vim-nox tcpdump nano\
                                           bird6 quagga inotify-tools\
                                           iperf bind9 bind9-doc bind9utils \
 					  radvd isc-dhcp-relay isc-dhcp-server isc-dhcp-client\
