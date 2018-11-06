@@ -28,7 +28,7 @@ iptables_file.write("#!/bin/bash\n\n"
 
 	"exit 0")
 iptables_file.close()
-os.chmod(PATH+"iptables/launchfirewall.sh", 0o766)
+os.chmod(PATH+"iptables/restartFirewall.sh", 0o766)
 	##########
 
 ####################routerfirewall.sh###############################"
