@@ -52,8 +52,8 @@ sudo touch group3_cfg/Mich/log/bird_log
 sudo cp -R ./monitoring/Mon ./group3_cfg/
 
 # Configuration files creation
-sudo python3 router_config_creation.py
 sudo python3 firewall_config_creation.py
+sudo python3 router_config_creation.py
 sudo python3 service_config_creation.py
 #sudo python3 host_config_creation.py
 
@@ -65,7 +65,7 @@ sudo sh services/deploy_service.sh
 sudo ./create_network.sh group3_topo
 
 #FireWall
-sudo sh iptables/launchfirewall.sh
+#sudo sh iptables/launchfirewall.sh
 
 # QoS
 #sudo ./qos/deploy_qos.sh
