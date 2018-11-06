@@ -21,6 +21,7 @@ for router, configs in data.items():
 	router_boot_file = open(PATH+"group3_cfg/"+router+"_boot.sh", "w")
 	router_boot_file.write("#!/bin/bash\n\n"
 	                        "sysctl -p \n"
+						    #"./iptables/"+router+".sh \n"
                            )
 	router_boot_file.close()
 	os.chmod(PATH+"group3_cfg/"+router+"_boot.sh", 0o766)
