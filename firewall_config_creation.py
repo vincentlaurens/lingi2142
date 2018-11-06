@@ -8,27 +8,27 @@ from constants import PATH
 
 
 ####################launchfirewall.sh###############################"
-#iptables_file = open(PATH+"iptables/launchfirewall.sh", "w")
-#iptables_file.write("#!/bin/bash\n\n"
-#	"echo \"Starting the firewalls on all routers ...\"\n\n"
+iptables_file = open(PATH+"iptables/restartfirewall.sh", "w")
+iptables_file.write("#!/bin/bash\n\n"
+	"echo \"Starting the firewalls on all routers ...\"\n\n"
 
-#	"sudo ip netns exec \"Hall\" ./iptables/Hall.sh\n\n"
+	"sudo ip netns exec \"Hall\" ./iptables/Hall.sh\n\n"
 
-#	"sudo ip netns exec \"Pyth\" ./iptables/Pyth.sh\n\n"
+	"sudo ip netns exec \"Pyth\" ./iptables/Pyth.sh\n\n"
 
-#	"sudo ip netns exec \"Stev\" ./iptables/Stev.sh\n\n"
+	"sudo ip netns exec \"Stev\" ./iptables/Stev.sh\n\n"
 
-#	"sudo ip netns exec \"SH1C\" ./iptables/SH1C.sh\n\n"
+	"sudo ip netns exec \"SH1C\" ./iptables/SH1C.sh\n\n"
 
-#	"sudo ip netns exec \"Carn\" ./iptables/Carn.sh\n\n"
+	"sudo ip netns exec \"Carn\" ./iptables/Carn.sh\n\n"
 
-#	"sudo ip netns exec \"Mich\" ./iptables/Mich.sh\n\n"
+	"sudo ip netns exec \"Mich\" ./iptables/Mich.sh\n\n"
 
-#	"echo \"All the firewalls have been set !\"\n\n"
+	"echo \"All the firewalls have been set !\"\n\n"
 
-#	"exit 0")
-#iptables_file.close()
-#os.chmod(PATH+"iptables/launchfirewall.sh", 0o766)
+	"exit 0")
+iptables_file.close()
+os.chmod(PATH+"iptables/launchfirewall.sh", 0o766)
 	##########
 
 ####################routerfirewall.sh###############################"
