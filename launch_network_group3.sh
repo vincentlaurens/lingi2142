@@ -17,7 +17,7 @@ mkdir -p group3_cfg/Mich/log
 
 mkdir -p iptables
 
-sudo touch iptables/launchfirewall.sh
+sudo touch iptables/restartFirewall.sh
 sudo touch iptables/Hall.sh
 sudo touch iptables/Pyth.sh
 sudo touch iptables/Stev.sh
