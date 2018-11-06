@@ -55,7 +55,7 @@ sudo cp -R ./monitoring/Mon ./group3_cfg/
 sudo python3 firewall_config_creation.py
 sudo python3 router_config_creation.py
 sudo python3 service_config_creation.py
-#sudo python3 host_config_creation.py
+sudo python3 host_config_creation.py
 
 #sudo chmod 755 ./services/deploy_service.sh
 #sudo sh services/deploy_service.sh
@@ -64,12 +64,4 @@ sudo python3 service_config_creation.py
 # Network creation
 sudo ./create_network.sh group3_topo
 
-#FireWall
-#sudo sh iptables/launchfirewall.sh
-
-# QoS
-#sudo ./qos/deploy_qos.sh
-
-# Webservice
-#sudo ./start_haproxy.sh
 
