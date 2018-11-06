@@ -12,15 +12,18 @@ apt-get -y -qq --force-yes update
 #	checkinstall -y
 #	cd ..
 #fi
-#apt-get -y -qq --force-yes update
+apt-get -y -qq --force-yes update
 
 apt-get -y -qq --force-yes install git bash vim-nox tcpdump nano\
                                           bird6 quagga inotify-tools\
-                                          iperf
+                                          iperf bind9 bind9-doc bind9utils \
+										  radvd isc-dhcp-relay isc-dhcp-server isc-dhcp-client\
+										  nmap
 # dependencies for puppet
 # apt-get -y -qq --force-yes install ruby ruby-dev libboost-all-dev gettext curl libcurl4-openssl-dev libyaml-cpp-dev
 apt-get -y -qq --force-yes install puppet # TODO Get more recent version of puppet
 #gem install puppet -f
+
 
 update-rc.d quagga disable &> /dev/null || true
 update-rc.d bird disable &> /dev/null || true
@@ -29,7 +32,8 @@ update-rc.d bird6 disable &> /dev/null || true
 service quagga stop
 service bird stop
 service bird6 stop
+service bind9 stop
 
 (cd /sbin && ln -s /usr/lib/quagga/* .)
 
-su vagrant -c 'cd && git clone https://github.com/UCL-INGI/lingi2142.git'
+#su vagrant -c 'cd && git clone https://github.com/UCL-INGI/lingi2142.git'
