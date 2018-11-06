@@ -23,3 +23,5 @@ DNS:
 	sudo ./connect_to.sh group3_cfg DNS
 DHCP:
 	sudo ./connect_to.sh group3_cfg DHCP
+restartFirewall:
+	sudo ./restartFirewall.sh
