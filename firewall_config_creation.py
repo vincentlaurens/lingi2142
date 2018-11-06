@@ -175,26 +175,26 @@ for router, configs_firewall in data.items():
 			"		#allow external BGP(router connected with provider)\n"
 			"for p in \"tcp\" \"udp\";\n"
 			"do\n"		
-			"		ip6tables -A INPUT -i "+router+"-belnetb -p $p  --destination-port 179 -j ACCEPT\n"
-			"		ip6tables -A INPUT -i "+router+"-belnetb -p $p  --source-port 179 -j ACCEPT\n"
-			"		ip6tables -A OUTPUT -o "+router+"-belnetb -p $p  --destination-port 179 -j ACCEPT\n" 
+			"		ip6tables -A INPUT -i belnetb -p $p  --destination-port 179 -j ACCEPT\n"
+			"		ip6tables -A INPUT -i belnetb -p $p  --source-port 179 -j ACCEPT\n"
+			"		ip6tables -A OUTPUT -o belnetb -p $p  --destination-port 179 -j ACCEPT\n" 
 			"done\n"
 			"		#Drop OSPF between Pyth and provider\n"
-			"		ip6tables -A INPUT -i "+router+"-belnetb  -p 89 -j DROP\n" #-s fd00:300::b/64
-			"		ip6tables -A OUTPUT -o "+router+"-belnetb -p 89 -j DROP\n\n" #-s fd00:300::b/64
+			"		ip6tables -A INPUT -i belnetb  -p 89 -j DROP\n" #-s fd00:300::b/64
+			"		ip6tables -A OUTPUT -o belnetb -p 89 -j DROP\n\n" #-s fd00:300::b/64
 		)
 		if router == "Pyth":
 			router_firewall_config_file.write(
 			"		#allow external BGP(router connected with provider)\n"
 			"for p in \"tcp\" \"udp\";\n"
 			"do\n"
-			"		ip6tables -A INPUT -i "+router+"-belneta -p $p  --destination-port 179 -j ACCEPT\n"
-			"		ip6tables -A INPUT -i "+router+"-belneta -p $p  --source-port 179 -j ACCEPT\n"
-			"		ip6tables -A OUTPUT -o "+router+"-belneta -p $p --destination-port 179 -j ACCEPT\n" 
+			"		ip6tables -A INPUT -i belneta -p $p  --destination-port 179 -j ACCEPT\n"
+			"		ip6tables -A INPUT -i belneta -p $p  --source-port 179 -j ACCEPT\n"
+			"		ip6tables -A OUTPUT -o belneta -p $p --destination-port 179 -j ACCEPT\n" 
 			"done\n"
 			"		#Drop OSPF between Pyth and provider"
-			"		ip6tables -A INPUT -i "+router+"-belneta  -p 89 -j DROP\n" #-s fd00:200::b/64
-			"		ip6tables -A OUTPUT -o "+router+"-belneta -p 89 -j DROP\n" #-s fd00:200::b/64
+			"		ip6tables -A INPUT -i belneta  -p 89 -j DROP\n" #-s fd00:200::b/64
+			"		ip6tables -A OUTPUT -o belneta -p 89 -j DROP\n" #-s fd00:200::b/64
 		)
 		
 	router_firewall_config_file.write(
