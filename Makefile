@@ -4,6 +4,10 @@ all:
 
 clean:
 	sudo rm -r group3_cfg/*
+connect:
+	sudo ./connect_to.sh group3_cfg ${namespace}
+restartFirewall:
+	sudo sh iptables/restartFirewall.sh
 
 Hall:
 	sudo ./connect_to.sh group3_cfg Hall
@@ -23,5 +27,4 @@ DNS:
 	sudo ./connect_to.sh group3_cfg DNS
 DHCP:
 	sudo ./connect_to.sh group3_cfg DHCP
-restartFirewall:
-	sudo ./restartFirewall.sh
+
