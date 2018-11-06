@@ -2,7 +2,7 @@
 
 
 apt-get -y -qq --force-yes update
-#apt-get -y -qq --force-yes install build-essential checkinstall
+apt-get -y -qq --force-yes install build-essential checkinstall
 #if !which cmake; then
 #	wget http://www.cmake.org/files/v3.2/cmake-3.2.2.tar.gz
 #	tar xf cmake-3.2.2.tar.gz
