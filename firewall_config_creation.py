@@ -8,7 +8,7 @@ from constants import PATH
 
 
 ####################launchfirewall.sh###############################"
-iptables_file = open(PATH+"iptables/restartfirewall.sh", "w")
+iptables_file = open(PATH+"iptables/restartFirewall.sh", "w")
 iptables_file.write("#!/bin/bash\n\n"
 	"echo \"Starting the firewalls on all routers ...\"\n\n"
 
