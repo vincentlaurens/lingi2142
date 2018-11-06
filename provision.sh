@@ -17,8 +17,8 @@ apt-get -y -qq --force-yes update
 apt-get -y -qq --force-yes install git bash vim-nox tcpdump nano\
                                           bird6 quagga inotify-tools\
                                           iperf bind9 bind9-doc bind9utils \
-										  radvd isc-dhcp-relay isc-dhcp-server isc-dhcp-client\
-										  nmap
+					  radvd isc-dhcp-relay isc-dhcp-server isc-dhcp-client\
+					  nmap
 # dependencies for puppet
 # apt-get -y -qq --force-yes install ruby ruby-dev libboost-all-dev gettext curl libcurl4-openssl-dev libyaml-cpp-dev
 apt-get -y -qq --force-yes install puppet # TODO Get more recent version of puppet
