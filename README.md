@@ -26,6 +26,8 @@ run an emulated network.
 
 ## Commands summary
 
+  * Caution !!! Modify the PATH variable of [constant.py](constant.py)  by project working Directory ("/vagrant/")
+
   * [./build_vm.sh](build_vm.sh) will create and provision the virtual machine.
   * `vagrant up` will boot the VM (once it has been built).
   * `vagrant ssh` (from this directory) will create an ssh connection to the
@@ -58,9 +60,9 @@ For launch the network, we write differnt python scripts:
  In pratice, for creating the entire network a Makefile has been written:
   * [make](make): command to execute -> "[./launch_network_group3.sh](./launch_network_group3.sh)".
   * make clean: can execute "sudo ./cleanup.sh" but it's not necessary because a clean of network are already realized before (see "For launch the network").
-  * make "name of router": execute sudo ./connect_to.sh group3_cfg $name of router. Connect on routers.
+  * make connect namespace="name of router": execute sudo ./connect_to.sh group3_cfg $name of router. Connect on routers.
      "name of router": Hall, Pyth, Stev, Carn, Mich and SH1C.
-  * make "name of server": execute sudo ./connect_to.sh group3_cfg $name of server. Connect on servers.
+  * make connect namespace="name of server": execute sudo ./connect_to.sh group3_cfg $name of server. Connect on servers.
      "name of server": Mon, DNS, DHCP, DNS2 and DHCP2.
   
 
