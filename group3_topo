@@ -47,9 +47,9 @@ function mk_topo {
 
     echo "@@ Adding LANs"
     # You can add your LANs here
-    mk_LAN Hall Ha1 Ha2 Ha3 Ha4 #Halles-lan0 host
+    mk_LAN Hall Ha1 Ha2 #Halles-lan0 host
 
-    mk_LAN Pyth Py1 Py2 Py3 Py4 #Pyth-lan1 hosts
+    mk_LAN Pyth Py1 Py2 #Pyth-lan1 hosts
     mk_LAN Pyth Mon # Pyth-lan0-monitoring
 
     mk_LAN Stev St1 St2 #Stev-lan0 hosts
