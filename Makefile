@@ -11,4 +11,7 @@ connect:
 restartFirewall:
 	sudo sh iptables/restartFirewall.sh
 
+runTest:
+    sudo sh tests/runtest.sh
+
 
