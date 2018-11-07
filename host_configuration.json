@@ -1,39 +1,98 @@
 {
   "Ha1": {
-    "vlan": "200"
+    "machine_number": "::53",
+    "City":"f",
+    "site": "01",
+    "use": "4",
+    "default_route": "fd00:200:3:f061::",
+    "prefix_default_route": "6"
   },
   "Ha2": {
-    "vlan": "300"
-  },
-  "Ha3": {
-    "vlan": "500"
-  },
-  "Ha4": {
-    "vlan": "600"
+    "machine_number": "::1",
+    "City":"f",
+    "site": "02",
+    "use": "5",
+    "default_route": "fd00:200:3:f02f::",
+    "prefix_default_route": "2"
   },
   "Py1": {
-    "vlan": "201"
+    "machine_number": "::547",
+    "City":"f",
+    "site": "06",
+    "use": "4",
+    "default_route": "fd00:200:3:f061::",
+    "prefix_default_route": "6"
   },
   "Py2": {
-    "vlan": "301"
+    "machine_number": "::53",
+    "City":"f",
+    "site": "03",
+    "use": "5",
+    "default_route": "fd00:200:3:f032::",
+    "prefix_default_route": "3"
   },
   "St1": {
-    "vlan": "202"
+    "machine_number": "::547",
+    "City":"f",
+    "site": "03",
+    "use": "4",
+    "default_route": "fd00:200:3:f032::",
+    "prefix_default_route": "3"
   },
   "St2": {
-    "vlan": "302"
+    "machine_number": "::547",
+    "City":"f",
+    "site": "03",
+    "use": "5",
+    "default_route": "fd00:200:3:f032::",
+    "prefix_default_route": "3"
+  },
+  "Ca1": {
+    "machine_number": "::547",
+    "City":"f",
+    "site": "03",
+    "use": "4",
+    "default_route": "fd00:200:3:f032::",
+    "prefix_default_route": "3"
+  },
+  "Ca2": {
+    "machine_number": "::547",
+    "City":"f",
+    "site": "03",
+    "use": "5",
+    "default_route": "fd00:200:3:f032::",
+    "prefix_default_route": "3"
   },
   "Mi1": {
-    "vlan": "204"
+    "machine_number": "::547",
+    "City":"f",
+    "site": "03",
+    "use": "4",
+    "default_route": "fd00:200:3:f032::",
+    "prefix_default_route": "3"
   },
   "Mi2": {
-    "vlan": "304"
+    "machine_number": "::547",
+    "City":"f",
+    "site": "03",
+    "use": "5",
+    "default_route": "fd00:200:3:f032::",
+    "prefix_default_route": "3"
   },
-  "SH1": {
-    "vlan": "205"
-
+  "Sh1": {
+    "machine_number": "::547",
+    "City":"f",
+    "site": "03",
+    "use": "4",
+    "default_route": "fd00:200:3:f032::",
+    "prefix_default_route": "3"
   },
-  "SH2": {
-    "vlan": "305"
+  "Sh2": {
+    "machine_number": "::547",
+    "City":"f",
+    "site": "03",
+    "use": "5",
+    "default_route": "fd00:200:3:f032::",
+    "prefix_default_route": "3"
   }
 }

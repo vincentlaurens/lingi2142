@@ -2,47 +2,39 @@
 
 import json
 import os
+import stat
 
-from random import random
+from constants import PATH, PREFIXES_ADDRESS
 
-from constants import PATH
-
-with open(PATH+'host_configuration.json') as data_file:
+with open(PATH + 'host_configuration.json') as data_file:
     data = json.load(data_file)
 
-
-
 for host, configs in data.items():
-    host_start_config = open(PATH+"group3_cfg/"+host+"_start.sh", "w")
+    host_start_config = open(PATH + "group3_cfg/" + host + "_start.sh", "w")
     host_start_config.write("#!/bin/bash \n\n")
-    host_start_config.write("# This file has been generated automatically, see host_config_creation.py for details. \n\n")
+    host_start_config.write(
+        "# This file has been generated automatically, see service_config_creation.py for details. \n\n")
 
-    # Hosts are on VLAN (VLAN ID is the concatenation of use and location)
-    if "vlan" in configs:
-        interface = host+"-eth0"
-        vlan_interface = interface+"."+configs["vlan"]
-        host_start_config.write("""
-        ip link set dev """+interface+""" up
-        ip link add link """+interface+""" name """+vlan_interface+""" type vlan id 0x"""+configs["vlan"]+"""
-        ip link set dev """+vlan_interface+""" up
-        """)
-    random_seed = random()
-    if random_seed < 0.5 :
-        host_start_config.write("""
-        sleep 20; rdnssd -H /etc/rdnssd/merge-hook -u rdnssd -p /var/run/"""+host+"""_rdnssd.pid
-        """)
-    else :
-        host_start_config.write("""
-        sleep 20; dhclient -6 -pf /var/run/dhclient_"""+host+""".pid -S """+host+"""-eth0."""+configs["vlan"]+"""
-        """)
+    # Interface to LAN
+    interface = host + "-eth0"
+    for prefix_address in PREFIXES_ADDRESS:
+        host_start_config.write(
+            "ip address add dev " + interface + " " + prefix_address + configs["City"] + configs["site"] + configs[
+                "use"] + configs["machine_number"] + "/64\n\n")
 
-    # Extra commands that should be ran at start
+        # Add the default route
+        host_start_config.write(
+            "\nip -6 route add ::/0 via " + prefix_address + configs["City"] + configs["site"] + configs["use"] + "::" +
+            configs["prefix_default_route"] + " \n\n")
+
+    if "bind9" in configs:
+        host_start_config.write("named -6 -c /etc/bind/" + configs["bind9"] + ".conf \n\n")
+
     if "extra_commands" in configs:
         for command in configs["extra_commands"]:
-            host_start_config.write(command+"\n\n")
+            host_start_config.write(command + "\n\n")
 
     host_start_config.close()
-
     # Add execution right to new file
-    file_stat = os.stat("group3_cfg/"+host+"_start.sh")
-    os.chmod(PATH+"group3_cfg/"+host+"_start.sh", 0o766)
+    file_stat = os.stat(PATH + "group3_cfg/" + host + "_start.sh")
+    os.chmod(PATH + "group3_cfg/" + host + "_start.sh", file_stat.st_mode | stat.S_IEXEC)
