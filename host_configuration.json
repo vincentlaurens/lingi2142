@@ -1,6 +1,6 @@
 {
   "Ha1": {
-    "machine_number": "::53",
+    "machine_number": "::1"
     "City":"f",
     "site": "01",
     "use": "4",
@@ -8,7 +8,7 @@
     "prefix_default_route": "6"
   },
   "Ha2": {
-    "machine_number": "::1",
+    "machine_number": "::2",
     "City":"f",
     "site": "02",
     "use": "5",
@@ -16,7 +16,7 @@
     "prefix_default_route": "2"
   },
   "Py1": {
-    "machine_number": "::547",
+    "machine_number": "::1",
     "City":"f",
     "site": "06",
     "use": "4",
@@ -24,7 +24,7 @@
     "prefix_default_route": "6"
   },
   "Py2": {
-    "machine_number": "::53",
+    "machine_number": "::2",
     "City":"f",
     "site": "03",
     "use": "5",
@@ -32,7 +32,7 @@
     "prefix_default_route": "3"
   },
   "St1": {
-    "machine_number": "::547",
+    "machine_number": "::1",
     "City":"f",
     "site": "03",
     "use": "4",
@@ -40,7 +40,7 @@
     "prefix_default_route": "3"
   },
   "St2": {
-    "machine_number": "::547",
+    "machine_number": "::2",
     "City":"f",
     "site": "03",
     "use": "5",
@@ -48,7 +48,7 @@
     "prefix_default_route": "3"
   },
   "Ca1": {
-    "machine_number": "::547",
+    "machine_number": "::1",
     "City":"f",
     "site": "03",
     "use": "4",
@@ -56,7 +56,7 @@
     "prefix_default_route": "3"
   },
   "Ca2": {
-    "machine_number": "::547",
+    "machine_number": "::2",
     "City":"f",
     "site": "03",
     "use": "5",
@@ -64,7 +64,7 @@
     "prefix_default_route": "3"
   },
   "Mi1": {
-    "machine_number": "::547",
+    "machine_number": "::1",
     "City":"f",
     "site": "03",
     "use": "4",
@@ -72,7 +72,7 @@
     "prefix_default_route": "3"
   },
   "Mi2": {
-    "machine_number": "::547",
+    "machine_number": "::2",
     "City":"f",
     "site": "03",
     "use": "5",
@@ -80,7 +80,7 @@
     "prefix_default_route": "3"
   },
   "Sh1": {
-    "machine_number": "::547",
+    "machine_number": "::1",
     "City":"f",
     "site": "03",
     "use": "4",
@@ -88,7 +88,7 @@
     "prefix_default_route": "3"
   },
   "Sh2": {
-    "machine_number": "::547",
+    "machine_number": "::2",
     "City":"f",
     "site": "03",
     "use": "5",

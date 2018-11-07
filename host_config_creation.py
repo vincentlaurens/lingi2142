@@ -20,11 +20,11 @@ for host, configs in data.items():
     for prefix_address in PREFIXES_ADDRESS:
         host_start_config.write(
             "ip address add dev " + interface + " " + prefix_address + configs["City"] + configs["site"] + configs[
-                "use"] + configs["machine_number"] + "/64\n\n")
+                "use"] + configs["machine_number"] + "/64\n")
 
         # Add the default route
         host_start_config.write(
-            "\nip -6 route add ::/0 via " + prefix_address + configs["City"] + configs["site"] + configs["use"] + "::" +
+            "ip -6 route add ::/0 via " + prefix_address + configs["City"] + configs["site"] + configs["use"] + "::" +
             configs["prefix_default_route"] + " \n\n")
 
     if "bind9" in configs:
