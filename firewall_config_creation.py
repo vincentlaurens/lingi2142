@@ -98,7 +98,16 @@ for router, configs_firewall in data.items():
 		"ip6tables -A INPUT -p icmpv6 --icmpv6-type echo-request -m limit --limit 5/minute -j ACCEPT\n"
 		"# Neighbor Solicitation limitation to avoid DoS\n"
 		"ip6tables -A INPUT -p icmpv6 --icmpv6-type 135/0 -m limit --limit 15/minute -j ACCEPT\n"
-		
+	)
+
+	if "lans" in configs_firewall:
+		if "StudStaff" in configs_firewall:
+			router_firewall_config_file.write(
+			"# Refuse router advertisement from students (flooding or misbehaviour)\n"
+			"ip6tables -A INPUT -s fd00:$a:3:"+configs_firewall["StudStaff"]+"::/64 -p icmpv6 --icmpv6-type 134/0 -j REJECT --reject-with icmp-host-prohibited\n"
+			"ip6tables -A INPUT -s fd00:$a:3:"+configs_firewall["StudStaff"]+"::/64 -p icmpv6 --icmpv6-type 134/0 -j REJECT --reject-with icmp-host-prohibited\n\n"
+			)
+	router_firewall_config_file.write(
 		"#Authorize outgoing and incoming ping\n"
 		"ip6tables -A INPUT -p icmpv6 -j ACCEPT\n"
 		"ip6tables -A OUTPUT -p icmpv6 -j ACCEPT\n"
@@ -112,34 +121,30 @@ for router, configs_firewall in data.items():
 		"ip6tables -I INPUT -p udp --source-port 33434:33524 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT\n\n"
 		
 		"#Authorize incoming SSH connections with the unicast routing addresses on Internet\n"
-    		"ip6tables -A INPUT -s 2000::/3 -p tcp --destination-port 22 --syn -m state --state NEW -j ACCEPT\n"
-
+			"ip6tables -A INPUT -s 2000::/3 -p tcp --destination-port 22 --syn -m state --state NEW -j ACCEPT\n"
+		
 		
 		"# Allow logging in via SSH\n"
 		"#ip6tables -A INPUT -p tcp --destination-port 22 -j ACCEPT\n\n"
 		"for a in 200 300\n"
 		"do\n"
-		)
+	)
 	if "lans" in configs_firewall:
 		if "StudStaff" in configs_firewall:
 			router_firewall_config_file.write(
-			"# Refuse router advertisement from students (flooding or misbehaviour)\n"
-			"ip6tables -A INPUT -s fd00:$a:3:"+configs_firewall["StudStaff"]+"::/64 -p icmpv6 --icmpv6-type 134/0 -j DROP\n"
-			"ip6tables -A INPUT -s fd00:$a:3:"+configs_firewall["StudStaff"]+"::/64 -p icmpv6 --icmpv6-type 134/0 -j DROP\n\n"
-																			 
-			"# Block student and staff from connecting with each other\n"
-			"ip6tables -A FORWARD -s fd00:$a:3:"+configs_firewall["StudStaff"]+"::/64 -d fd00:$a:3:"+configs_firewall["StudStaff"]+"::/64 -j DROP\n\n"
-
-
-			"# Allow SSH for students and staff members\n"
-			"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 --destination-port 22 -j ACCEPT\n\n"
-
-			"# Allow SMTP for students and staff members\n"
-			"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 --destination-port 25 -j ACCEPT\n\n"
-
-			"# Allow HTTP and HTTPS for students and staff members\n"
-			"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 --destination-port 80 -j ACCEPT\n\n"
-			"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 --destination-port 443 -j ACCEPT\n\n"
+				"# Block student and staff from connecting with each other\n"
+				"ip6tables -A FORWARD -s fd00:$a:3:"+configs_firewall["StudStaff"]+"::/64 -d fd00:$a:3:"+configs_firewall["StudStaff"]+"::/64 -j DROP\n\n"
+				
+				
+				"# Allow SSH for students and staff members\n"
+				"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 --destination-port 22 -j ACCEPT\n\n"
+				
+				"# Allow SMTP for students and staff members\n"
+				"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 --destination-port 25 -j ACCEPT\n\n"
+				
+				"# Allow HTTP and HTTPS for students and staff members\n"
+				"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 --destination-port 80 -j ACCEPT\n\n"
+				"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 --destination-port 443 -j ACCEPT\n\n"
 			)
 		if "Monitoring" in configs_firewall:
 			router_firewall_config_file.write(
