@@ -1,6 +1,6 @@
 {
   "Ha1": {
-    "machine_number": "::1",
+    "machine_number": "::11",
     "City":"f",
     "site": "01",
     "use": "4",
@@ -24,7 +24,7 @@
     "prefix_default_route": "2"
   },
   "Py2": {
-    "machine_number": "::2",
+    "machine_number": "::12",
     "City":"f",
     "site": "03",
     "use": "5",
