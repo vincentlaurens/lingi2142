@@ -25,14 +25,14 @@ for host, configs in data.items():
    # Add the default route and route to providers
     host_start_config.write("\n")
     host_start_config.write("ip -6 route add ::/0 via "+PREFIXES_ADDRESS[0]+configs["City"]+configs["site"]+configs["use"]+"::"+configs["prefix_default_route"]+" \n\n")
-    host_start_config.write("ip -6 route add "+PREFIXES_ADDRESS[1]+configs["City"]+configs["site"]+configs["use"]+"::"+configs["prefix_default_route"]+" via "+host+"-eth0 \n\n")
+    host_start_config.write("ip -6 route add "+PREFIXES_ADDRESS[1]+configs["City"]+configs["site"]+configs["use"]+"::"+configs["prefix_default_route"]+" dev "+host+"-eth0 \n\n")
 
     if "bind9" in configs:
         host_start_config.write("named -6 -c /etc/bind/"+configs["bind9"]+".conf \n\n")
        
     if "extra_commands" in configs:
         for command in configs["extra_commands"]:
-            host_start_config.write(command+"\n\n")
+            host_start_config.write(command+"\n")
 
     host_start_config.close()
     # Add execution right to new file
