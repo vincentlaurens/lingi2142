@@ -22,10 +22,13 @@ for host, configs in data.items():
             "ip address add dev " + interface + " " + prefix_address + configs["City"] + configs["site"] + configs[
                 "use"] + configs["machine_number"] + "/64\n")
 
-        # Add the default route
+        # Add the default route and route to providers
         host_start_config.write(
-            "ip -6 route add ::/0 via " + prefix_address + configs["City"] + configs["site"] + configs["use"] + "::" +
-            configs["prefix_default_route"] + " \n\n")
+            "\nip -6 route add ::/0 via " + PREFIXES_ADDRESS[0] + configs["City"] + configs["site"] + configs[
+                "use"] + "::" + configs["prefix_default_route"] + " \n\n")
+        host_start_config.write(
+            "\nip -6 route add " + PREFIXES_ADDRESS[1] + configs["City"] + configs["site"] + configs["use"] + "::" +
+            configs["prefix_default_route"] + " via " + host + "-eth0 \n\n")
 
     if "bind9" in configs:
         host_start_config.write("named -6 -c /etc/bind/" + configs["bind9"] + ".conf \n\n")
