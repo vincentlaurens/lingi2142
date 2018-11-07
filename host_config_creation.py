@@ -30,9 +30,9 @@ for host, configs in data.items():
     if "bind9" in configs:
         host_start_config.write("named -6 -c /etc/bind/" + configs["bind9"] + ".conf \n\n")
 
-    if "extra_commands" in configs:
-        for command in configs["extra_commands"]:
-            host_start_config.write(command + "\n\n")
+ #   if "extra_commands" in configs:
+  #      for command in configs["extra_commands"]:
+   #         host_start_config.write(command + "\n\n")
 
     host_start_config.close()
     # Add execution right to new file
