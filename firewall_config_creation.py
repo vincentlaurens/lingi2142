@@ -121,25 +121,32 @@ for router, configs_firewall in data.items():
 		"do\n"
 	)
 	if "lans" in configs_firewall:
-		if "StudStaff" in configs_firewall:
+		if "Stud" and "Staff" in configs_firewall:
 			router_firewall_config_file.write(
 				"# Refuse router advertisement from students (flooding or misbehaviour)\n"
-				"ip6tables -A INPUT -s fd00:$a:3:"+configs_firewall["StudStaff"]+"::/64 -p icmpv6 --icmpv6-type 134/0 -j REJECT --reject-with icmp-host-prohibited\n"
-				"ip6tables -A INPUT -s fd00:$a:3:"+configs_firewall["StudStaff"]+"::/64 -p icmpv6 --icmpv6-type 134/0 -j REJECT --reject-with icmp-host-prohibited\n\n"
+				"ip6tables -A INPUT -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -p icmpv6 --icmpv6-type 134/0 -j REJECT --reject-with icmp-host-prohibited\n"
+				"ip6tables -A INPUT -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -p icmpv6 --icmpv6-type 134/0 -j REJECT --reject-with icmp-host-prohibited\n"
+				"ip6tables -A INPUT -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -p icmpv6 --icmpv6-type 134/0 -j REJECT --reject-with icmp-host-prohibited\n\n"
+				"ip6tables -A INPUT -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -p icmpv6 --icmpv6-type 134/0 -j REJECT --reject-with icmp-host-prohibited\n\n"
 																				 
 				"# Block student and staff from connecting with each other\n"
-				"ip6tables -A FORWARD -s fd00:$a:3:"+configs_firewall["StudStaff"]+"::/64 -d fd00:$a:3:"+configs_firewall["StudStaff"]+"::/64 -j DROP\n\n"
+				"ip6tables -A FORWARD -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -d fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -j DROP\n\n"
+				"ip6tables -A FORWARD -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -d fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -j DROP\n\n"
 				
 				
 				"# Allow SSH for students and staff members\n"
-				"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 --destination-port 22 -j ACCEPT\n\n"
+				"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["Stud"]+"::/64 --destination-port 22 -j ACCEPT\n\n"
+				"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["Staff"]+"::/64 --destination-port 22 -j ACCEPT\n\n"
 				
 				"# Allow SMTP for students and staff members\n"
-				"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 --destination-port 25 -j ACCEPT\n\n"
+				"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["Stud"]+"::/64 --destination-port 25 -j ACCEPT\n\n"
+				"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["Staff"]+"::/64 --destination-port 25 -j ACCEPT\n\n"
 				
 				"# Allow HTTP and HTTPS for students and staff members\n"
-				"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 --destination-port 80 -j ACCEPT\n\n"
-				"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["StudStaff"]+"::/64 --destination-port 443 -j ACCEPT\n\n"
+				"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["Stud"]+"::/64 --destination-port 80 -j ACCEPT\n\n"
+				"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["Staff"]+"::/64 --destination-port 80 -j ACCEPT\n\n"
+				"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["Stud"]+"::/64 --destination-port 443 -j ACCEPT\n\n"
+				"ip6tables -A FORWARD -p tcp -s fd00:$i:3:"+configs_firewall["Staff"]+"::/64 --destination-port 443 -j ACCEPT\n\n"
 			)
 		if "Monitoring" in configs_firewall:
 			router_firewall_config_file.write(

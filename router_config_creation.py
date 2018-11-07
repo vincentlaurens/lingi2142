@@ -54,14 +54,14 @@ for router, configs in data.items():
 	router_start_file.write("\n")
 
 	##############vlan interfaces #######################################################
-	if "vlans" in configs:
-		for vlan, location in configs["vlans"].items():
-			for vlan_use in VLAN_USES:
-				router_start_file.write("ip link add link "+router+"-"+vlan+" name "+router+"-"+vlan+"."+vlan_use+location+" type vlan id 0x"+vlan_use+location+" \n")
-				router_start_file.write("ip link set dev "+router+"-"+vlan+"."+vlan_use+location+" up \n")
-				for prefix in PREFIXES_ADDRESS:
-					router_start_file.write("ip address add dev "+router+"-"+vlan+"."+vlan_use+location+" "+prefix+vlan_use+location+"::/64 \n")
-			router_start_file.write("\n")
+	#if "vlans" in configs:
+	#	for vlan, location in configs["vlans"].items():
+	#		for vlan_use in VLAN_USES:
+	#			router_start_file.write("ip link add link "+router+"-"+vlan+" name "+router+"-"+vlan+"."+vlan_use+location+" type vlan id 0x"+vlan_use+location+" \n")
+	#			router_start_file.write("ip link set dev "+router+"-"+vlan+"."+vlan_use+location+" up \n")
+	#			for prefix in PREFIXES_ADDRESS:
+	#				router_start_file.write("ip address add dev "+router+"-"+vlan+"."+vlan_use+location+" "+prefix+vlan_use+location+"::/64 \n")
+	#		router_start_file.write("\n")
 	########################"Prefix management rules"###################################
 	if "lb_commands" in configs:
 		for command in configs["lb_commands"]:
