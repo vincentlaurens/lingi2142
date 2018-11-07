@@ -56,11 +56,11 @@ function mk_topo {
     mk_LAN Stev DNS2 DHCP2 # Stev-lan1-network-management:secondary DNS, DHCP
 
 
-    mk_LAN Carn Stud Staff # Lan0 for student because ran out of time and we could not create VLAN
+    mk_LAN Carn Ca1 Ca2 # Lan0 for student because ran out of time and we could not create VLAN
 
-    #mk_LAN Mich Mi1 Mi2 #Mich-lan0 hosts
+    mk_LAN Mich Mi1 Mi2 #Mich-lan0 hosts
 
-    mk_LAN SH1C SH1 SH2 #SH1C-lan0 hosts
+    mk_LAN SH1C Sh1 Sh2 #SH1C-lan0 hosts
     mk_LAN SH1C DNS DHCP # Halles-lan1-network-management:Primary DNS, DHCP
 
     echo "@@ Bridging the network"
