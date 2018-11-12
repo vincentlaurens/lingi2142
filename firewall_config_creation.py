@@ -95,9 +95,9 @@ for router, configs_firewall in data.items():
 		"ip6tables -A FORWARD ! -p icmpv6 -m state --state INVALID -j DROP\n\n"
 		
 		"#limitation on 128/0\n"
-		"ip6tables -A INPUT -p icmpv6 --icmpv6-type echo-request -m limit --limit 5/minute -j ACCEPT\n"
+		"ip6tables -A INPUT -p icmpv6 --icmpv6-type echo-request -m limit --limit 5/second -j ACCEPT\n"
 		"# Neighbor Solicitation limitation to avoid DoS\n"
-		"ip6tables -A INPUT -p icmpv6 --icmpv6-type 135/0 -m limit --limit 15/minute -j ACCEPT\n"
+		"ip6tables -A INPUT -p icmpv6 --icmpv6-type 135/0 -m limit --limit 15/second-j ACCEPT\n"
 
 		"#Authorize outgoing and incoming ping\n"
 		"ip6tables -A INPUT -p icmpv6 -j ACCEPT\n"
