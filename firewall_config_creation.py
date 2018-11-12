@@ -126,8 +126,7 @@ for router, configs_firewall in data.items():
 				"# Refuse router advertisement from students (flooding or misbehaviour)\n"
 				"ip6tables -A INPUT -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -p icmpv6 --icmpv6-type 134/0 -j REJECT --reject-with icmp-host-prohibited\n"
 				"ip6tables -A INPUT -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -p icmpv6 --icmpv6-type 134/0 -j REJECT --reject-with icmp-host-prohibited\n"
-				"ip6tables -A INPUT -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -p icmpv6 --icmpv6-type 134/0 -j REJECT --reject-with icmp-host-prohibited\n\n"
-				"ip6tables -A INPUT -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -p icmpv6 --icmpv6-type 134/0 -j REJECT --reject-with icmp-host-prohibited\n\n"
+		
 																				 
 				"# Block student and staff from connecting with each other\n"
 				"ip6tables -A FORWARD -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -d fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -j DROP\n\n"
