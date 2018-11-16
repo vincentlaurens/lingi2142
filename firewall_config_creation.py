@@ -182,9 +182,11 @@ for router, configs_firewall in data.items():
 			"		#Drop OSPF between Pyth and provider\n"
 			"		ip6tables -A INPUT -i belnetb  -p 89 -j DROP\n" #-s fd00:300::b/64
 			"		ip6tables -A OUTPUT -o belnetb -p 89 -j DROP\n\n" #-s fd00:300::b/64
-			"		ip6tables -A OUTPUT -i  belnetb -p udp --destination-port 33434:33524 -m state --state NEW -j DROP\n"
-			"		ip6tables -A INPUT -i belnetb -p tcp -d fd00:${a}:3:f02f::1/64 -m tcp --destinations-ports 161,546 -j DROP\n"
-			"		ip6tables -A INPUT -i belnetb -p udp -d fd00:${a}:3:f02f::1/64 -m udp --destinations-ports 162,547 -j DROP\n"
+			"		ip6tables -A OUTPUT -o  belnetb -p udp --destination-port 33434:33524 -m state --state NEW -j DROP\n"
+			"		ip6tables -A INPUT -i belnetb -p tcp -d fd00:${a}:3:f02f::1/64 -m tcp --destination-port 161 -j DROP\n"
+			"		ip6tables -A INPUT -i belnetb -p udp -d fd00:${a}:3:f02f::1/64 -m udp --destination-port 162 -j DROP\n"
+            "		ip6tables -A INPUT -i belnetb -p tcp -d fd00:${a}:3:f02f::1/64 -m tcp --destination-port 546 -j DROP\n"
+            "		ip6tables -A INPUT -i belnetb -p udp -d fd00:${a}:3:f02f::1/64 -m udp --destination-port 547 -j DROP\n"
 		)
 		if router == "Pyth":
 			router_firewall_config_file.write(
@@ -198,11 +200,12 @@ for router, configs_firewall in data.items():
 			"		#Drop OSPF between Pyth and provider"
 			"		ip6tables -A INPUT -i belneta  -p 89 -j DROP\n" #-s fd00:200::b/64
 			"		ip6tables -A OUTPUT -o belneta -p 89 -j DROP\n" #-s fd00:200::b/64
-			"		ip6tables -A OUTPUT -i  belneta -p udp --destination-port 33434:33524 -m state --state NEW -j DROP\n"*
-			"		ip6tables -A INPUT -i belneta -p tcp -d fd00:${a}:3:f02f::1/64 -m tcp --destinations-ports 161,546 -j DROP\n"
-			"		ip6tables -A INPUT -i belneta -p udp -d fd00:${a}:3:f02f::1/64 -m udp --destinations-ports 162,547 -j DROP\n"
-		)
-		
+			"		ip6tables -A OUTPUT -o  belneta -p udp --destination-port 33434:33524 -m state --state NEW -j DROP\n"*
+            "       ip6tables -A INPUT -i belneta -p tcp -d fd00:${a}:3:f02f::1/64 -m tcp --destination-port 161 -j DROP\n"
+            "		ip6tables -A INPUT -i belneta -p udp -d fd00:${a}:3:f02f::1/64 -m udp --destination-port 162 -j DROP\n"
+            "		ip6tables -A INPUT -i belneta -p tcp -d fd00:${a}:3:f02f::1/64 -m tcp --destination-port 546 -j DROP\n"
+            "		ip6tables -A INPUT -i belneta -p udp -d fd00:${a}:3:f02f::1/64 -m udp --destination-port 547 -j DROP\n"
+		    )
 	router_firewall_config_file.write(
 		"		#Allow DNS server\n"
 		"		ip6tables -A OUTPUT -p udp -d fd00:${a}:3:"+configs_firewall["suffixe_DNS"]+"/64 --destination-port 53 -m state --state NEW,ESTABLISHED -j ACCEPT\n"
