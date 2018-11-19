@@ -11,7 +11,9 @@ connect:
 restartFirewall:
     sudo sh iptables/restartFirewall.sh
 
-runTest:
+runTestRouting:
     sudo sh tests/runtest.sh
 
+runTestFirewall:
+    sudo sh tests/firewall/firewall_test.sh
 
