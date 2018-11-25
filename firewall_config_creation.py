@@ -94,8 +94,7 @@ for router, configs_firewall in data.items():
 		"ip6tables -A INPUT -p icmpv6 --icmpv6-type 135/0 -m limit --limit 15/second -j ACCEPT\n"
 		"ip6tables -A OUTPUT -p icmpv6 --icmpv6-type 135/0 -m limit --limit 15/second -j ACCEPT\n"
 		"ip6tables -A FORWARD -p icmpv6 --icmpv6-type 135/0 -m limit --limit 15/second -j ACCEPT\n"
-		#"ip6tables -A INPUT -p icmpv6 --icmpv6-type 128/0 -j REJECT --reject-with icmp-host-prohibited\n"
-		#"ip6tables -A INPUT -p icmpv6 --icmpv6-type 135/0 -j REJECT --reject-with icmp-host-prohibited\n"
+		
 
 		"#Authorize outgoing and incoming ping\n"
 		"ip6tables -A INPUT -p icmpv6 -j ACCEPT\n"
@@ -107,7 +106,9 @@ for router, configs_firewall in data.items():
 		
 		
 		"#Allow Traceroute\n"
-		"ip6tables -I INPUT -p udp --source-port 33434:33524 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT\n\n"
+		"ip6tables -I INPUT -p udp --destination-port 33434:33524 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT\n"
+		"ip6tables -A OUTPUT -p udp --destination-port 33434:33524 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT\n"
+		"ip6tables -A FORWARD -p udp --destination-port 33434:33524 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT\n\n"
 		
 		"#Authorize incoming SSH connections with the unicast routing addresses on Internet\n"
 		"ip6tables -A INPUT -s 2000::/3 -p tcp --destination-port 22 --syn -m state --state NEW -j ACCEPT\n"
@@ -188,7 +189,8 @@ for router, configs_firewall in data.items():
 			"		#Drop OSPF between Pyth and provider\n"
 			"		ip6tables -A INPUT -i belnetb  -p 89 -j DROP\n" #-s fd00:300::b/64
 			"		ip6tables -A OUTPUT -o belnetb -p 89 -j DROP\n\n" #-s fd00:300::b/64
-			"		ip6tables -A OUTPUT -o  belnetb -p udp --destination-port 33434:33524 -m state --state NEW -j DROP\n"
+			"		ip6tables -A INPUT -i  belnetb -p udp --destination-port 33434:33524 -m state --state NEW,ESTABLISHED,RELATED -j DROP\n"
+			"		ip6tables -I FORWARD -i belnetb -p udp --destination-port 33434:33524 -m state --state NEW,ESTABLISHED,RELATED -j DROP\n"
 			"		ip6tables -A INPUT -i belnetb -p tcp -d fd00:${a}:3:f02f::1/64 -m tcp --destination-port 161 -j DROP\n"
 			"		ip6tables -A INPUT -i belnetb -p udp -d fd00:${a}:3:f02f::1/64 -m udp --destination-port 162 -j DROP\n"
 			"		ip6tables -A INPUT -i belnetb -p tcp -d fd00:${a}:3:f02f::1/64 -m tcp --destination-port 546 -j DROP\n"
@@ -206,7 +208,8 @@ for router, configs_firewall in data.items():
 			"		#Drop OSPF between Pyth and provider"
 			"		ip6tables -A INPUT -i belneta  -p 89 -j DROP\n" #-s fd00:200::b/64
 			"		ip6tables -A OUTPUT -o belneta -p 89 -j DROP\n" #-s fd00:200::b/64
-			"		ip6tables -A OUTPUT -o  belneta -p udp --destination-port 33434:33524 -m state --state NEW -j DROP\n"
+			"		ip6tables -A INPUT -i  belnetb -p udp --destination-port 33434:33524 -m state --state NEW,ESTABLISHED,RELATED -j DROP\n"
+			"		ip6tables -I FORWARD -i belnetb -p udp --destination-port 33434:33524 -m state --state NEW,ESTABLISHED,RELATED -j DROP\n"
 			"      		ip6tables -A INPUT -i belneta -p tcp -d fd00:${a}:3:f02f::1/64 -m tcp --destination-port 161 -j DROP\n"
 			"		ip6tables -A INPUT -i belneta -p udp -d fd00:${a}:3:f02f::1/64 -m udp --destination-port 162 -j DROP\n"
 			"		ip6tables -A INPUT -i belneta -p tcp -d fd00:${a}:3:f02f::1/64 -m tcp --destination-port 546 -j DROP\n"
