@@ -90,6 +90,8 @@ for router, configs_firewall in data.items():
 		"ip6tables -A INPUT -p icmpv6 --icmpv6-type echo-request -m limit --limit 5/second -j ACCEPT\n"
 		"# Neighbor Solicitation limitation to avoid DoS\n"
 		"ip6tables -A INPUT -p icmpv6 --icmpv6-type 135/0 -m limit --limit 15/second -j ACCEPT\n"
+		#"ip6tables -A INPUT -p icmpv6 --icmpv6-type 128/0 -j REJECT --reject-with icmp-host-prohibited\n"
+		#"ip6tables -A INPUT -p icmpv6 --icmpv6-type 135/0 -j REJECT --reject-with icmp-host-prohibited\n"
 
 		"#Authorize outgoing and incoming ping\n"
 		"ip6tables -A INPUT -p icmpv6 -j ACCEPT\n"
