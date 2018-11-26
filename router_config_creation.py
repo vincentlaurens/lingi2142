@@ -30,11 +30,11 @@ for router, configs in data.items():
                             "# This file has been generated automatically, see router_config_creation.py \n"
                             )
 
-    ##############isp interfaces on routers ########################################
+    ##############"isp interfaces on routers"########################################
     if configs["setup_bgp_conf"] == "true":
         for isp, isp_configs in configs["isp"].items():
             router_start_file.write("ip address add dev " + isp + " " + isp_configs[
-                                        "self_address"] + "  \n\n"
+                "self_address"] + "  \n\n"
                                     )
     ##############eth interfaces on routers ########################################
     for eth, eth_configs in configs["eths"].items():
@@ -46,7 +46,7 @@ for router, configs in data.items():
 
     router_start_file.write("\n")
 
-    ##############lans interfaces on routers ########################################
+    ##############"lans interfaces on routers"########################################
     if "lans" in configs:
         for lan, lan_configs in configs["lans"].items():
             for prefix_address in PREFIXES_ADDRESS:
@@ -55,7 +55,7 @@ for router, configs in data.items():
                         "lan_interface"] + lan_configs + "::" + configs["router_id"] + "/64 \n")
     router_start_file.write("\n")
 
-    ##############vlan interfaces #######################################################
+    ##############"vlan interfaces"#######################################################
     # if "vlans" in configs:
     # 	for vlan, location in configs["vlans"].items():
     # 		for vlan_use in VLAN_USES:
@@ -87,11 +87,9 @@ for router, configs in data.items():
 
     router_bird_file = open(PATH + "group3_cfg/" + router + "/bird/bird6.conf", "w")
     router_bird_file.write("# group3: Bird6 File config " + router + ".\n\n"
-
                             "router id 0.0.0." + configs["router_id"] + ";\n\n"
-
                             "log \"/etc/log/bird_log\" all; \n"
-                             "debug protocols all;  \n\n"
+                            "debug protocols all;  \n\n"
                            )
 
     if configs["setup_bgp_conf"] == "true":
@@ -102,7 +100,7 @@ for router, configs in data.items():
                                "	if net ~ fd00:200:3::/48 then accept;\n"
                                "	if net ~ fd00:300:3::/48 then accept;\n"
                                "else reject;\n"
-                               "}"
+                               "}\n\n"
 
                                "filter export_ospf_filter\n"
                                " { \n"
@@ -149,7 +147,7 @@ for router, configs in data.items():
                            )
 
     if configs["setup_bgp_conf"] == "true":
-        #############conf bgp
+        #############"conf bgp"
         router_bird_file.write("protocol static static_bgp {\n"
                                "        import all;\n\n"
                                "        route fd00:200:3::/48 reject ;\n"
@@ -159,13 +157,11 @@ for router, configs in data.items():
 
         for bgp, bgp_configs in configs["isp"].items():
             router_bird_file.write("protocol bgp provider" + bgp_configs["name_bgp"] + "{ \n"
-                                                                                       "    local as " + bgp_configs[
-                                       "asn"] + ";\n"
-                                                "    neighbor " + bgp_configs["neighbor_address"] + " as " +
-                                   bgp_configs["name_bgp"] + ";\n"
-                                                             "    import where net = ::/0;\n"
-                                                             "    export where proto = \"static_bgp\";  \n"
-                                                             "}\n\n"
+                                   "    local as " + bgp_configs["asn"] + ";\n"
+                                   "    neighbor " + bgp_configs["neighbor_address"] + " as "+bgp_configs["name_bgp"]+";\n "
+                                   "    import where net = ::/0;\n"
+                                   "    export where proto = \"static_bgp\";  \n"
+                                   "}\n\n"
                                    )
 
     router_bird_file.write("protocol ospf {\n"
