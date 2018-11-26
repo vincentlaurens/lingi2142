@@ -24,7 +24,8 @@
 			"ip -6 rule add from fd00:200:3::/48 to fd00:200:3::/48 pref 1000 table main",
       		"ip -6 rule add from fd00:200:3::/48 to fd00:300:3::/48 pref 1000 table main",
       		"ip -6 route add ::/0 via fd00:200:3:f01::2 dev Hall-eth1 metric 1 table 10",
-			"ip -6 rule add from fd00:200:3::/48 pref 2000 table 10"
+			"ip -6 rule add from fd00:200:3::/48 pref 2000 table 10",
+			"ip -6 tunnel add toPyth mode ip6ip6 remote fd00:300:3:f00::1 local fd00:300:3:f01::2 dev Hall-eth1"
 		]
 	},
 	"Pyth": {
@@ -63,7 +64,8 @@
 			"ip -6 rule add from fd00:300:3::/48 to fd00:200:3::/48 pref 1000 table main",
       		"ip -6 rule add from fd00:300:3::/48 to fd00:300:3::/48 pref 1000 table main",
       		"ip -6 route add ::/0 via fd00:200:f01::1 dev Pyth-eth0 metric 1 table 10",
-			"ip -6 rule add from fd00:300:3::/48 pref 2000 table 10"
+			"ip -6 rule add from fd00:300:3::/48 pref 2000 table 10",
+			"ip -6 tunnel add toHall mode ip6ip6 remote fd00:300:3:f01::2 local fd00:300:3:f00::1 dev Pyth-eth0"
 		]
 
 		},
