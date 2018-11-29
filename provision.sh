@@ -40,4 +40,4 @@ service bind9 stop
 
 (cd /sbin && ln -s /usr/lib/quagga/* .)
 
-su vagrant -c 'cd && rsync -r /vagrant/* /home/vagrant/test/group3/lingi2142/'
+su vagrant -c 'cd && cp -r /vagrant/* /home/vagrant/test/group3/lingi2142/'
