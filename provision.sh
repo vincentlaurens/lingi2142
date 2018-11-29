@@ -24,6 +24,10 @@ apt-get -y -qq --force-yes install git bash lib32z1 vim-nox tcpdump nano\
 apt-get -y -qq --force-yes install puppet # TODO Get more recent version of puppet
 #gem install puppet -f
 
+# Monitoring
+apt-get install snmp snmpd
+apt-get install python-pip
+pip install pysnmp
 
 update-rc.d quagga disable &> /dev/null || true
 update-rc.d bird disable &> /dev/null || true
@@ -36,4 +40,4 @@ service bind9 stop
 
 (cd /sbin && ln -s /usr/lib/quagga/* .)
 
-#su vagrant -c 'cd && git clone https://github.com/UCL-INGI/lingi2142.git'
+su vagrant -c 'cd && rsync -r /vagrant/* /home/vagrant/test/group3/lingi2142/'

@@ -1,19 +1,24 @@
-
 all:
-    sudo ./launch_network_group3.sh
+	sudo ./launch_network_group3.sh
 
 clean:
-    sudo rm -r group3_cfg/*
+	sudo rm -r group3_cfg/*
 
 connect:
-    sudo ./connect_to.sh group3_cfg ${namespace}
+	sudo ./connect_to.sh group3_cfg ${namespace}
 
 restartFirewall:
-    sudo sh iptables/restartFirewall.sh
+	sudo sh iptables/restartFirewall.sh
 
 runTestRouting:
-    sudo sh tests/runtest.sh
+	sudo sh tests/runtest.sh
 
 runTestFirewall:
-    sudo sh tests/firewall/firewall_test.sh
+	sudo sh tests/firewall/firewall_test.sh
+
+Mon:
+	sudo ./connect_to.sh group3_cfg Mon
+
+rsync:
+	rsync -r /vagrant/* /home/vagrant/test/group3/lingi2142/
 
