@@ -71,6 +71,7 @@ for router, configs in data.items():
 
     router_start_file.write("\n")
     router_start_file.write("bird6 -s /tmp/" + router + "_bird.ctl -P /tmp/" + router + "_bird.pid \n")
+    router_start_file.write("\nsnmpd &> /dev/null\n")
     router_start_file.close()
     os.chmod(PATH + "group3_cfg/" + router + "_start.sh", 0o766)
     ###########

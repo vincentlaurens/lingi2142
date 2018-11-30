@@ -6,9 +6,6 @@ exec &>> $LOG_FILE
 declare -A DNS
 DNS+=( ["ns1"]="fd00:300:3:1000::1" ["ns2"]="fd00:300:3:1000::2" )
 
-# Wait for start of the network
-sleep 15
-
 while true
 do
     # Check DNSs
@@ -24,7 +21,7 @@ do
         fi
     done
 
-    sleep 8
+    sleep 5
 done
 
 exit

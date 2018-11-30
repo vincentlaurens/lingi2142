@@ -6,9 +6,6 @@ exec &>> $LOG_FILE
 ROUTERS_TO_CHECK=("Hall" "Pyth")
 BGP=("provider200" "provider300")
 
-# Wait for start of the network
-sleep 15
-
 while true
 do
 	# Check connectivity with ISP on each router
@@ -25,7 +22,7 @@ do
 		fi
 	done
 
-	sleep 8
+	sleep 5
 done
 
 exit

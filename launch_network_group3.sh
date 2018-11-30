@@ -48,8 +48,14 @@ sudo touch group3_cfg/SH1C/log/bird_log
 sudo touch group3_cfg/Carn/log/bird_log
 sudo touch group3_cfg/Mich/log/bird_log
 
-
-sudo cp -R ./monitoring/Mon ./group3_cfg/
+# Monitoring
+sudo cp -R ./monitoring/Mon  ./group3_cfg/
+sudo cp -R ./monitoring/snmp ./group3_cfg/Hall/
+sudo cp -R ./monitoring/snmp ./group3_cfg/Pyth/
+sudo cp -R ./monitoring/snmp ./group3_cfg/Stev/
+sudo cp -R ./monitoring/snmp ./group3_cfg/Carn/
+sudo cp -R ./monitoring/snmp ./group3_cfg/Mich/
+sudo cp -R ./monitoring/snmp ./group3_cfg/SH1C/
 
 # Configuration files creation
 sudo python3 firewall_config_creation.py
