@@ -97,12 +97,13 @@ for router, configs_firewall in data.items():
 		"ip6tables -A FORWARD -p icmpv6 -j ACCEPT\n"
 
 		"# Allow SNMP\n"
-		"for p in \"tcp\" \"ucp\";\n"
+		"for p in \"tcp\" \"udp\"\n"
 		"do\n"
-			"for i in \"s\" \"p\";\n"
-				"ip6tables -A INPUT -p $p -m $p --${i}port 161 -j ACCEPT\n"
-				"ip6tables -A FORWARD -p $p -m $p --${i}port 161 -j ACCEPT\n"
-				"ip6tables -A OUTPUT -p $p -m $p --${i}port 161 -j ACCEPT\n"
+			"for e in \"s\" \"d\"\n"
+			"do\n"
+				"ip6tables -A INPUT -p $p -m $p --${e}port 161 -j ACCEPT\n"
+				"ip6tables -A FORWARD -p $p -m $p --${e}port 161 -j ACCEPT\n"
+				"ip6tables -A OUTPUT -p $p -m $p --${e}port 161 -j ACCEPT\n"
 			"done\n"
 		"done\n"
 		"ip6tables -A INPUT -p udp -m udp --dport 162 -j ACCEPT\n"
@@ -167,7 +168,7 @@ for router, configs_firewall in data.items():
 			router_firewall_config_file.write(
 			"	# Allow HTTP and HTTPS for visitor\n"
 			"	# Allow DNS for visitor\n"
-			"	for k in 200 300;\n"
+			"	for k in 200 300\n"
 			"	do\n"
 				"	ip6tables -A FORWARD -p tcp -s fd00:$k:3:"+configs_firewall["visitor"]+"::/64 --destination-port 80 -j ACCEPT\n"
 				"	ip6tables -A FORWARD -p tcp -s fd00:$k:3:"+configs_firewall["visitor"]+"::/64 --destination-port 443 -j ACCEPT\n"
@@ -187,7 +188,7 @@ for router, configs_firewall in data.items():
 		if router == "Hall":
 			router_firewall_config_file.write(
 			"		#allow external BGP(router connected with provider)\n"
-			"for p in \"tcp\";\n"
+			"for p in \"tcp\"\n"
 			"do\n"		
 			"		ip6tables -A INPUT -i belnetb -p $p  --destination-port 179 -j ACCEPT\n"
 			"		ip6tables -A INPUT -i belnetb -p $p  --source-port 179 -j ACCEPT\n"
@@ -198,16 +199,16 @@ for router, configs_firewall in data.items():
 			"		ip6tables -A OUTPUT -o belnetb -p 89 -j DROP\n\n" #-s fd00:300::b/64
 			"		ip6tables -A OUTPUT -o  belnetb -p udp --destination-port 33434:33524 -m state --state NEW -j DROP\n"
 			"		#DROP SNMP\n"
-			"		for p in \"tcp\" \"ucp\";\n"
+			"		for p in \"tcp\" \"udp\"\n"
 			"		do\n"
-			"			for i in \"s\" \"p\";\n"
+			"			for e in \"s\" \"d\"\n"
 			"			do\n"
-			"				ip6tables -A INPUT i belnetb  -p $p -d fd00:${a}:3:f02f::1/64 -m $p --${i}port 161 -j DROP\n"
+			"				ip6tables -A INPUT -i belnetb  -p $p -d fd00:${a}:3:f02f::1/64 -m $p --${e}port 161 -j DROP\n"
 			"			done\n"
 			"		done\n"
-			"		for i in \"s\" \"p\";\n"
+			"		for e in \"s\" \"d\"\n"
 			"		do\n"
-			"			ip6tables -A INPUT -i belnetb -p udp -d fd00:${a}:3:f02f::1/64 -m udp --${i}port 162 -j DROP\n"
+			"			ip6tables -A INPUT -i belnetb -p udp -d fd00:${a}:3:f02f::1/64 -m udp --${e}port 162 -j DROP\n"
 			"		done\n"
 			
 			"		#DROP DHCP\n"
@@ -219,7 +220,7 @@ for router, configs_firewall in data.items():
 		if router == "Pyth":
 			router_firewall_config_file.write(
 			"		#allow external BGP(router connected with provider)\n"
-			"for p in \"tcp\";\n"
+			"for p in \"tcp\"\n"
 			"do\n"
 			"		ip6tables -A INPUT -i belneta -p $p  --destination-port 179 -j ACCEPT\n"
 			"		ip6tables -A INPUT -i belneta -p $p  --source-port 179 -j ACCEPT\n"
