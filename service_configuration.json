@@ -21,7 +21,8 @@
       "/etc/check_isp_status.sh &",
       "/etc/check_dns_status.sh &",
       "/etc/check_router_conn.sh &",
-      "/etc/download_bird_logs.sh"
+      "/etc/download_bird_logs.sh &",
+      "python /etc/snmp.py &"
     ]
   },
   "DHCP": {
