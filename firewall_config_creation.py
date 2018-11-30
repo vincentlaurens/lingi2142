@@ -157,8 +157,6 @@ for router, configs_firewall in data.items():
 		if "Monitoring" in configs_firewall:
 			router_firewall_config_file.write(
 			"	#Allow SNMP for each hosts on Monitoring LAN and mailbox protocols and SSH for check log for instance\n"
-			#"	ip6tables -A INPUT -p tcp -d fd00:${a}:3:"+configs_firewall["Monitoring"]+"::1/64 -m tcp --destination-port 161 -j ACCEPT\n"
-			#"	ip6tables -A INPUT -p udp -d fd00:${a}:3:"+configs_firewall["Monitoring"]+"::1/64 -m udp --destination-port 162 -j ACCEPT\n"
 			"	ip6tables -A INPUT -p tcp -d fd00:${a}:3:"+configs_firewall["Monitoring"]+"::1/64 -m tcp --destination-port 546 -j ACCEPT\n"
 			"	ip6tables -A INPUT -p udp -d fd00:${a}:3:"+configs_firewall["Monitoring"]+"::1/64 -m udp --destination-port 547 -j ACCEPT\n"
 			"	ip6tables -A INPUT -p tcp -d fd00:${a}:3:"+configs_firewall["Monitoring"]+"::1/64 -m tcp --destination-port 22 -j ACCEPT\n"	
@@ -229,11 +227,19 @@ for router, configs_firewall in data.items():
 			"		#Drop OSPF between Pyth and provider"
 			"		ip6tables -A INPUT -i belneta  -p 89 -j DROP\n" #-s fd00:200::b/64
 			"		ip6tables -A OUTPUT -o belneta -p 89 -j DROP\n" #-s fd00:200::b/64
-			"		ip6tables -A OUTPUT -o  belneta -p udp --destination-port 33434:33524 -m state --state NEW -j DROP\n"
-			"		#DROP SNMP\n"
-			"       ip6tables -A INPUT -i belneta -p tcp -d fd00:${a}:3:f02f::1/64 -m tcp --destination-port 161 -j DROP\n"
-			"       ip6tables -A INPUT -i belneta -p tcp -d fd00:${a}:3:f02f::1/64 -m tcp --destination-port 161 -j DROP\n"
-			"		ip6tables -A INPUT -i belneta -p udp -d fd00:${a}:3:f02f::1/64 -m udp --destination-port 162 -j DROP\n"
+			"		ip6tables -A OUTPUT -o  belneta -p udp --destination-port 33434:33524 -m state --state NEW -j DROP\n\n"
+            "		#DROP SNMP\n"
+            "		for p in \"tcp\" \"udp\"\n"
+            "		do\n"
+            "			for e in \"s\" \"d\"\n"
+            "			do\n"
+            "				ip6tables -A INPUT -i belneta  -p $p -d fd00:${a}:3:f02f::1/64 -m $p --${e}port 161 -j DROP\n"
+            "			done\n"
+            "		done\n"
+            "		for e in \"s\" \"d\"\n"
+            "		do\n"
+            "			ip6tables -A INPUT -i belneta -p udp -d fd00:${a}:3:f02f::1/64 -m udp --${e}port 162 -j DROP\n"
+            "		done\n"
 			"		#DROP DHCP\n"
 			"		ip6tables -A INPUT -i belneta -p tcp -d fd00:${a}:3:"+configs_firewall["suffixe_DHCP"]+"/64  -m tcp --destination-port 546 -j DROP\n"
 			"		ip6tables -A INPUT -i belneta -p udp -d fd00:${a}:3:"+configs_firewall["suffixe_DHCP"]+"/64  -m udp --destination-port 547 -j DROP\n"
