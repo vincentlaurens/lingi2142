@@ -95,9 +95,6 @@ for router, configs_firewall in data.items():
 		"ip6tables -A INPUT -p icmpv6 -j ACCEPT\n"
 		"ip6tables -A OUTPUT -p icmpv6 -j ACCEPT\n"
 		"ip6tables -A FORWARD -p icmpv6 -j ACCEPT\n"
-
-		"#Authorize SNMP\n"
-		"ip6tables -A INPUT -p tcp -d fd00:${a}:3:f02f::1/64 -m tcp --destination-port 161 -j ACCEPT\n\n"
 		
 		"# Allow DHCP\n"
 		"ip6tables -A INPUT -p udp -m multiport --dport 546,547 -j ACCEPT\n"
