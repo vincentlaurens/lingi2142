@@ -32,16 +32,16 @@ def get_info(agent, snmp_engine, user, upd_target):
 
     if errorIndication:
         # print(errorIndication)
-        f.write('%s' % (errorIndication.prettyPrint()))
+        return
 
     elif errorStatus:
         # print('%s at %s' % (errorStatus.prettyPrint(), errorIndex and varBinds[int(errorIndex) - 1][0] or '?'))
-        f.write('%s at %s' % (errorStatus.prettyPrint(), errorIndex and varBinds[int(errorIndex) - 1][0] or '?'))
+        f.write('%s at %s\n' % (errorStatus.prettyPrint(), errorIndex and varBinds[int(errorIndex) - 1][0] or '?'))
 
     else:
         for name, val in varBinds:
             # print('%s = %s' % (name.prettyPrint(), val.prettyPrint()))
-            f.write('%s = %s' % (name.prettyPrint(), val.prettyPrint()))
+            f.write('%s = %s\n' % (name.prettyPrint(), val.prettyPrint()))
 
 
 class Monitor(threading.Thread):
