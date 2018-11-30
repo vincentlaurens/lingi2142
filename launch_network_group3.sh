@@ -58,7 +58,7 @@ sudo cp -R ./monitoring/snmp ./group3_cfg/Mich/
 sudo cp -R ./monitoring/snmp ./group3_cfg/SH1C/
 
 # Configuration files creation
-#sudo python3 firewall_config_creation.py
+sudo python3 firewall_config_creation.py
 sudo python3 router_config_creation.py
 sudo python3 service_config_creation.py
 sudo python3 host_config_creation.py
