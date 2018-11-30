@@ -51,9 +51,10 @@ sudo touch group3_cfg/Mich/log/bird_log
 # Monitoring
 sudo cp -R ./monitoring/Mon ./group3_cfg/
 sudo cp -R ./monitoring/snmp ./group3_cfg/Pyth/
+sudo cp -R ./monitoring/snmp ./group3_cfg/Hall/
 
 # Configuration files creation
-sudo python3 firewall_config_creation.py
+#sudo python3 firewall_config_creation.py
 sudo python3 router_config_creation.py
 sudo python3 service_config_creation.py
 sudo python3 host_config_creation.py

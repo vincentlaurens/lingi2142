@@ -115,3 +115,4 @@ except KeyboardInterrupt:
         th.join()
 
 # snmpget -v 3 -u gr1 -a SHA -x AES -A password -X secret_key -l authPriv 'udp6:fd00:300:3:f00::2' sysUpTime.0
+# snmpwalk -m All -v1 -c public 'udp6:fd00:300:3:f00::2' sysUpTime.0

@@ -25,9 +25,13 @@ apt-get -y -qq --force-yes install puppet # TODO Get more recent version of pupp
 #gem install puppet -f
 
 # Monitoring
-apt-get install snmp snmpd
-apt-get install python-pip
-pip install pysnmp
+sudo apt-get -y -qq --force-yes install snmp snmpd
+sudo apt-get -y -qq --force-yes install python-pip
+sudo pip install pysnmp
+sudo apt-add-repository non-free
+sudo apt-get update
+sudo apt-get -y -qq --force-yes install snmp-mibs-downloader
+sudo download-mibs
 
 update-rc.d quagga disable &> /dev/null || true
 update-rc.d bird disable &> /dev/null || true
