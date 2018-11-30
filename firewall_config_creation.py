@@ -26,7 +26,7 @@ iptables_file.write("#!/bin/bash\n\n"
 
 	"echo \"All the firewalls have been set !\"\n\n"
 
-	"exit 0")
+	"exit 0\n")
 iptables_file.close()
 os.chmod(PATH+"iptables/restartFirewall.sh", 0o766)
 	##########
