@@ -95,16 +95,20 @@ for router, configs_firewall in data.items():
 		"ip6tables -A INPUT -p icmpv6 -j ACCEPT\n"
 		"ip6tables -A OUTPUT -p icmpv6 -j ACCEPT\n"
 		"ip6tables -A FORWARD -p icmpv6 -j ACCEPT\n"
-		
-		"# Allow DHCP\n"
-		"ip6tables -A INPUT -p udp -m multiport --dport 546,547 -j ACCEPT\n"
-		"ip6tables -A FORWARD -p udp -m multiport --dport 546,547 -j ACCEPT\n"
-		"ip6tables -A OUTPUT -p udp -m multiport --dport 546,547 -j ACCEPT\n\n"
 
 		"# Allow SNMP\n"
-		"ip6tables -A INPUT -p udp -m udp --dport 161 -j ACCEPT\n"
-		"ip6tables -A FORWARD -p udp -m udp --dport 161 -j ACCEPT\n"
-		"ip6tables -A OUTPUT -p udp -m udp --dport 161 -j ACCEPT\n\n"
+		"for p in \"tcp\" \"ucp\";\n"
+		"do\n"
+			"for i in \"s\" \"p\";\n"
+				"ip6tables -A INPUT -p $p -m $p --${i}port 161 -j ACCEPT\n"
+				"ip6tables -A FORWARD -p $p -m $p --${i}port 161 -j ACCEPT\n"
+				"ip6tables -A OUTPUT -p $p -m $p --${i}port 161 -j ACCEPT\n"
+			"done\n"
+		"done\n"
+		"ip6tables -A INPUT -p udp -m udp --dport 162 -j ACCEPT\n"
+		"ip6tables -A FORWARD -p udp -m udp --dport 162 -j ACCEPT\n"
+		"ip6tables -A OUTPUT -p udp -m udp --dport 162 -j ACCEPT\n\n"
+		
 		
 		"#Authorize DHCPv6 on the local link on the client site\n"
 		"ip6tables -A INPUT -m state --state NEW -m udp -p udp --destination-port 546 -d fe80::/64 -j ACCEPT\n\n"
@@ -152,10 +156,10 @@ for router, configs_firewall in data.items():
 		if "Monitoring" in configs_firewall:
 			router_firewall_config_file.write(
 			"	#Allow SNMP for each hosts on Monitoring LAN and mailbox protocols and SSH for check log for instance\n"
-			"	ip6tables -A INPUT -p tcp -d fd00:${a}:3:"+configs_firewall["Monitoring"]+"::1/64 -m tcp --destination-port 161 -j ACCEPT\n"
-			"	ip6tables -A INPUT -p udp -d fd00:${a}:3:"+configs_firewall["Monitoring"]+"::1/64 -m udp --destination-port 162 -j ACCEPT\n"
-			#"	ip6tables -A INPUT -p tcp -d fd00:${a}:3:"+configs_firewall["Monitoring"]+"::1/64 -m tcp --destination-port 546 -j ACCEPT\n"
-			#"	ip6tables -A INPUT -p udp -d fd00:${a}:3:"+configs_firewall["Monitoring"]+"::1/64 -m udp --destination-port 547 -j ACCEPT\n"
+			#"	ip6tables -A INPUT -p tcp -d fd00:${a}:3:"+configs_firewall["Monitoring"]+"::1/64 -m tcp --destination-port 161 -j ACCEPT\n"
+			#"	ip6tables -A INPUT -p udp -d fd00:${a}:3:"+configs_firewall["Monitoring"]+"::1/64 -m udp --destination-port 162 -j ACCEPT\n"
+			"	ip6tables -A INPUT -p tcp -d fd00:${a}:3:"+configs_firewall["Monitoring"]+"::1/64 -m tcp --destination-port 546 -j ACCEPT\n"
+			"	ip6tables -A INPUT -p udp -d fd00:${a}:3:"+configs_firewall["Monitoring"]+"::1/64 -m udp --destination-port 547 -j ACCEPT\n"
 			"	ip6tables -A INPUT -p tcp -d fd00:${a}:3:"+configs_firewall["Monitoring"]+"::1/64 -m tcp --destination-port 22 -j ACCEPT\n"	
 			"	ip6tables -A INPUT -p tcp -d fd00:${a}:3:"+configs_firewall["Monitoring"]+"::1/64 -m multiport --destination-ports 25,110,143 -j ACCEPT\n\n"
 			)
@@ -194,8 +198,18 @@ for router, configs_firewall in data.items():
 			"		ip6tables -A OUTPUT -o belnetb -p 89 -j DROP\n\n" #-s fd00:300::b/64
 			"		ip6tables -A OUTPUT -o  belnetb -p udp --destination-port 33434:33524 -m state --state NEW -j DROP\n"
 			"		#DROP SNMP\n"
-			"       ip6tables -A INPUT -i belnetb -p tcp -d fd00:${a}:3:f02f::1/64 -m tcp --destination-port 161 -j DROP\n"
-			"		ip6tables -A INPUT -i belnetb -p udp -d fd00:${a}:3:f02f::1/64 -m udp --destination-port 162 -j DROP\n"
+			"		for p in \"tcp\" \"ucp\";\n"
+			"		do\n"
+			"			for i in \"s\" \"p\";\n"
+			"			do\n"
+			"				ip6tables -A INPUT i belnetb  -p $p -d fd00:${a}:3:f02f::1/64 -m $p --${i}port 161 -j DROP\n"
+			"			done\n"
+			"		done\n"
+			"		for i in \"s\" \"p\";\n"
+			"		do\n"
+			"			ip6tables -A INPUT -i belnetb -p udp -d fd00:${a}:3:f02f::1/64 -m udp --${i}port 162 -j DROP\n"
+			"		done\n"
+			
 			"		#DROP DHCP\n"
 			"		ip6tables -A INPUT -i belnetb -p tcp -d fd00:${a}:3:"+configs_firewall["suffixe_DHCP"]+"/64  -m tcp --destination-port 546 -j DROP\n"
 			"		ip6tables -A INPUT -i belnetb -p udp -d fd00:${a}:3:"+configs_firewall["suffixe_DHCP"]+"/64  -m udp --destination-port 547 -j DROP\n"	
@@ -216,6 +230,7 @@ for router, configs_firewall in data.items():
 			"		ip6tables -A OUTPUT -o belneta -p 89 -j DROP\n" #-s fd00:200::b/64
 			"		ip6tables -A OUTPUT -o  belneta -p udp --destination-port 33434:33524 -m state --state NEW -j DROP\n"
 			"		#DROP SNMP\n"
+			"       ip6tables -A INPUT -i belneta -p tcp -d fd00:${a}:3:f02f::1/64 -m tcp --destination-port 161 -j DROP\n"
 			"       ip6tables -A INPUT -i belneta -p tcp -d fd00:${a}:3:f02f::1/64 -m tcp --destination-port 161 -j DROP\n"
 			"		ip6tables -A INPUT -i belneta -p udp -d fd00:${a}:3:f02f::1/64 -m udp --destination-port 162 -j DROP\n"
 			"		#DROP DHCP\n"
