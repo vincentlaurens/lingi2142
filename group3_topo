@@ -76,6 +76,6 @@ function mk_topo {
     ip address add dev breth1 "fd00:300::${GROUPNUMBER}:1/64"
     ip address add dev breth2 "fd00:200::${GROUPNUMBER}:1/64"
     # Route the virtual network prefixes over the bridges
-    ip route add "fd00:300:${GROUPNUMBER}::/48" via "fd00:300::${GROUPNUMBER}"
-    ip route add "fd00:200:${GROUPNUMBER}::/48" via "fd00:200::${GROUPNUMBER}"
+    ip route add "fd00:300:${GROUPNUMBER}::/48" via "fd00:300::${GROUPNUMBER}:1"
+    ip route add "fd00:200:${GROUPNUMBER}::/48" via "fd00:200::${GROUPNUMBER}:1"
 }
