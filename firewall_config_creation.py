@@ -277,6 +277,7 @@ for router, configs_firewall in data.items():
 		"ip6tables -A LOGGING -j DROP\n"
 		"#Print table from routers and display the rules added before in log\n"
 		"ip6tables -L > group3_cfg/"+router+"/log/iptables_log\n"
+		"echo Firewall on "+router+" Done!\n"
 	)
 	router_firewall_config_file.close()
 	os.chmod(PATH+"iptables/"+router+".sh", 0o766)
