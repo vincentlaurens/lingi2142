@@ -6,19 +6,19 @@ from pyasn1.type.univ import *
 
 def get_info(agent, snmpEngine, user, udpTarget):
 
-    # Data and get
+    # Data and get - http://cric.grenoble.cnrs.fr/Administrateurs/Outils/MIBS/?oid=1.3.6.1.2.1.4
     data = (
         ObjectType(ObjectIdentity('SNMPv2-MIB', 'sysUpTime', 0)),
+        ObjectType(ObjectIdentity('HOST-RESOURCES-MIB', 'hrSystemDate', 0)),
         ObjectType(ObjectIdentity('IP-MIB', 'ipInReceives', 0)),
         ObjectType(ObjectIdentity('IP-MIB', 'ipInHdrErrors', 0)),
         ObjectType(ObjectIdentity('IP-MIB', 'ipInAddrErrors', 0)),
         ObjectType(ObjectIdentity('IP-MIB', 'ipInUnknownProtos', 0)),
-        ObjectType(ObjectIdentity('IP-MIB', 'ipForwDatagrams', 0)),
         ObjectType(ObjectIdentity('IP-MIB', 'ipInDiscards', 0)),
         ObjectType(ObjectIdentity('IP-MIB', 'ipInDelivers', 0)),
         ObjectType(ObjectIdentity('IP-MIB', 'ipOutRequests', 0)),
-        ObjectType(ObjectIdentity('IP-MIB', 'ipOutNoRoutes', 0)),
-        ObjectType(ObjectIdentity('IP-MIB', 'ipOutDiscards', 0))
+        ObjectType(ObjectIdentity('IP-MIB', 'ipOutDiscards', 0)),
+        ObjectType(ObjectIdentity('IP-MIB', 'ipOutNoRoutes', 0))
     )
 
     get_data = getCmd(snmpEngine, user, udpTarget, ContextData(), *data)
@@ -35,7 +35,6 @@ def get_info(agent, snmpEngine, user, udpTarget):
     # Log
     if errorIndication:
         # print(errorIndication)
-
         return
     elif errorStatus:
         # print('%s at %s' % (errorStatus.prettyPrint(), errorIndex and varBinds[int(errorIndex) - 1][0] or '?'))
