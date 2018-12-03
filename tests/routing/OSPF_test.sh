@@ -1,11 +1,10 @@
-#!/usr/bin/env bash
-
 #!/bin/bash
 
 #Ping if every router ping provider
 
 # 1 ping with 2 sec timeout
-sudo ip netns exec Mich ping6 -c 2 -W 1 fd00:200::b > /dev/null # Will return '0' if ping was successful
+echo "[TEST OSPF: It can take few minutes. Be patient]
+sudo ip netns exec Mich ping6 -c 15 -W 1 fd00:200::b > /dev/null # Will return '0' if ping was successful
    if [ $? != 0 ]
    then
         echo "Mich failed"
