@@ -6,6 +6,7 @@ from pyasn1.type.univ import *
 
 def get_info(agent, snmp_engine, user, upd_target):
 
+    # Data and get
     data = (
         ObjectType(ObjectIdentity('SNMPv2-MIB', 'sysUpTime', 0)),
         ObjectType(ObjectIdentity('IP-MIB', 'ipInReceives', 0)),
@@ -23,6 +24,7 @@ def get_info(agent, snmp_engine, user, upd_target):
     get_data = getCmd(snmp_engine, user, upd_target, ContextData(), *data)
     errorIndication, errorStatus, errorIndex, varBinds = next(get_data)
 
+    # Directory
     directory = '/etc/log/snmp/'
     if not os.path.exists(directory):
         os.makedirs(directory)
@@ -30,10 +32,11 @@ def get_info(agent, snmp_engine, user, upd_target):
     directory = directory + agent
     f = open(directory, "a")
 
+    # Log
     if errorIndication:
         # print(errorIndication)
-        return
 
+        return
     elif errorStatus:
         # print('%s at %s' % (errorStatus.prettyPrint(), errorIndex and varBinds[int(errorIndex) - 1][0] or '?'))
         f.write('%s at %s\n' % (errorStatus.prettyPrint(), errorIndex and varBinds[int(errorIndex) - 1][0] or '?'))
@@ -64,7 +67,6 @@ class Monitor(threading.Thread):
 
 
 # Variables
-threads = []
 user = {
     'userName': 'myUser',
     'authProtocol': usmHMACSHAAuthProtocol,
@@ -92,11 +94,7 @@ agents = {
 
 # Start of the program
 for ag_name, ag_ip in agents.items():
-    monitor = Monitor(ag_name, ag_ip, user, [get_info])
-    threads.append(monitor)
-
-for th in threads:
-    th.start()
+    Monitor(ag_name, ag_ip, user, [get_info]).start()
 
 
-# snmpget -v 3 -u myUser -a SHA -x AES -A sha1234 -X aes1234 -l authPriv 'udp6:fd00:300:3:f00::2' sysUpTime.0
+# snmpget -v 3 -u myUser -a SHA -x AES -A sha1234sha -X aes1234aes -l authPriv 'udp6:fd00:300:3:f00::2' sysUpTime.0
