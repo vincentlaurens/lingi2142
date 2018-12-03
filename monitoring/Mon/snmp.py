@@ -4,7 +4,7 @@ import os
 from pysnmp.hlapi import *
 from pyasn1.type.univ import *
 
-def get_info(agent, snmp_engine, user, upd_target):
+def get_info(agent, snmpEngine, user, udpTarget):
 
     # Data and get
     data = (
@@ -21,7 +21,7 @@ def get_info(agent, snmp_engine, user, upd_target):
         ObjectType(ObjectIdentity('IP-MIB', 'ipOutDiscards', 0))
     )
 
-    get_data = getCmd(snmp_engine, user, upd_target, ContextData(), *data)
+    get_data = getCmd(snmpEngine, user, udpTarget, ContextData(), *data)
     errorIndication, errorStatus, errorIndex, varBinds = next(get_data)
 
     # Directory
@@ -56,12 +56,12 @@ class Monitor(threading.Thread):
         self.function = function
 
     def run(self):
-        snmp_engine = SnmpEngine()
+        snmpEngine = SnmpEngine()
         user = UsmUserData(**self.user)
-        upd_target = Udp6TransportTarget((self.ip, 161))
+        udpTarget = Udp6TransportTarget((self.ip, 161))
 
         while True:
-            self.function[0](self.agent, snmp_engine, user, upd_target)
+            self.function[0](self.agent, snmpEngine, user, udpTarget)
             time.sleep( 5 )
 
 
