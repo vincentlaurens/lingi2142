@@ -41,7 +41,7 @@ virtual network as well as loads and apply its configuration files.
 You _should_ only run such a network within the VM.
 
 ## Description
-Each following scripts are executed in "[launch_network_group3.sh](launch_network_group3.sh)":
+Each following scripts are executed in "[launch_network_group3.sh](launch_network_group3.sh)" (this script has to be executed as root with sudo):
 For launch the network, we write differnt python scripts:
  * [router_config_creation.py](router_config_creation.py): This script write automatically every bird router configuration on the boot file, on the start file and on the bird file of every router. It allow to address each interface of every router.  
  * [host_config_creation.py](host_config_creation.py): This script create automatically every  Infrastructure and administration LAN.  
