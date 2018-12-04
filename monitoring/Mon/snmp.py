@@ -4,25 +4,27 @@ import os
 from pysnmp.hlapi import *
 from pyasn1.type.univ import *
 
-def get_info(agent, snmp_engine, user, upd_target):
+def get_info(agent, snmpEngine, user, udpTarget):
 
+    # Data and get - http://cric.grenoble.cnrs.fr/Administrateurs/Outils/MIBS/?oid=1.3.6.1.2.1.4
     data = (
         ObjectType(ObjectIdentity('SNMPv2-MIB', 'sysUpTime', 0)),
+        ObjectType(ObjectIdentity('HOST-RESOURCES-MIB', 'hrSystemDate', 0)),
         ObjectType(ObjectIdentity('IP-MIB', 'ipInReceives', 0)),
         ObjectType(ObjectIdentity('IP-MIB', 'ipInHdrErrors', 0)),
         ObjectType(ObjectIdentity('IP-MIB', 'ipInAddrErrors', 0)),
         ObjectType(ObjectIdentity('IP-MIB', 'ipInUnknownProtos', 0)),
-        ObjectType(ObjectIdentity('IP-MIB', 'ipForwDatagrams', 0)),
         ObjectType(ObjectIdentity('IP-MIB', 'ipInDiscards', 0)),
         ObjectType(ObjectIdentity('IP-MIB', 'ipInDelivers', 0)),
         ObjectType(ObjectIdentity('IP-MIB', 'ipOutRequests', 0)),
-        ObjectType(ObjectIdentity('IP-MIB', 'ipOutNoRoutes', 0)),
-        ObjectType(ObjectIdentity('IP-MIB', 'ipOutDiscards', 0))
+        ObjectType(ObjectIdentity('IP-MIB', 'ipOutDiscards', 0)),
+        ObjectType(ObjectIdentity('IP-MIB', 'ipOutNoRoutes', 0))
     )
 
-    get_data = getCmd(snmp_engine, user, upd_target, ContextData(), *data)
+    get_data = getCmd(snmpEngine, user, udpTarget, ContextData(), *data)
     errorIndication, errorStatus, errorIndex, varBinds = next(get_data)
 
+    # Directory
     directory = '/etc/log/snmp/'
     if not os.path.exists(directory):
         os.makedirs(directory)
@@ -30,10 +32,10 @@ def get_info(agent, snmp_engine, user, upd_target):
     directory = directory + agent
     f = open(directory, "a")
 
+    # Log
     if errorIndication:
         # print(errorIndication)
         return
-
     elif errorStatus:
         # print('%s at %s' % (errorStatus.prettyPrint(), errorIndex and varBinds[int(errorIndex) - 1][0] or '?'))
         f.write('%s at %s\n' % (errorStatus.prettyPrint(), errorIndex and varBinds[int(errorIndex) - 1][0] or '?'))
@@ -53,18 +55,17 @@ class Monitor(threading.Thread):
         self.function = function
 
     def run(self):
-        snmp_engine = SnmpEngine()
+        snmpEngine = SnmpEngine()
         user = UsmUserData(**self.user)
-        upd_target = Udp6TransportTarget((self.ip, 161))
+        udpTarget = Udp6TransportTarget((self.ip, 161))
 
         while True:
-            self.function[0](self.agent, snmp_engine, user, upd_target)
+            self.function[0](self.agent, snmpEngine, user, udpTarget)
             time.sleep( 5 )
 
 
 
 # Variables
-threads = []
 user = {
     'userName': 'myUser',
     'authProtocol': usmHMACSHAAuthProtocol,
@@ -92,11 +93,7 @@ agents = {
 
 # Start of the program
 for ag_name, ag_ip in agents.items():
-    monitor = Monitor(ag_name, ag_ip, user, [get_info])
-    threads.append(monitor)
-
-for th in threads:
-    th.start()
+    Monitor(ag_name, ag_ip, user, [get_info]).start()
 
 
-# snmpget -v 3 -u myUser -a SHA -x AES -A sha1234 -X aes1234 -l authPriv 'udp6:fd00:300:3:f00::2' sysUpTime.0
+# snmpget -v 3 -u myUser -a SHA -x AES -A sha1234sha -X aes1234aes -l authPriv 'udp6:fd00:300:3:f00::2' sysUpTime.0
