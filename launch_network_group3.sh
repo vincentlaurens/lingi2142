@@ -66,6 +66,13 @@ sudo python3 host_config_creation.py
 #sudo chmod 755 ./services/deploy_service.sh
 #sudo sh services/deploy_service.sh
 
+# Add right to test scripts
+cd ./tests/firewall/
+sudo chmod 755 *
+cd ./../routing/
+sudo chmod 755 *
+cd ./../..
+
 
 # Network creation
 sudo ./create_network.sh group3_topo
