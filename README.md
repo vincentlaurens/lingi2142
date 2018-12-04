@@ -66,13 +66,20 @@ For launch the network, we write differnt python scripts:
      "name of server": Mon, DNS, DHCP, DNS2 and DHCP2.
      
 # Tests
-For part of routing you can go on [tests](test/) directory where there are two subdirectories one for routing tests and an other for firewall tests.
+For part of routing you can go on [tests](tests/) directory where there are two subdirectories one for routing tests and an other for firewall tests.
 For routing you can also find tests on Monitoring part (monitoring directory).
 
 ##Firewall
-To test firewall:
-* [firewall_choose_port_test.sh](tests/firewall/firewall_choose_port_test.sh):
-* [firewall_choose_test.sh](tests/firewall/firewall_choose_test.sh):
+To test firewall: there are 3 scripts describe below:
+    * [firewall_choose_port_test.sh](tests/firewall/firewall_choose_port_test.sh): launch the following commande "nmap -6 -p (port of chosen Protocol) (ip address of router interface or server interface)" the third parameter is the namespace where the nmap must be executed. 
+    * [firewall_choose_test.sh](tests/firewall/firewall_choose_test.sh): launch another kind of nmap command with 2 parameters: the namespace where the command should be executed and the ip address of the interface.
+    * [firewall_test.sh](tests/firewall/firewall_test.sh): this script check out different ports on Belneta and Belnetb.
+
+To launch the scripts describe above:
+    * make runTestFirewall_choose_port ns=? ip=? port=?: execute "```sudo sh tests/firewall/firewall_choose_port_test.sh ${ns} ${ip} ${port}```".
+    * make runTestFirewall_choose_port ns=? ip=?: execute "```sudo sh tests/firewall/firewall_choose_port_test.sh ${ns} ${ip}```".
+    * make runTestFirewall_firewall_border: execute  "```sudo sh tests/firewall/firewall_test.sh```".
+    
   
 
 

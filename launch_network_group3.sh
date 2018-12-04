@@ -67,11 +67,13 @@ sudo python3 host_config_creation.py
 #sudo sh services/deploy_service.sh
 
 # Add right to test scripts
-cd ./tests/firewall/
+cd ./tests/
+sudo chmod 755 runtest.sh
+cd ./firewall/
 sudo chmod 755 *
 cd ./../routing/
 sudo chmod 755 *
-cd ./../..
+cd ../../
 
 
 # Network creation
