@@ -114,8 +114,8 @@ for router, configs_firewall in data.items():
 		"#Authorize DHCPv6 on the local link on the client site\n"
 		"ip6tables -A INPUT -m state --state NEW -m udp -p udp --destination-port 546 -d fe80::/64 -j ACCEPT\n\n"
 		
-		"#Allow Tunneling (encapsulation)\n"
-		"ip6tables  -A FORWARD -p 41 -j ACCEPT\n"
+		# "#Allow Tunneling (encapsulation)\n"
+		# "ip6tables  -A FORWARD -p 41 -j ACCEPT\n"
 		
 		"#Allow Traceroute\n"
 		"ip6tables -I INPUT -p udp --source-port 33434:33524 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT\n\n"
@@ -219,9 +219,9 @@ for router, configs_firewall in data.items():
 			"	ip6tables -A INPUT -i belnetb -p udp -d fd00:${a}:3:"+configs_firewall["suffixe_DHCP"]+"/64  -m udp --destination-port 547 -j DROP\n"	
 			"	ip6tables -A INPUT -i belnetb -p tcp -d fd00:${a}:3:"+configs_firewall["suffixe_DHCP2"]+"/64  -m tcp --destination-port 546 -j DROP\n"
 			"	ip6tables -A INPUT -i belnetb -p udp -d fd00:${a}:3:"+configs_firewall["suffixe_DHCP2"]+"/64  -m udp --destination-port 547 -j DROP\n\n"
-			"	#Allow IP encapsulation (tunneling)\n"
-			"	ip6tables  -A INPUT -p 41 -j ACCEPT\n"
-			"	ip6tables  -A OUTPUT -p 41 -j ACCEPT\n"
+			# "	#Allow IP encapsulation (tunneling)\n"
+			# "	ip6tables  -A INPUT -p 41 -j ACCEPT\n"
+			# "	ip6tables  -A OUTPUT -p 41 -j ACCEPT\n"
 		)
 		if router == "Pyth":
 			router_firewall_config_file.write(
