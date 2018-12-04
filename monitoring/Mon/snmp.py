@@ -61,7 +61,7 @@ class Monitor(threading.Thread):
 
         while True:
             self.function[0](self.agent, snmpEngine, user, udpTarget)
-            time.sleep( 5 )
+            time.sleep(5)
 
 
 

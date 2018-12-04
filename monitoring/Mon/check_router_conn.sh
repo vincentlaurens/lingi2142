@@ -6,11 +6,11 @@ exec &>> $LOG_FILE
 declare -A IP
 IP+=( ["Hall-eth0"]="fd00:300:3:f06::1" \
       ["Hall-eth1"]="fd00:300:3:f00::1" \
-      ["belneta"]="fd00:200::3"         \
+      ["belnetb"]="fd00:200::3"         \
       ["Pyth-eth0"]="fd00:300:3:f00::2"   \
       ["Pyth-eth1"]="fd00:300:3:f02::2"   \
       ["Pyth-eth2"]="fd00:300:3:f01::2"   \
-      ["belnetb"]="fd00:300::3"         \
+      ["belneta"]="fd00:300::3"         \
       ["Stev-eth0"]="fd00:300:3:f03::3"   \
       ["Stev-eth1"]="fd00:300:3:f01::3"   \
       ["Carn-eth0"]="fd00:300:3:f04::4"   \
