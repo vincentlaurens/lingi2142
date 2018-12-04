@@ -82,9 +82,9 @@ for router, configs_firewall in data.items():
 		"ip6tables -A OUTPUT -m state --state INVALID -j DROP\n"
 		"ip6tables -A FORWARD -m state --state INVALID -j DROP\n\n"
 
-		"ip6tables -A INPUT ! -p icmpv6 -m state --state INVALID -j DROP\n"
-		"ip6tables -A OUTPUT ! -p icmpv6 -m state --state INVALID -j DROP\n"
-		"ip6tables -A FORWARD ! -p icmpv6 -m state --state INVALID -j DROP\n\n"
+		# "ip6tables -A INPUT ! -p icmpv6 -m state --state INVALID -j DROP\n"
+		# "ip6tables -A OUTPUT ! -p icmpv6 -m state --state INVALID -j DROP\n"
+		# "ip6tables -A FORWARD ! -p icmpv6 -m state --state INVALID -j DROP\n\n"
 		
 		"#limitation on 128/0\n"
 		"ip6tables -A INPUT -p icmpv6 --icmpv6-type echo-request -m limit --limit 5/second -j ACCEPT\n"
