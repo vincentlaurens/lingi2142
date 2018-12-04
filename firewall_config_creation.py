@@ -185,9 +185,9 @@ for router, configs_firewall in data.items():
 	if configs_firewall["bgp"] == "true":
 		if router == "Hall":
 			router_firewall_config_file.write(
-			"		Drop inner address from the outside\n "
-			"		ip6tables -A INPUT 1 -i belnetb -s fd00:300:3::/48 -j DROP\n"
-			"		ip6tables -A INPUT 1 -i belnetb -s fd00:200:3::/48 -j DROP\n"
+			"		#Drop inner address from the outside\n "
+			"		ip6tables -A INPUT -i belnetb -s fd00:300:3::/48 -j DROP\n"
+			"		ip6tables -A INPUT -i belnetb -s fd00:200:3::/48 -j DROP\n"
 			"		#allow external BGP(router connected with provider)\n"
 			"for p in \"tcp\"\n"
 			"do\n"		
@@ -220,9 +220,9 @@ for router, configs_firewall in data.items():
 		)
 		if router == "Pyth":
 			router_firewall_config_file.write(
-			"		Drop inner address from the outside\n "
-			"		ip6tables -A INPUT 1 -i belneta -s fd00:300:3::/48 -j DROP\n"
-			"		ip6tables -A INPUT 1 -i belneta -s fd00:200:3::/48 -j DROP\n"
+			"		#Drop inner address from the outside\n "
+			"		ip6tables -A INPUT -i belneta -s fd00:300:3::/48 -j DROP\n"
+			"		ip6tables -A INPUT -i belneta -s fd00:200:3::/48 -j DROP\n"
 			"		#allow external BGP(router connected with provider)\n"
 			"for p in \"tcp\"\n"
 			"do\n"
