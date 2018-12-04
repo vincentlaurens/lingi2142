@@ -64,6 +64,15 @@ For launch the network, we write differnt python scripts:
      "name of router": Hall, Pyth, Stev, Carn, Mich and SH1C.
   * make connect namespace="name of server": execute sudo ./connect_to.sh group3_cfg $name of server. Connect on servers.
      "name of server": Mon, DNS, DHCP, DNS2 and DHCP2.
+     
+# Tests
+For part of routing you can go on [tests](test/) directory where there are two subdirectories one for routing tests and an other for firewall tests.
+For routing you can also find tests on Monitoring part (monitoring directory).
+
+##Firewall
+To test firewall:
+* [firewall_choose_port_test.sh](tests/firewall/firewall_choose_port_test.sh):
+* [firewall_choose_test.sh](tests/firewall/firewall_choose_test.sh):
   
 
 
