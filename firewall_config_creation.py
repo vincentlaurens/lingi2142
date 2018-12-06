@@ -68,7 +68,8 @@ for router, configs_firewall in data.items():
 
 		"# Required for the loopback interface\n"
 		"ip6tables -A INPUT -i lo -j ACCEPT\n"
-		"ip6tables -A OUTPUT -o lo -j ACCEPT\n"
+		"ip6tables -A OUTPUT -o lo -j ACCEPT\n\n"
+        "#Related and Established connections\n"
 		"ip6tables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
 		"ip6tables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
 		"ip6tables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
