@@ -43,7 +43,6 @@ for router, configs_firewall in data.items():
 		"#!/bin/bash\n"
 		"#Document generates by script firewall_config_creation.py, have a look on this python script for more details\n\n\n"
 		
-		"\n"
 		"#Definition of variable\n"
 		"DNS1_200=\"fd00:200:3:"+configs_firewall["suffixe_DNS"]+"/64\"\n"
 		"DNS1_300=\"fd00:300:3:"+configs_firewall["suffixe_DNS"]+"/64\"\n"
@@ -68,11 +67,11 @@ for router, configs_firewall in data.items():
 		"ip6tables -P OUTPUT DROP\n\n"
 
 		"# Required for the loopback interface\n"
-		"ip6tables -A INPUT -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT\n"
 		"ip6tables -A INPUT -i lo -j ACCEPT\n"
-		"ip6tables -A OUTPUT -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT\n"
 		"ip6tables -A OUTPUT -o lo -j ACCEPT\n"
-		"ip6tables -A FORWARD -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT\n"
+		"ip6tables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
+		"ip6tables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
+		"ip6tables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT\n"
 		
 		
 		"#Define our policy\n"
