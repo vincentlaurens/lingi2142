@@ -160,11 +160,18 @@ for router, configs_firewall in data.items():
 				"	ip6tables -A INPUT -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -p icmpv6 --icmpv6-type 134/0 -j REJECT --reject-with icmp-host-prohibited\n"
 		
 																				 
-				"	# Block student and staff from connecting with each other for $a\n"
-				"	ip6tables -A FORWARD -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -d fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -j DROP\n\n"
-				"	ip6tables -A FORWARD -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -d fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -j DROP\n\n"
-				
-				
+				#"	# Block student and staff from connecting with each other for $a: This isn't necessary but They show that this kind of connexions is forbidden\n"
+				#"	ip6tables -A FORWARD -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -d fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -j DROP\n"
+				#"	ip6tables -A FORWARD -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -d fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -j DROP\n\n"
+
+				"	# Accept ftp between two Staff hosts or between two Studs hosts\n"
+				"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -d fd00:$a:3:"+configs_firewall["Stud"]+"::/64 --destination-port 21  -j ACCEPT\n"
+				"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -d fd00:$a:3:"+configs_firewall["Staff"]+"::/64 --destination-port 21  -j ACCEPT\n"
+
+				"	# Allow SSH for students and staff members for $a\n"
+				"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 --destination-port 21 -j ACCEPT\n\n"
+				"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 --destination-port 21 -j ACCEPT\n\n"
+																																																																							 
 				"	# Allow SSH for students and staff members for $a\n"
 				"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 --destination-port 22 -j ACCEPT\n\n"
 				"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 --destination-port 22 -j ACCEPT\n\n"
