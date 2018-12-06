@@ -4,8 +4,6 @@
 		"bgp": "true",
 		"suffixe_DNS": "f011::53",
 		"suffixe_DNS2": "f012::53",
-		"suffixe_DHCP": "f011::546",
-		"suffixe_DHCP2": "f012::546",
 		"lans": {
 			"Stud" : "f014",
 			"Staff": "f015"
@@ -16,8 +14,6 @@
 		"bgp": "true",
 		"suffixe_DNS": "f011::53",
 		"suffixe_DNS2": "f012::53",
-		"suffixe_DHCP": "f011::546",
-		"suffixe_DHCP2": "f012::546",
 		"lans": {
 			"Monitoring": "f02f",
 			"Stud" : "f024",
@@ -29,8 +25,6 @@
 		"bgp": "false",
 		"suffixe_DNS": "f011::53",
 		"suffixe_DNS2": "f012::53",
-		"suffixe_DHCP": "f011::546",
-		"suffixe_DHCP2": "f012::546",
 		"lans": {
 			"Stud" : "f034",
 			"Staff": "f035"
@@ -41,8 +35,6 @@
 		"bgp": "false",
 		"suffixe_DNS": "f011::53",
 		"suffixe_DNS2": "f012::53",
-		"suffixe_DHCP": "f011::546",
-		"suffixe_DHCP2": "f012::546",
 		"lans": {
 			"Stud" : "f044",
 			"Staff": "f045"
@@ -53,8 +45,6 @@
 		"bgp": "false",
 		"suffixe_DNS": "f011::53",
 		"suffixe_DNS2": "f012::53",
-		"suffixe_DHCP": "f011::546",
-		"suffixe_DHCP2": "f012::546",
 		"lans": {
 			"Stud" : "f054",
 			"Staff": "f055"
@@ -65,8 +55,6 @@
 		"bgp": "false",
 		"suffixe_DNS": "f011::53",
 		"suffixe_DNS2": "f012::53",
-		"suffixe_DHCP": "f011::546",
-		"suffixe_DHCP2": "f012::546",
 		"lans": {
 			"Stud" : "f064",
 			"Staff": "f065"
