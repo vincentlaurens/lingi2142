@@ -150,7 +150,6 @@ for router, configs_firewall in data.items():
 		"# Allow logging in via SSH\n"
 		"#ip6tables -A INPUT -p tcp --destination-port 22 -j ACCEPT\n\n"
 	)
-	# if "lans" in configs_firewall:
 	if "Stud" and "Staff" in configs_firewall:
 		router_firewall_config_file.write(
 			"for a in 200 300\n"
