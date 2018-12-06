@@ -171,8 +171,10 @@ for router, configs_firewall in data.items():
                 "	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -d fd00:$a:3:"+configs_firewall["Staff"]+"::/64 --destination-port 21  -j ACCEPT\n"
 																																																																							 
 				"	# Allow SSH for students and staff members for $a\n"
-				"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 --destination-port 22 -j ACCEPT\n\n"
-				"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 --destination-port 22 -j ACCEPT\n\n"
+				"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 --destination-port 22 -j ACCEPT\n"
+				"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 --destination-port 22 -j ACCEPT\n"
+                "	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -d fd00:$a:3:"+configs_firewall["Stud"]+"::/64 --destination-port 22 -j DROP\n\n"
+                "	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -d fd00:$a:3:"+configs_firewall["Staff"]+"::/64 --destination-port 22 -j DROP\n\n"
 				
 				"	# Allow SMTP for students and staff members for $a\n"
 				"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 --destination-port 25 -j ACCEPT\n\n"
