@@ -1,0 +1,129 @@
+Chain INPUT (policy DROP)
+target     prot opt source               destination         
+ACCEPT     udp      anywhere             anywhere             udp spts:33434:33524 state NEW,RELATED,ESTABLISHED
+ACCEPT     all      anywhere             anywhere            
+ACCEPT     all      anywhere             anywhere             state RELATED,ESTABLISHED
+ACCEPT     89       anywhere             anywhere            
+DROP       all      anywhere             anywhere             state INVALID
+ACCEPT     icmpv6    anywhere             anywhere             ipv6-icmp echo-request limit: avg 5/sec burst 5
+ACCEPT     icmpv6    anywhere             anywhere             ipv6-icmptype 135 code 0 limit: avg 15/sec burst 5
+ACCEPT     icmpv6    anywhere             anywhere            
+ACCEPT     udp      anywhere             anywhere             udp dpt:snmp
+ACCEPT     udp      anywhere             anywhere             udp dpt:snmp-trap
+ACCEPT     udp      fd00:200:3:f011::/64  anywhere             udp spt:domain state ESTABLISHED
+ACCEPT     tcp      fd00:200:3:f011::/64  anywhere             tcp spt:domain state ESTABLISHED
+ACCEPT     udp      fd00:300:3:f011::/64  anywhere             udp spt:domain state ESTABLISHED
+ACCEPT     tcp      fd00:300:3:f011::/64  anywhere             tcp spt:domain state ESTABLISHED
+ACCEPT     udp      fd00:200:3:f012::/64  anywhere             udp spt:domain state ESTABLISHED
+ACCEPT     tcp      fd00:200:3:f012::/64  anywhere             tcp spt:domain state ESTABLISHED
+ACCEPT     udp      fd00:300:3:f012::/64  anywhere             udp spt:domain state ESTABLISHED
+ACCEPT     tcp      fd00:300:3:f012::/64  anywhere             tcp spt:domain state ESTABLISHED
+ACCEPT     udp      anywhere             fe80::/64            state NEW udp dpt:dhcpv6-client
+ACCEPT     udp      anywhere             anywhere             udp spt:dhcpv6-client dpt:dhcpv6-server
+ACCEPT     udp      anywhere             anywhere             udp spt:dhcpv6-server dpt:dhcpv6-client
+ACCEPT     tcp      2000::/3             anywhere             tcp dpt:ssh flags:FIN,SYN,RST,ACK/SYN state NEW
+REJECT     icmpv6    fd00:200:3:f014::/64  anywhere             ipv6-icmptype 134 code 0 reject-with icmp6-port-unreachable
+REJECT     icmpv6    fd00:200:3:f015::/64  anywhere             ipv6-icmptype 134 code 0 reject-with icmp6-port-unreachable
+REJECT     icmpv6    fd00:300:3:f014::/64  anywhere             ipv6-icmptype 134 code 0 reject-with icmp6-port-unreachable
+REJECT     icmpv6    fd00:300:3:f015::/64  anywhere             ipv6-icmptype 134 code 0 reject-with icmp6-port-unreachable
+ACCEPT     tcp      anywhere             fd00:200:3:f02f::/64  tcp dpt:dhcpv6-client
+ACCEPT     udp      anywhere             fd00:200:3:f02f::/64  udp dpt:dhcpv6-server
+ACCEPT     tcp      anywhere             fd00:200:3:f02f::/64  tcp dpt:ssh
+ACCEPT     tcp      anywhere             fd00:200:3:f02f::/64  multiport dports smtp,pop3,imap2
+ACCEPT     tcp      anywhere             fd00:300:3:f02f::/64  tcp dpt:dhcpv6-client
+ACCEPT     udp      anywhere             fd00:300:3:f02f::/64  udp dpt:dhcpv6-server
+ACCEPT     tcp      anywhere             fd00:300:3:f02f::/64  tcp dpt:ssh
+ACCEPT     tcp      anywhere             fd00:300:3:f02f::/64  multiport dports smtp,pop3,imap2
+ACCEPT     tcp      anywhere             anywhere             tcp dpt:ssh
+ACCEPT     tcp      fd00:200:3::/48      anywhere             tcp dpt:ssh
+ACCEPT     tcp      fd00:300:3::/48      anywhere             tcp dpt:ssh
+ACCEPT     tcp      anywhere             anywhere             tcp dpt:bgp
+ACCEPT     tcp      anywhere             anywhere             tcp spt:bgp
+DROP       all      fd00:200:3::/48      anywhere            
+DROP       udp      anywhere             fd00:200:3:f02f::/64  udp spt:snmp
+DROP       udp      anywhere             fd00:200:3:f02f::/64  udp spt:snmp-trap
+DROP       udp      anywhere             fd00:200:3:f02f::/64  udp dpt:snmp
+DROP       udp      anywhere             fd00:200:3:f02f::/64  udp dpt:snmp-trap
+DROP       all      fd00:300:3::/48      anywhere            
+DROP       udp      anywhere             fd00:300:3:f02f::/64  udp spt:snmp
+DROP       udp      anywhere             fd00:300:3:f02f::/64  udp spt:snmp-trap
+DROP       udp      anywhere             fd00:300:3:f02f::/64  udp dpt:snmp
+DROP       udp      anywhere             fd00:300:3:f02f::/64  udp dpt:snmp-trap
+DROP       udp      anywhere             anywhere             udp dpt:dhcpv6-client
+DROP       udp      anywhere             anywhere             udp dpt:dhcpv6-server
+LOGGING    all      anywhere             anywhere            
+
+Chain FORWARD (policy DROP)
+target     prot opt source               destination         
+ACCEPT     all      anywhere             anywhere             state RELATED,ESTABLISHED
+DROP       all      anywhere             anywhere             state INVALID
+ACCEPT     icmpv6    anywhere             anywhere            
+ACCEPT     udp      anywhere             anywhere             udp dpt:snmp
+ACCEPT     udp      anywhere             anywhere             udp dpt:snmp-trap
+ACCEPT     udp      anywhere             anywhere             udp spt:dhcpv6-client dpt:dhcpv6-server
+ACCEPT     udp      anywhere             anywhere             udp spt:dhcpv6-server dpt:dhcpv6-client
+ACCEPT     tcp      fd00:200:3:f014::/64  fd00:200:3:f014::/64  tcp dpt:ftp
+ACCEPT     tcp      fd00:200:3:f015::/64  fd00:200:3:f015::/64  tcp dpt:ftp
+ACCEPT     tcp      fd00:200:3:f015::/64  fd00:200:3:f014::/64  tcp dpt:ftp
+ACCEPT     tcp      fd00:200:3:f014::/64  fd00:200:3:f015::/64  tcp dpt:ftp
+ACCEPT     tcp      fd00:200:3:f014::/64  anywhere             tcp dpt:ssh
+ACCEPT     tcp      fd00:200:3:f015::/64  anywhere             tcp dpt:ssh
+DROP       tcp      fd00:200:3:f015::/64  fd00:200:3:f014::/64  tcp dpt:ssh
+DROP       tcp      fd00:200:3:f014::/64  fd00:200:3:f015::/64  tcp dpt:ssh
+ACCEPT     tcp      fd00:200:3:f014::/64  anywhere             tcp dpt:smtp
+ACCEPT     tcp      fd00:200:3:f015::/64  anywhere             tcp dpt:smtp
+ACCEPT     tcp      fd00:200:3:f014::/64  anywhere             tcp dpt:http
+ACCEPT     tcp      fd00:200:3:f015::/64  anywhere             tcp dpt:http
+ACCEPT     tcp      fd00:200:3:f014::/64  anywhere             tcp dpt:https
+ACCEPT     tcp      fd00:200:3:f015::/64  anywhere             tcp dpt:https
+ACCEPT     tcp      fd00:300:3:f014::/64  fd00:300:3:f014::/64  tcp dpt:ftp
+ACCEPT     tcp      fd00:300:3:f015::/64  fd00:300:3:f015::/64  tcp dpt:ftp
+ACCEPT     tcp      fd00:300:3:f015::/64  fd00:300:3:f014::/64  tcp dpt:ftp
+ACCEPT     tcp      fd00:300:3:f014::/64  fd00:300:3:f015::/64  tcp dpt:ftp
+ACCEPT     tcp      fd00:300:3:f014::/64  anywhere             tcp dpt:ssh
+ACCEPT     tcp      fd00:300:3:f015::/64  anywhere             tcp dpt:ssh
+DROP       tcp      fd00:300:3:f015::/64  fd00:300:3:f014::/64  tcp dpt:ssh
+DROP       tcp      fd00:300:3:f014::/64  fd00:300:3:f015::/64  tcp dpt:ssh
+ACCEPT     tcp      fd00:300:3:f014::/64  anywhere             tcp dpt:smtp
+ACCEPT     tcp      fd00:300:3:f015::/64  anywhere             tcp dpt:smtp
+ACCEPT     tcp      fd00:300:3:f014::/64  anywhere             tcp dpt:http
+ACCEPT     tcp      fd00:300:3:f015::/64  anywhere             tcp dpt:http
+ACCEPT     tcp      fd00:300:3:f014::/64  anywhere             tcp dpt:https
+ACCEPT     tcp      fd00:300:3:f015::/64  anywhere             tcp dpt:https
+DROP       udp      anywhere             anywhere             udp dpt:dhcpv6-client
+DROP       udp      anywhere             anywhere             udp dpt:dhcpv6-client
+DROP       udp      anywhere             anywhere             udp dpt:dhcpv6-server
+DROP       udp      anywhere             anywhere             udp dpt:dhcpv6-server
+LOGGING    all      anywhere             anywhere            
+
+Chain OUTPUT (policy DROP)
+target     prot opt source               destination         
+ACCEPT     all      anywhere             anywhere            
+ACCEPT     all      anywhere             anywhere             state RELATED,ESTABLISHED
+ACCEPT     89       anywhere             anywhere            
+DROP       all      anywhere             anywhere             state INVALID
+ACCEPT     icmpv6    anywhere             anywhere            
+ACCEPT     udp      anywhere             anywhere             udp dpt:snmp
+ACCEPT     udp      anywhere             anywhere             udp dpt:snmp-trap
+ACCEPT     udp      anywhere             fd00:200:3:f011::/64  udp dpt:domain state NEW,ESTABLISHED
+ACCEPT     tcp      anywhere             fd00:200:3:f011::/64  tcp dpt:domain state NEW,ESTABLISHED
+ACCEPT     udp      anywhere             fd00:300:3:f011::/64  udp dpt:domain state NEW,ESTABLISHED
+ACCEPT     tcp      anywhere             fd00:300:3:f011::/64  tcp dpt:domain state NEW,ESTABLISHED
+ACCEPT     udp      anywhere             fd00:200:3:f012::/64  udp dpt:domain state NEW,ESTABLISHED
+ACCEPT     tcp      anywhere             fd00:200:3:f012::/64  tcp dpt:domain state NEW,ESTABLISHED
+ACCEPT     udp      anywhere             fd00:300:3:f012::/64  udp dpt:domain state NEW,ESTABLISHED
+ACCEPT     tcp      anywhere             fd00:300:3:f012::/64  tcp dpt:domain state NEW,ESTABLISHED
+ACCEPT     udp      anywhere             anywhere             udp spt:dhcpv6-client dpt:dhcpv6-server
+ACCEPT     udp      anywhere             anywhere             udp spt:dhcpv6-server dpt:dhcpv6-client
+ACCEPT     udp      anywhere             anywhere             udp dpts:33434:33524 state NEW
+ACCEPT     tcp      anywhere             anywhere             tcp dpt:bgp
+DROP       89       anywhere             anywhere            
+DROP       udp      anywhere             anywhere             udp dpts:33434:33524 state NEW
+DROP       udp      anywhere             anywhere             udp dpt:dhcpv6-client
+DROP       udp      anywhere             anywhere             udp dpt:dhcpv6-server
+LOGGING    all      anywhere             anywhere            
+
+Chain LOGGING (3 references)
+target     prot opt source               destination         
+LOG        all      anywhere             anywhere             limit: avg 10/min burst 5 LOG level warning prefix "IP6Tables-Dropped: "
+DROP       all      anywhere             anywhere            
