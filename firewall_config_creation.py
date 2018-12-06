@@ -150,66 +150,72 @@ for router, configs_firewall in data.items():
 		"# Allow logging in via SSH\n"
 		"#ip6tables -A INPUT -p tcp --destination-port 22 -j ACCEPT\n\n"
 	)
-	if "lans" in configs_firewall:
-		if "Stud" and "Staff" in configs_firewall:
-			router_firewall_config_file.write(
-				"for a in 200 300\n"
-				"do\n"
-				"	# Refuse router advertisement from students (flooding or misbehaviour) for $a\n"
-				"	ip6tables -A INPUT -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -p icmpv6 --icmpv6-type 134/0 -j REJECT --reject-with icmp-host-prohibited\n"
-				"	ip6tables -A INPUT -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -p icmpv6 --icmpv6-type 134/0 -j REJECT --reject-with icmp-host-prohibited\n"
-		
-																				 
-				#"	# Block student and staff from connecting with each other for $a: This isn't necessary but They show that this kind of connexions is forbidden\n"
-				#"	ip6tables -A FORWARD -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -d fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -j DROP\n"
-				#"	ip6tables -A FORWARD -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -d fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -j DROP\n\n"
+	# if "lans" in configs_firewall:
+	if "Stud" and "Staff" in configs_firewall:
+		router_firewall_config_file.write(
+			"for a in 200 300\n"
+			"do\n"
+			"	# Refuse router advertisement from students (flooding or misbehaviour) for $a\n"
+			"	ip6tables -A INPUT -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -p icmpv6 --icmpv6-type 134/0 -j REJECT\n"#--reject-with icmp-host-prohibited
+			"	ip6tables -A INPUT -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -p icmpv6 --icmpv6-type 134/0 -j REJECT\n"
+	
+																			 
+			#"	# Block student and staff from connecting with each other for $a: This isn't necessary but They show that this kind of connexions is forbidden\n"
+			#"	ip6tables -A FORWARD -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -d fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -j DROP\n"
+			#"	ip6tables -A FORWARD -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -d fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -j DROP\n\n"
 
-				"	# Accept FTP between two Staff hosts or between two Studs hosts and between Staff and Stud and Stud and Staff\n"
-				"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -d fd00:$a:3:"+configs_firewall["Stud"]+"::/64 --destination-port 21  -j ACCEPT\n"
-				"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -d fd00:$a:3:"+configs_firewall["Staff"]+"::/64 --destination-port 21  -j ACCEPT\n"
-                "	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -d fd00:$a:3:"+configs_firewall["Stud"]+"::/64 --destination-port 21  -j ACCEPT\n"
-                "	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -d fd00:$a:3:"+configs_firewall["Staff"]+"::/64 --destination-port 21  -j ACCEPT\n"
-																																																																							 
-				"	# Allow SSH for students and staff members for $a\n"
-				"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 --destination-port 22 -j ACCEPT\n"
-				"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 --destination-port 22 -j ACCEPT\n"
-                "	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -d fd00:$a:3:"+configs_firewall["Stud"]+"::/64 --destination-port 22 -j DROP\n\n"
-                "	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -d fd00:$a:3:"+configs_firewall["Staff"]+"::/64 --destination-port 22 -j DROP\n\n"
-				
-				"	# Allow SMTP for students and staff members for $a\n"
-				"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 --destination-port 25 -j ACCEPT\n\n"
-				"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 --destination-port 25 -j ACCEPT\n\n"
-				
-				"	# Allow HTTP and HTTPS for students and staff members for $a\n"
-				"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 --destination-port 80 -j ACCEPT\n\n"
-				"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 --destination-port 80 -j ACCEPT\n\n"
-				"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 --destination-port 443 -j ACCEPT\n\n"
-				"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 --destination-port 443 -j ACCEPT\n\n"
-				"done\n\n"
-			)
-		if "Monitoring" in configs_firewall:
-			router_firewall_config_file.write(
-				"#Allow SNMP for each hosts on Monitoring LAN and mailbox protocols and SSH for check log for instance\n"
-				"for a in 200 300\n"
-				"do\n"
-				"	ip6tables -A INPUT -p tcp -d fd00:$a:3:"+configs_firewall["Monitoring"]+"::1/64 -m tcp --destination-port 546 -j ACCEPT\n"
-				"	ip6tables -A INPUT -p udp -d fd00:$a:3:"+configs_firewall["Monitoring"]+"::1/64 -m udp --destination-port 547 -j ACCEPT\n"
-				"	ip6tables -A INPUT -p tcp -d fd00:$a:3:"+configs_firewall["Monitoring"]+"::1/64 -m tcp --destination-port 22 -j ACCEPT\n"	
-				"	ip6tables -A INPUT -p tcp -d fd00:$a:3:"+configs_firewall["Monitoring"]+"::1/64 -m multiport --destination-ports 25,110,143 -j ACCEPT\n\n"
-				"done\n\n"
-			)
+			"	# Accept FTP between two Staff hosts or between two Studs hosts and between Staff and Stud and Stud and Staff\n"
+			"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -d fd00:$a:3:"+configs_firewall["Stud"]+"::/64 --destination-port 21  -j ACCEPT\n"
+			"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -d fd00:$a:3:"+configs_firewall["Staff"]+"::/64 --destination-port 21  -j ACCEPT\n"
+            "	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -d fd00:$a:3:"+configs_firewall["Stud"]+"::/64 --destination-port 21  -j ACCEPT\n"
+            "	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -d fd00:$a:3:"+configs_firewall["Staff"]+"::/64 --destination-port 21  -j ACCEPT\n"
+																																																																						 
+			"	# Allow SSH for students and staff members for $a\n"
+			"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 --destination-port 22 -j ACCEPT\n"
+			"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 --destination-port 22 -j ACCEPT\n"
+            "	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -d fd00:$a:3:"+configs_firewall["Stud"]+"::/64 --destination-port 22 -j DROP\n\n"
+            "	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -d fd00:$a:3:"+configs_firewall["Staff"]+"::/64 --destination-port 22 -j DROP\n\n"
+		)
 		if "visitor" in configs_firewall:
 			router_firewall_config_file.write(
-				"# Allow HTTP and HTTPS for visitor\n"
-				"# Allow DNS for visitor\n"
-				"for a in 200 300\n"
-				"do\n"
-				"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["visitor"]+"::/64 --destination-port 80 -j ACCEPT\n"
-				"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["visitor"]+"::/64 --destination-port 443 -j ACCEPT\n"
-				"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["visitor"]+"::/64 -d fd00:$a:3:"+configs_firewall["suffixe_DNS"]+"/64 --destination-port 53 -j ACCEPT\n"
-				"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["visitor"]+"::/64 -d fd00:$a:3:"+configs_firewall["suffixe_DNS2"]+"/64 --destination-port 53 -j ACCEPT\n"
-				"done\n\n"
+                "	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 -d fd00:$a:3:"+configs_firewall["visitor"]+"::/64 --destination-port 22 -j DROP\n\n"
+                "	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 -d fd00:$a:3:"+configs_firewall["visitor"]+"::/64 --destination-port 22 -j DROP\n\n"
 			)
+		router_firewall_config_file.write(
+			"	# Allow SMTP for students and staff members for $a\n"
+			"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 --destination-port 25 -j ACCEPT\n\n"
+			"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 --destination-port 25 -j ACCEPT\n\n"
+			
+			"	# Allow HTTP and HTTPS for students and staff members for $a\n"
+			"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 --destination-port 80 -j ACCEPT\n\n"
+			"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 --destination-port 80 -j ACCEPT\n\n"
+			"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Stud"]+"::/64 --destination-port 443 -j ACCEPT\n\n"
+			"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["Staff"]+"::/64 --destination-port 443 -j ACCEPT\n\n"
+			"done\n\n"
+		)
+	if "Monitoring" in configs_firewall:
+		router_firewall_config_file.write(
+			"#Allow SNMP for each hosts on Monitoring LAN and mailbox protocols and SSH for check log for instance\n"
+			"for a in 200 300\n"
+			"do\n"
+			"	ip6tables -A INPUT -p tcp -d fd00:$a:3:"+configs_firewall["Monitoring"]+"::1/64 -m tcp --destination-port 546 -j ACCEPT\n"
+			"	ip6tables -A INPUT -p udp -d fd00:$a:3:"+configs_firewall["Monitoring"]+"::1/64 -m udp --destination-port 547 -j ACCEPT\n"
+			"	ip6tables -A INPUT -p tcp -d fd00:$a:3:"+configs_firewall["Monitoring"]+"::1/64 -m tcp --destination-port 22 -j ACCEPT\n"	
+			"	ip6tables -A INPUT -p tcp -d fd00:$a:3:"+configs_firewall["Monitoring"]+"::1/64 -m multiport --destination-ports 25,110,143 -j ACCEPT\n\n"
+			"done\n\n"
+		)
+	if "visitor" in configs_firewall:
+		router_firewall_config_file.write(
+			"# Allow HTTP and HTTPS for visitor\n"
+			"# Allow DNS for visitor\n"
+			"for a in 200 300\n"
+			"do\n"
+			"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["visitor"]+"::/64 --destination-port 80 -j ACCEPT\n"
+			"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["visitor"]+"::/64 --destination-port 443 -j ACCEPT\n"
+			"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["visitor"]+"::/64 -d fd00:$a:3:"+configs_firewall["suffixe_DNS"]+"/64 --destination-port 53 -j ACCEPT\n"
+			"	ip6tables -A FORWARD -p tcp -s fd00:$a:3:"+configs_firewall["visitor"]+"::/64 -d fd00:$a:3:"+configs_firewall["suffixe_DNS2"]+"/64 --destination-port 53 -j ACCEPT\n"
+			"done\n\n"
+		)
 		
 	router_firewall_config_file.write(
 		"# Restrict incoming SSH to a specific network interface\n"
