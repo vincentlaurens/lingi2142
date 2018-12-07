@@ -10,7 +10,7 @@
   "Ha2": {
     "machine_number": "::2",
     "City":"f",
-    "site": "02",
+    "site": "01",
     "use": "5",
     "default_route": "fd00:200:3:f02f::",
     "prefix_default_route": "1"
@@ -18,7 +18,7 @@
   "Py1": {
     "machine_number": "::1",
     "City":"f",
-    "site": "06",
+    "site": "02",
     "use": "4",
     "default_route": "fd00:200:3:f061::",
     "prefix_default_route": "2"
@@ -26,7 +26,7 @@
   "Py2": {
     "machine_number": "::12",
     "City":"f",
-    "site": "03",
+    "site": "02",
     "use": "5",
     "default_route": "fd00:200:3:f032::",
     "prefix_default_route": "2"
@@ -50,7 +50,7 @@
   "Ca1": {
     "machine_number": "::1",
     "City":"f",
-    "site": "03",
+    "site": "04",
     "use": "4",
     "default_route": "fd00:200:3:f032::",
     "prefix_default_route": "4"
@@ -58,7 +58,7 @@
   "Ca2": {
     "machine_number": "::2",
     "City":"f",
-    "site": "03",
+    "site": "04",
     "use": "5",
     "default_route": "fd00:200:3:f032::",
     "prefix_default_route": "4"
@@ -66,7 +66,7 @@
   "Mi1": {
     "machine_number": "::1",
     "City":"f",
-    "site": "03",
+    "site": "05",
     "use": "4",
     "default_route": "fd00:200:3:f032::",
     "prefix_default_route": "5"
@@ -74,7 +74,7 @@
   "Mi2": {
     "machine_number": "::2",
     "City":"f",
-    "site": "03",
+    "site": "05",
     "use": "5",
     "default_route": "fd00:200:3:f032::",
     "prefix_default_route": "5"
@@ -82,7 +82,7 @@
   "Sh1": {
     "machine_number": "::1",
     "City":"f",
-    "site": "03",
+    "site": "06",
     "use": "4",
     "default_route": "fd00:200:3:f032::",
     "prefix_default_route": "6"
@@ -90,7 +90,7 @@
   "Sh2": {
     "machine_number": "::2",
     "City":"f",
-    "site": "03",
+    "site": "06",
     "use": "5",
     "default_route": "fd00:200:3:f032::",
     "prefix_default_route": "6"
