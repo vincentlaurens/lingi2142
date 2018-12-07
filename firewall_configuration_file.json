@@ -2,7 +2,7 @@
 	"Hall": {
 		"router_id": "1",
 		"bgp": "true",
-		"suffixe_DNS": "f011::53",
+		"suffixe_DNS": "f061::53",
 		"suffixe_DNS2": "f012::53",
 		"Stud" : "f014",
 		"Staff": "f015"
@@ -10,7 +10,7 @@
 	"Pyth": {
 		"router_id": "2",
 		"bgp": "true",
-		"suffixe_DNS": "f011::53",
+		"suffixe_DNS": "f061::53",
 		"suffixe_DNS2": "f012::53",
 		"Monitoring": "f02f",
 		"Stud" : "f014",
@@ -19,7 +19,7 @@
 	"Stev": {
 		"router_id": "3",
 		"bgp": "false",
-		"suffixe_DNS": "f011::53",
+		"suffixe_DNS": "f061::53",
 		"suffixe_DNS2": "f012::53",
 	  	"Stud" : "f014",
 		"Staff": "f015"
@@ -27,7 +27,7 @@
 	"Carn": {
 		"router_id": "4",
 		"bgp": "false",
-		"suffixe_DNS": "f011::53",
+		"suffixe_DNS": "f061::53",
 		"suffixe_DNS2": "f012::53",
 		"Stud" : "f044",
 		"Staff": "f045"
@@ -35,7 +35,7 @@
 	"Mich":{
 		"router_id": "5",
 		"bgp": "false",
-		"suffixe_DNS": "f011::53",
+		"suffixe_DNS": "f061::53",
 		"suffixe_DNS2": "f012::53",
 		"Stud" : "f054",
 		"Staff": "f055"
@@ -43,7 +43,7 @@
 	"SH1C": {
 		"router_id": "6",
 		"bgp": "false",
-		"suffixe_DNS": "f011::53",
+		"suffixe_DNS": "f061::53",
 		"suffixe_DNS2": "f012::53",
 		"Stud" : "f064",
 		"Staff": "f065"
