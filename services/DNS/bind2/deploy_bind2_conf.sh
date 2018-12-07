@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ROOT='/vagrant'
+ROOT='/home/vagrant/lingi2142'
 sudo mkdir -p $ROOT/services/DNS/bind2/named_zones/zones
 sudo bash $ROOT/services/DNS/bind2/src/dns_conf_creat.sh
 sudo mkdir -p $ROOT/group3_cfg/DNS2/bind/

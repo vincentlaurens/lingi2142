@@ -3,7 +3,7 @@ import os
 import stat
 
 
-PATH='/vagrant/'
+PATH='/home/vagrant/lingi2142/'
 
 db_local = open(PATH+"services/DNS/bind2/named_zones/zones/db.local","w")
 

@@ -4,7 +4,7 @@ import os
 import stat
 
 #from ../../../constants import PATH
-PATH='/vagrant/'
+PATH='/home/vagrant/lingi2142/'
 
 dns_conf = open(PATH+"services/DNS/bind/named_zones/named.conf", "w")
 dns_conf.write(
