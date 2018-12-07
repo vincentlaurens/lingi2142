@@ -6,7 +6,7 @@
     "use": "1",
     "default_route": "fd00:200:3:f061::",
     "prefix_default_route": "6",
-    "bind9": "named1",
+    "bind9": "named",
     "extra_commands": [
     ]
   },
@@ -43,7 +43,7 @@
     "use": "2",
     "default_route": "fd00:200:3:f032::",
     "prefix_default_route": "3",
-    "bind9": "named1",
+    "bind9": "named",
     "extra_commands": [
     ]
   },
