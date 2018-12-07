@@ -17,9 +17,10 @@
               "neighbor_address": "fd00:200::b"
             		}
 	     	},
-		"vlans": {
-			"lan0": "01"
-		},
+	  	"lans": {
+			"lan0": "4",
+		    "lan1": "5"
+	      },
 		"lb_commands": [
 			"ip -6 rule add from fd00:200:3::/48 to fd00:200:3::/48 pref 1000 table main",
       		"ip -6 rule add from fd00:200:3::/48 to fd00:300:3::/48 pref 1000 table main",
@@ -56,11 +57,10 @@
 			}
 		},
       "lans": {
-        "lan1": "f"
-      },
-		"vlans": {
-			"lan0": "01"
-		},
+        "lan1": "f",
+		"lan0": "4",
+		"lan2": "5"
+       },
 		"lb_commands":[
 			"ip -6 rule add from fd00:300:3::/48 to fd00:200:3::/48 pref 1000 table main",
       		"ip -6 rule add from fd00:300:3::/48 to fd00:300:3::/48 pref 1000 table main",
@@ -81,7 +81,9 @@
 			"eth1":"01"
 		},
 		"lans": {
-			"lan1": "2"
+			"lan1": "2",
+		  	"lan0": "4",
+		    "lan2": "5"
 		}
 	},
 	"Carn":{
@@ -108,7 +110,11 @@
 		"eths":{
 			"eth0":"05",
 			"eth1":"04"
-		}
+		},
+		"lans": {
+			  "lan0": "4",
+			  "lan1": "5"
+			}
 	},
 	"SH1C":{
 		"router_id":"6",
@@ -120,7 +126,9 @@
 			"eth1":"06"
 		},
 		"lans": {
-			"lan1": "1"
+			"lan1": "1",
+		  	"lan0": "4",
+		    "lan2": "5"
 		}
 	}
 }
