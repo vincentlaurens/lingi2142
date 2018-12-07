@@ -13,16 +13,16 @@
 		"suffixe_DNS": "f061::53",
 		"suffixe_DNS2": "f032::53",
 		"Monitoring": "f02f",
-		"Stud" : "f014",
-		"Staff": "f015"
+		"Stud" : "f024",
+		"Staff": "f025"
 	},
 	"Stev": {
 		"router_id": "3",
 		"bgp": "false",
 		"suffixe_DNS": "f061::53",
 		"suffixe_DNS2": "f032::53",
-	  	"Stud" : "f014",
-		"Staff": "f015"
+	  	"Stud" : "f034",
+		"Staff": "f035"
 	},
 	"Carn": {
 		"router_id": "4",
