@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+!/usr/bin/env bash
 PATH_SRC='/home/vagrant/test/group3/lingi2142/services'
 
 

@@ -4,7 +4,7 @@ import os
 import stat
 
 
-PATH='/home/vagrant/test/group3/lingi2142/'
+PATH='/vagrant/'
 
 db_group3 = open(PATH+"services/DNS/bind/named_zones/zones/db.group3.ingi","w")
 
