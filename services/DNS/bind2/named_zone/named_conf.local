@@ -1,0 +1,22 @@
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+zone "group3.ingi" {
+    type slave;
+    file "/etc/bind/zones/db.group3.ingi";
+    masters { fd00:200:3:f061::53; fd00:300:3:f061::53; };
+	allow-notify { fd00:200:3:f061::53; fd00:300:3:f061::53; };
+};
+
+
+zone "3.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa" {
+    type slave;
+    file \"/etc/bind/zones/db.reverse.groupe3.ingi";
+    masters { fd00:200:3:f061::53; fd00:300:3:f061::53; };
+	allow-notify { fd00:200:3:f061::53; fd00:300:3:f061::53; };
+};

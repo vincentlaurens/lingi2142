@@ -6,7 +6,7 @@ import stat
 #from ../../../constants import PATH
 PATH='/home/vagrant/test/group3/lingi2142/'
 
-dns_conf = open(PATH+"services/DNS/bind/named_zones/named.conf", "w")
+dns_conf = open(PATH+"services/DNS/bind2/named_zones/named.conf", "w")
 dns_conf.write(
 "include \"/etc/bind/named.conf.options\";\n"
 "include \"/etc/bind/named.conf.local\";\n"
@@ -15,7 +15,7 @@ dns_conf.write(
 
 dns_conf.close()
 
-dns_conf_local = open(PATH+"services/DNS/bind/named_zones/named.conf.local", "w")
+dns_conf_local = open(PATH+"services/DNS/bind2/named_zones/named.conf.local", "w")
 
 dns_conf_local.write(
 "//\n"
@@ -23,25 +23,24 @@ dns_conf_local.write(
 "//\n"
 "\n"
 "//Zone group3.ingi\n"
-"zone \"group3.ingi\" IN {\n"
-"    type master;\n"
+
+"zone \"group3.ingi\" {\n"
+"    type slave;\n"
 "    file \"/etc/bind/zones/db.group3.ingi\";\n"
+"    masters { fd00:200:3:f061::53; fd00:300:3:f061::53; };\n"
+"	allow-notify { fd00:200:3:f061::53; fd00:300:3:f061::53; };\n"
 "};\n"
-"\n"
-
-"\n"
-"//Zone 3.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa : public zone\n"
-"zone \"3.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa\" IN {\n"
-"    type master;\n"
-"    file \"/etc/bind/zones/db.reverse.group3.ingi\";\n"
+"zone \"3.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa\" {\n"
+"    type slave;\n"
+"    file \"/etc/bind/zones/db.reverse.groupe3.ingi\";\n"
+"    masters { fd00:200:3:f061::53; fd00:300:3:f061::53; };\n"
+"	allow-notify { fd00:200:3:f061::53; fd00:300:3:f061::53; };\n"
 "};\n"
-"\n"
-
-	)
+)
 
 dns_conf_local.close()
 
-dns_conf_options = open(PATH+"services/DNS/bind/named_zones/named.conf.options", "w")
+dns_conf_options = open(PATH+"services/DNS/bind2/named_zones/named.conf.options", "w")
 
 dns_conf_options.write(
 "//\n"
@@ -63,9 +62,10 @@ dns_conf_options.write(
        "allow-recursion { intern_user; }\n;"
        "allow-query-cache { intern_user;};\n"
        "version none;\n"
+       "notify no;\n"
 "};\n"
 
-	)
+)
 
 dns_conf_options.close()
 
@@ -89,4 +89,3 @@ dns_conf_log.write(
 
 )
 dns_conf_log.close()
-

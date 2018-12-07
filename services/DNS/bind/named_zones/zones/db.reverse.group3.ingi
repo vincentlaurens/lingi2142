@@ -1,0 +1,40 @@
+;
+; fd00:300:3:f061::53/128
+;
+; Zone file built with the IPv6 Reverse DNS zone builder
+; http://rdns6.com/
+;
+$TTL 1h	; Default TTL
+@	IN	SOA	ns1.group3.ingi.	admin.group3.ingi. (
+	2018120701	; serial
+	1h		; slave refresh interval
+	15m		; slave retry interval
+	1w		; slave copy expire time
+	1h		; NXDOMAIN cache time
+	)
+
+;
+; domain name servers
+;
+@	IN	NS	ns1.group3.ingi.
+@	IN	NS	ns2.group3.ingi.
+
+
+
+; IPv6 PTR entries
+3.5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.6.0.f.3.0.0.0.0.0.3.0.0.0.d.f.ip6.arpa.    IN    PTR    ns1.group3.ingi.
+3.5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.3.0.f.3.0.0.0.0.0.3.0.0.0.d.f.ip6.arpa.    IN    PTR    ns2.group3.ingi.
+4.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.4.0.f.0.3.0.0.0.0.0.3.0.0.0.d.f.ip6.arpa.    IN    PTR    carn.group3.ingi.
+4.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.3.0.f.0.3.0.0.0.0.0.3.0.0.0.d.f.ip6.arpa.    IN    PTR    carn.group3.ingi.
+4.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.f.0.3.0.0.0.0.0.3.0.0.0.d.f.ip6.arpa.    IN    PTR    carn.group3.ingi.
+1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.6.0.f.0.3.0.0.0.0.0.3.0.0.0.d.f.ip6.arpa.    IN    PTR    hall.group3.ingi.
+1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.f.0.3.0.0.0.0.0.3.0.0.0.d.f.ip6.arpa.    IN    PTR    hall.group3.ingi.
+5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.5.0.f.0.3.0.0.0.0.0.3.0.0.0.d.f.ip6.arpa.    IN    PTR    mich.group3.ingi.
+5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.4.0.f.0.3.0.0.0.0.0.3.0.0.0.d.f.ip6.arpa.    IN    PTR    mich.group3.ingi.
+2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.f.0.3.0.0.0.0.0.3.0.0.0.d.f.ip6.arpa.    IN    PTR    pyth.group3.ingi.
+2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.f.0.3.0.0.0.0.0.3.0.0.0.d.f.ip6.arpa.    IN    PTR    pyth.group3.ingi.
+2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.0.f.0.3.0.0.0.0.0.3.0.0.0.d.f.ip6.arpa.    IN    PTR    pyth.group3.ingi.
+6.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.5.0.f.0.3.0.0.0.0.0.3.0.0.0.d.f.ip6.arpa.    IN    PTR    sh1c.group3.ingi.
+6.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.6.0.f.0.3.0.0.0.0.0.3.0.0.0.d.f.ip6.arpa.    IN    PTR    sh1c.group3.ingi.
+3.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.3.0.f.0.3.0.0.0.0.0.3.0.0.0.d.f.ip6.arpa.    IN    PTR    stev.group3.ingi.
+3.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.0.f.0.3.0.0.0.0.0.3.0.0.0.d.f.ip6.arpa.    IN    PTR    stev.group3.ingi.

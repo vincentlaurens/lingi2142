@@ -1,11 +1,14 @@
-//Zone group3.ingi : public zone
+//Zone group3.ingi
+
+
 zone "group3.ingi" IN {
     type master;
     file "/etc/bind/zones/db.group3.ingi";
 };
 
-//Zone 3.5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.3.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa : public zone
-zone \"3.5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.3.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa\" IN {
+//Zone 3.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa : public zone
+
+zone "3.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa" IN {
     type master;
-    file \"/etc/bind/zones/db.3.5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.3.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa\";
+    file \"/etc/bind/zones/db.reverse.groupe3.ingi";
 };

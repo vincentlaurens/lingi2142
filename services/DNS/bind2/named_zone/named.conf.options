@@ -1,0 +1,19 @@
+acl intern_user {
+	fd00:200:3::/48;
+	fd00:300:3::/48;
+};
+
+options {
+       directory "/var/cache/bind/ns1";
+       pid-file  "/var/run/named_ns1.pid";
+       forward first;
+       forwarders { fd00::d; };
+       auth-nxdomain no;
+	listen-on-v6 { any; };
+       allow-transfer { fd00::; };
+       allow-query { any; };
+       allow-recursion { intern_user; };
+       allow-query-cache { intern_user;};
+       version none;
+       notify no;
+};

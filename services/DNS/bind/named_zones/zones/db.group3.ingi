@@ -1,0 +1,34 @@
+$TTL 604800
+@   IN SOA  @ group3.ingi. admin.group3.ingi.(
+            2   	 ; serial
+            7200    ; refresh
+            900     ; retry  
+            1209600 ; expire 
+            3600 )  ; minimum
+
+
+@             IN        NS       ns1.group3.ingi.
+@             IN        NS       ns2.group3.ingi.
+@             IN        TXT       \"zone group3\"
+ns1           IN        AAAA    fd00:300:3:f061::53
+ns2           IN        AAAA    fd00:300:3:f032::53
+carn 	      IN 	    AAAA 	fd00:300:3:f04::4
+carn 		  IN 	    AAAA 	fd00:300:3:f03::4
+carn 	      IN 	    AAAA 	fd00:300:3:f02::4
+
+hall 	      IN 	    AAAA 	fd00:300:3:f06::1
+hall 	      IN 	    AAAA 	fd00:300:3:f00::1
+
+mich 	      IN 	    AAAA 	fd00:300:3:f05::5
+mich 	      IN 	    AAAA 	fd00:300:3:f04::5
+
+
+pyth 	      IN 	    AAAA 	fd00:300:3:f00::2
+pyth 	      IN 	    AAAA 	fd00:300:3:f02::2
+pyth 	      IN 	    AAAA 	fd00:300:3:f01::2
+
+sh1c 	      IN 	    AAAA 	fd00:300:3:f05::6
+sh1c 	      IN 	    AAAA 	fd00:300:3:f06::6
+
+stev 	      IN 	    AAAA 	fd00:300:3:f03::3
+stev 	      IN 	    AAAA 	fd00:300:3:f01::3
